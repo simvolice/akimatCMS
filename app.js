@@ -49,6 +49,7 @@ async function initApp() {
 
     await initData.initDataForProtoPage();
     await initData.initListPage();
+    await initData.initOption();
     await AuthService.createUserSuperRoot(process.env.hashAdmin);
 
 

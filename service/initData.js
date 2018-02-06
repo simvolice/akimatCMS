@@ -254,12 +254,15 @@ module.exports = {
 
 
 
-
-
             return result;
 
 
+
+
+
         }catch(err) {
+
+
 
 
             return err;
@@ -272,7 +275,7 @@ module.exports = {
     },
 
 
-    initListPage: async () => {
+    initOption: async () => {
 
 
         const client = await MongoClient.connect(process.env.DB_HOST);

@@ -1,0 +1,57 @@
+.chartBlock{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chartImg{
+    width: 150px;
+    height: 150px;
+}
+
+.textTitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+hr{
+    background: #c9c9c9;
+    height: 2px;
+    width: 100%;
+}
+
+md-switch[disabled].activeDisabled .md-container > div
+{
+    cursor: default;
+    background: lightgreen;
+}
+
+md-switch[disabled].activeDisabled .md-container > div > div
+{
+    background: green;
+}
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.btn {
+
+    color: white;
+    background-color: #3f51b5;
+    padding: 8px 20px;
+    border-radius: 3px;
+    font-size: 14px;
+
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+

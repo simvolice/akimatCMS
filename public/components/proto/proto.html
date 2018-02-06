@@ -1,0 +1,182 @@
+<div class="row" ng-controller="protoCtrl">
+    <div class="col-md-12">
+        <md-content id="mainpage" layout="column" flex class="custom__md-content__categ">
+
+
+            <md-card id="title">
+                <div class="row" >
+                    <div class="col-md-12 chartBlock ">
+
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label class="textTitle">Заголовок диаграммы</label>
+                            <input ng-model="title">
+                        </md-input-container>
+
+
+                    </div>
+                </div>
+
+
+
+                <hr>
+
+
+                <div class="row ">
+
+
+                    <div class="col-md-6 chartBlock">
+
+                        <md-select ng-model="tabels" placeholder="Выбрать таблицу из базы данных" class="md-no-underline textTitle">
+                            <md-option ng-repeat="table in alltabels" ng-value="table">
+                                {{table}}
+                            </md-option>
+                        </md-select>
+
+
+                    </div>
+
+
+                    <div class="col-md-6 chartBlock">
+
+                        <md-select ng-model="pages" placeholder="Выбрать пункт меню" class="md-no-underline textTitle">
+                            <md-option ng-repeat="page in allpages track by $index" ng-value="page" >
+                                {{page}}
+                            </md-option>
+                        </md-select>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="row">
+
+
+
+                    <div class="col-md-12 chartBlock">
+                        <md-switch aria-label="Switch 1"  ng-model="isShowChips">
+                            Добавить переключатель изменений данных
+                        </md-switch>
+                        <md-switch aria-label="Switch 1" ng-model="isShowTextArea">
+                            Добавить описание диаграммы
+                        </md-switch>
+                        <md-switch aria-label="Switch 1" ng-model="isShowUpload">
+                            Добавить загрузку файла
+                        </md-switch>
+
+                    </div>
+
+                </div>
+
+                <hr ng-show="isShowChips">
+
+                <div class="row" ng-show="isShowChips">
+                    <div class="col-md-12 chartBlock">
+                        <md-chips ng-model="parameters" placeholder="Введите переключатели">
+
+                        </md-chips>
+                    </div>
+                </div>
+
+                <hr ng-show="isShowTextArea">
+
+                <div class="row" ng-show="isShowTextArea">
+                    <div class="col-md-12 chartBlock">
+
+                        <md-input-container class="md-block">
+                            <label>Введите описание диаграммы</label>
+                            <textarea ng-model="user.biography" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+
+
+                    </div>
+
+                </div>
+
+                <hr ng-show="isShowUpload">
+                <div class="row" ng-show="isShowUpload">
+                    <div class="col-md-12 chartBlock">
+
+
+
+
+                        <div class="upload-btn-wrapper">
+                            <button class="btn">Загрузить файл</button>
+                            <input type="file" name="myfile" />
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+
+
+            <div class="row">
+                    <div class="col-md-12 chartBlock">
+
+                        <h5 class="title">Выбрать диаграмму</h5>
+
+
+                        <div class="row">
+                            <md-radio-group ng-model="chartModel" >
+                            <div class="col-md-4" ng-repeat="chart in allCharts">
+
+
+                                    <h6 class="title">{{chart.title}}</h6>
+                                    <md-radio-button  ng-value="chart._id" class="md-primary">
+                                        <img src="{{chart.imgUrl}}" alt="" class="chartImg" style="cursor: pointer">
+                                    </md-radio-button>
+                                    <br/>
+
+
+
+
+
+                            </div>
+
+
+                            </md-radio-group>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 chartBlock">
+                        <md-button class="md-raised md-primary">Сохранить</md-button>
+
+                    </div>
+                </div>
+
+            </md-card>
+
+
+
+
+
+
+
+        </md-content>
+    </div>
+
+
+
+
+
+</div>
