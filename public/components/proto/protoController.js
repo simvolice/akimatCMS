@@ -4,6 +4,11 @@
 
 angular.module('app').controller('protoCtrl', function (Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $ocLazyLoad, $timeout) {
 
+
+    $scope.parameters = [];
+
+
+
     CheckadminpageService.save({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
 
@@ -44,21 +49,9 @@ angular.module('app').controller('protoCtrl', function (Getallcharts, Getallopti
     Getallpages.get(function (result) {
 
 
-        let arrResult = [];
 
 
-        for (let obj of result.resultFromDB) {
-            arrResult.push(obj.title)
-
-
-            for (let obj1 of obj.childItem) {
-                arrResult.push(obj1)
-            }
-
-
-        }
-
-        $scope.allpages = arrResult;
+        $scope.allpages = result.resultFromDB;
 
 
     });
@@ -68,31 +61,13 @@ angular.module('app').controller('protoCtrl', function (Getallcharts, Getallopti
 
 
 
-    /* $ocLazyLoad.load($scope.nameModule);
-
-
-
-
-
-     $scope.$on('ocLazyLoad.fileLoaded', function(e, module) {
-
-
-         for (var i = 0; i < 3; i++) {
-
-             testTest($scope.data, $scope.idElem, "Тестовый компонент очень большрй текст пипец", [2016, 2017, 2018]);
-
-         }
-
-
-
-     });*/
 
 
 
 
 
 
-$scope.parameters = [];
+
 
 
 

@@ -14,23 +14,7 @@ angular.module('app').controller('HomePageCtrl', function ($scope, $state) {
     }
 
 
-    $scope.getColorBody = function () {
 
-
-
-        $("body").css("background", $scope.colorbody);
-        $("md-content>.row").css("background", $scope.colorbody);
-    }
-
-
-
-
-    $scope.getColorCard = function (idEl) {
-
-        $(idEl).css("background", $scope.colorbodyForCard);
-
-
-    }
 
 
 

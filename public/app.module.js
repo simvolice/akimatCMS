@@ -4,7 +4,7 @@
 
 
 
-var app = angular.module('app', ['ngMaterial', "fixed.table.header", 'ui.router', 'md.data.table', 'ngMessages', 'ngResource', 'ngSanitize', 'pascalprecht.translate', "oc.lazyLoad"]);
+var app = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngResource', 'ngSanitize', 'pascalprecht.translate', "oc.lazyLoad"]);
 
 
 
@@ -392,25 +392,6 @@ $("#budget").on("click", function () {
 
         $("#executionsidebar").css("display", "none");
     })
-
-
-
-    $scope.getColor = function () {
-
-
-
-        $("#mainnavbar").css("background", $scope.colorheader);
-    }
-
-
-
-    $scope.getColorSideBar = function () {
-
-
-
-        $(".drawer-nav").css("background", $scope.colorsidebar);
-    }
-
 
 
 

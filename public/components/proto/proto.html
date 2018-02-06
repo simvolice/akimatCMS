@@ -40,8 +40,8 @@
                     <div class="col-md-6 chartBlock">
 
                         <md-select ng-model="pages" placeholder="Выбрать пункт меню" class="md-no-underline textTitle">
-                            <md-option ng-repeat="page in allpages track by $index" ng-value="page" >
-                                {{page}}
+                            <md-option ng-repeat="page in allpages" ng-value="page._id" >
+                                {{page.title}}
                             </md-option>
                         </md-select>
 

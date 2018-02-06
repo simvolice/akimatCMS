@@ -155,6 +155,18 @@ if (result === null){
 
 
 
+router.get("/dynamicpage", async(req, res, next) => {
+
+
+    console.log("\x1b[42m", req.query.id);
+
+res.json({code: 0});
+
+
+
+
+
+});
 
 
 
