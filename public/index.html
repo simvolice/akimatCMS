@@ -287,10 +287,11 @@
 
 		<nav class="drawer-nav" role="navigation" id="budgetsidebar" style="display: none;">
 			<ul class="drawer-menu">
+
 				<li class="custom__back_btn" id="backbtn"><i class="material-icons">keyboard_backspace</i><span>Назад</span></li>
+				<div style="padding-top: 50px"></div>
 
-
-				<div ng-repeat="budg in arrForBudgetFirst">
+				<div ng-repeat="budg in arrForBudgetFirst" >
 
 					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{budg._id}}'})">{{budg.title}}</a>
 					</li>
@@ -355,14 +356,15 @@
 		<nav class="drawer-nav" role="navigation" id="executionsidebar" style="display: none">
 			<ul class="drawer-menu">
 
-				<li class="custom__back_btn" id="backbtnexecution"><i class="material-icons">keyboard_backspace</i><span>Назад</span></li>
+				<li  class="custom__back_btn" id="backbtnexecution"><i class="material-icons">keyboard_backspace</i><span>Назад</span></li>
 
 
+				<div style="padding-top: 50px"></div>
 
 
-				<div ng-repeat="ispolbudg in arrForIspolBudgetFirst">
+				<div ng-repeat="ispolbudg in arrForIspolBudgetFirst" >
 
-					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispolbudg._id}}'})">{{ispolbudg.title}}</a>
+					<li class="drawer-dropdown" ><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispolbudg._id}}'})">{{ispolbudg.title}}</a>
 					</li>
 
 
@@ -517,7 +519,7 @@
 
 
 
-	<script src="components/login/loginService.js"></script>
+<script src="components/login/loginService.js"></script>
 <script src="components/login/loginController.js"></script>
 
 
