@@ -136,7 +136,6 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
         $scope.arrForIspolBudgetLast = $scope.arrForBudget.slice(21);
 
 
-console.log($scope.arrForBudget);
 
 
 

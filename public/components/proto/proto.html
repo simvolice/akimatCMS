@@ -93,7 +93,7 @@
 
                         <md-input-container class="md-block">
                             <label>Введите описание диаграммы</label>
-                            <textarea ng-model="user.biography" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                            <textarea ng-model="description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
                         </md-input-container>
 
 
@@ -110,7 +110,8 @@
 
                         <div class="upload-btn-wrapper">
                             <button class="btn">Загрузить файл</button>
-                            <input type="file" name="myfile" />
+                            <input ng-files="getTheFiles($files)" id="file" type="file" class="form-control" accept="*/*" multiple/>
+
                         </div>
 
 
@@ -134,8 +135,8 @@
 
 
                                     <h6 class="title">{{chart.title}}</h6>
-                                    <md-radio-button  ng-value="chart._id" class="md-primary">
-                                        <img src="{{chart.imgUrl}}" alt="" class="chartImg" style="cursor: pointer">
+                                    <md-radio-button  ng-value="chart._id" class="md-primary" aria-label="{{chart.title}}">
+                                        <img ng-src="{{chart.imgUrl}}" alt="" class="chartImg" style="cursor: pointer">
                                     </md-radio-button>
                                     <br/>
 
@@ -159,7 +160,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12 chartBlock">
-                        <md-button class="md-raised md-primary">Сохранить</md-button>
+                        <md-button class="md-raised md-primary" ng-click="uploadFiles()">Сохранить</md-button>
 
                     </div>
                 </div>

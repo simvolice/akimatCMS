@@ -1,12 +1,15 @@
 let express = require('express');
 let bcryptjs = require('bcryptjs');
+let path = require('path');
+let fs = require('fs');
+let busboy = require('async-busboy');
 let AuthService = require('../service/AuthService');
 let PagesService = require('../service/PagesService');
+let PostsService = require('../service/PostsService');
 let MsqlService = require('../service/MsqlService');
 let router = express.Router();
 
 const jsonwebtoken = require('jsonwebtoken');
-
 
 
 
@@ -165,9 +168,31 @@ if (result === null){
 router.get("/dynamicpage", async(req, res, next) => {
 
 
-    console.log("\x1b[42m", req.query.id);
+    let result = await PostsService.getOnePost(req.query.id);
+    let dataFromMssql = [];
+    let dataFromMssqlOnlyRecorset = [];
 
-res.json({code: 0});
+
+
+
+    for (let obj of result) {
+        dataFromMssql.push(await MsqlService.getDataFromOneTable(obj.tableName));
+    }
+
+
+    for (let itemTable of dataFromMssql) {
+
+        dataFromMssqlOnlyRecorset.push(itemTable.recordset);
+
+    }
+
+console.log("\x1b[42m", dataFromMssqlOnlyRecorset);
+
+
+
+
+
+    res.json({code: 0, resultFromDB: 0});
 
 
 
@@ -178,6 +203,53 @@ res.json({code: 0});
 
 
 
+router.post("/addpost", async(req, res, next) => {
+
+
+ const {files, fields} = await busboy(req);
+
+
+
+    let pathForWrite = path.join(__dirname, process.env.PATHUPLOAD);
+    fields["fileNameArr"] = [];
+    fields["fileUrlArr"] = [];
+
+    for (let fileItem of files) {
+
+
+
+       fields.fileNameArr.push(fileItem.filename);
+       fields.fileUrlArr.push(`uploads/${path.basename(fileItem.path)}`);
+
+        fileItem.pipe(fs.createWriteStream(pathForWrite + path.basename(fileItem.path)));
+
+    }
+
+
+
+    let result = await PostsService.addPost(fields);
+
+
+
+   if (result.hasOwnProperty("result")){
+
+       res.json({code: 0});
+
+   } else {
+       res.json({code: 1});
+   }
+
+
+
+
+
+
+
+
+
+
+
+});
 
 
 

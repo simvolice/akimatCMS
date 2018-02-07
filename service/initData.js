@@ -45,6 +45,7 @@ module.exports = {
 
                 title: "Круговая диаграмма",
                 imgUrl: "chartsImg/PieChart.PNG",
+                urlToScript: "chartsComponents/pieChartComponent.js",
 
                 createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
@@ -56,6 +57,10 @@ module.exports = {
                     title: "Линейная диаграмма",
                     imgUrl: "chartsImg/LineChart.PNG",
 
+
+                    urlToScript: "chartsComponents/lineChartComponent.js",
+
+
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
                 },
@@ -66,6 +71,9 @@ module.exports = {
                     title: "Кольцевая диаграмма",
                     imgUrl: "chartsImg/DonutChart.PNG",
 
+                    urlToScript: "chartsComponents/donutChartComponent.js",
+
+
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
                 },
@@ -75,6 +83,9 @@ module.exports = {
 
                     title: "Столбцовая диаграмма",
                     imgUrl: "chartsImg/BarChart.PNG",
+
+                    urlToScript: "chartsComponents/barChartComponent.js",
+
 
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 

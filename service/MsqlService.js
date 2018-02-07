@@ -3,6 +3,7 @@
 const dbConnect = require('../utils/ConnectMSQL');
 
 
+const sql = require('mssql');
 
 
 
@@ -47,6 +48,37 @@ module.exports = {
 
     },
 
+    getDataFromOneTable: async (tableName) => {
+
+        try {
+
+
+
+
+
+            const pool = dbConnect.getConnect();
+
+
+
+            let result = await pool.request()
+                .input(`${tableName}`, sql.TVP)
+                .query(`select * from ${tableName}`);
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    }
 
 
 

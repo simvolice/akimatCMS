@@ -6,6 +6,7 @@ let helmet = require('helmet');
 let path = require('path');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
+let fsExtra = require('fs-extra');
 const dbConnect = require('./utils/ConnectDB');
 const ConnectMSQL = require('./utils/ConnectMSQL');
 let bodyParser = require('body-parser');
@@ -24,6 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+fsExtra.ensureDirSync(path.join(__dirname, 'public/uploads/'));
+
 
 app.use('/', index);
 
