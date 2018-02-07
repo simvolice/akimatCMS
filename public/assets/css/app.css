@@ -851,6 +851,7 @@ table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2)
     position: absolute;
     margin-left: 5px;
     text-transform: uppercase;
+
 }
 
 

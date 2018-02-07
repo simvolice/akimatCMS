@@ -82,10 +82,65 @@ app.filter('ruFormat', function() {
 
 
 
-app.controller('MainCtrl', function ($scope, $state, $timeout, $translate, $rootScope) {
+app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $translate, $rootScope ,) {
 
     var arrDigit = ["400 000", "200 000", "300 000", "652 000"];
     var arrDigitText = ["Расходы на 2018", "Доходы на 2018", "Образование", "Оборона"];
+
+
+    $scope.arrForSar = [];
+    $scope.arrForBudget = [];
+    $scope.arrForStructerRashod = [];
+    $scope.arrForIspolStructerRashod = [];
+    $scope.arrForBudgetFirst = [];
+    $scope.arrForBudgetLast = [];
+
+    $scope.arrForIspolBudgetFirst = [];
+    $scope.arrForIspolBudgetLast = [];
+
+    Getallpages.get(function (result) {
+
+
+        $scope.arrForStructerRashod = result.resultFromDB[1];
+        $scope.arrForIspolStructerRashod = result.resultFromDB[2];
+
+
+        for (let objItem of result.resultFromDB[0]) {
+
+
+
+            if (objItem.id <= 21) {
+
+                $scope.arrForSar.push(objItem);
+
+            } else {
+
+                $scope.arrForBudget.push(objItem);
+
+            }
+
+
+
+
+
+
+        }
+
+
+
+        $scope.arrForBudgetFirst = $scope.arrForBudget.slice(0, 4);
+        $scope.arrForBudgetLast = $scope.arrForBudget.slice(9, 12);
+
+
+        $scope.arrForIspolBudgetFirst = $scope.arrForBudget.slice(12, 15);
+        $scope.arrForIspolBudgetLast = $scope.arrForBudget.slice(21);
+
+
+console.log($scope.arrForBudget);
+
+
+
+    });
 
 
 

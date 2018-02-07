@@ -216,30 +216,9 @@
 				<li id="sar" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false">Социально-экономическое развитие<span class="drawer-caret"></span></a>
 
 
-					<ul class="drawer-dropdown-menu">
+					<ul class="drawer-dropdown-menu" ng-repeat="item in arrForSar">
 
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{test}}'})">Валовый региональный продукт</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socpromctrl">Промышленность</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socinvestctrl">Инвестиции</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socAgricultureCtrl">Сельское хозяйство</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socbusenessctrl">Предпринимательство</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socinfl">Инфляция</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socTradeCtrl">Торговля</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" href="?#!/adminedit">Архитектура и строительство</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="budget">Бюджет</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socZHkhCtrl">ЖКХ И ЭНЕРГЕТИКА</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="soctransportctrl">Транспорт</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" href="?#!/adminedit">Координация занятости и социальная защита</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" href="?#!/adminedit">Здравоохранение</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" href="?#!/adminedit">Образование</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socYouthCtrl">Молодежная политика</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socCultureCtrlsocTradeCtrl">Культура</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socReligionCtrl">Религия</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socVeterCtrl">Ветеринария</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" href="?#!/adminedit">Оперативные данные</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socSportCtrl">Спорт</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="socinnov">Инновации</a></li>
-
+						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{item._id}}'})">{{item.title}}</a></li>
 
 
 					</ul>
@@ -299,23 +278,7 @@
 
 
 
-
-
-
-
-
-
-
 			</ul>
-
-
-
-					<label for="colorsidebar" style="color: grey; visibility: collapse">Выбрать цвет для Фона</label>
-			<input id="colorsidebar" type="color" style="margin-top: 10px; visibility: collapse" ng-model="colorsidebar" ng-change="getColorSideBar()">
-
-
-
-
 
 
 		</nav>
@@ -327,38 +290,45 @@
 				<li class="custom__back_btn" id="backbtn"><i class="material-icons">keyboard_backspace</i><span>Назад</span></li>
 
 
+				<div ng-repeat="budg in arrForBudgetFirst">
 
+					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{budg._id}}'})">{{budg.title}}</a>
+					</li>
 
-				<li class="drawer-dropdown" style="margin-top: 50px"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="budget">Бюджет</a>
-				</li>
-
-
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="structureDohod">Структура доходов</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dohodplan">Динамика доходов (план)</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="rashodplan">Динамика расходов (план)</a></li>
-
-				<li id="structurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ui-sref="structureRashod">Структура расходов<span class="drawer-caret"></span></a>
-
-
-				<ul class="drawer-dropdown-menu">
+				</div>
 
 
 
 
-				<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="cubeInProgramm">В разрезе программ</a></li>
-				<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="cubeInAdmin">В разрезе администраторов</a></li>
-				<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="cubeInSphete">В разрезе направлений (отраслей)</a></li>
-				<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="cubeInTown">В разрезе районов</a></li>
-
-				</ul>
-
-				</li>
 
 
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="cleanBudget">Чистое бюджетное кредитование</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="saldo">Сальдо по операциям с финансовыми активами</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="financeDeficit">Финансирование дефицита (использование профицита) бюджета</a></li>
+				<div ng-repeat="structure in arrForStructerRashod">
 
+					<li id="structurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ui-sref="dynamicpage({id:'{{structure._id}}'})">{{structure.title}}<span class="drawer-caret"></span></a>
+
+
+						<ul class="drawer-dropdown-menu" ng-repeat="child in structure.child">
+
+
+
+
+							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{child._id}}'})">{{child.title}}</a></li>
+
+						</ul>
+
+					</li>
+
+				</div>
+
+
+
+
+			<div ng-repeat="budgetlast in arrForBudgetLast">
+
+				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{budgetlast._id}}'})">{{budgetlast.title}}</a></li>
+
+
+			</div>
 
 
 
@@ -390,35 +360,48 @@
 
 
 
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="budgetispol" style="margin-top: 50px">Основные показатели исполнения бюджета</a>
-				</li>
+				<div ng-repeat="ispolbudg in arrForIspolBudgetFirst">
+
+					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispolbudg._id}}'})">{{ispolbudg.title}}</a>
+					</li>
 
 
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" href="?#!/adminedit">Исполнение. Структура доходов</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="ispoldohodplan">Динамика доходов (факт)</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="ispolrashodplanctrl">Динамика расходов (факт)</a></li>
-
-				<li id="ispolstructurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false">Исполнение. Структура расходов<span class="drawer-caret"></span></a>
-
-
-					<ul class="drawer-dropdown-menu">
+				</div>
 
 
 
 
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="ispolcubeinprogrammctrl">Исполнение. В разрезе программ</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="ispolcubeinadminctrl">Исполнение. В разрезе администраторов</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="ispolcubeinspherectrl">Исполнение. В разрезе направлений (отраслей)</a></li>
-						<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="ispolcubeintownctrl">Исполнение. В разрезе районов</a></li>
-
-					</ul>
-
-				</li>
 
 
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" href="?#!/adminedit">Чистое бюджетное кредитование</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" href="?#!/adminedit">Сальдо по операциям с финансовыми активами</a></li>
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" href="?#!/adminedit">Финансирование дефицита (использование профицита) бюджета</a></li>
+				<div ng-repeat="ispolrashod in arrForIspolStructerRashod">
+
+					<li id="ispolstructurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ui-sref="dynamicpage({id:'{{ispolrashod._id}}'})">{{ispolrashod.title}}<span class="drawer-caret"></span></a>
+
+
+						<ul class="drawer-dropdown-menu" ng-repeat="childispol in ispolrashod.child">
+
+
+
+
+							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{childispol._id}}'})">{{childispol.title}}</a></li>
+
+						</ul>
+
+					</li>
+
+
+				</div>
+
+
+
+
+				<div ng-repeat="ispollast in arrForIspolBudgetLast">
+
+					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispollast._id}}'})">{{ispollast.title}}</a></li>
+
+
+				</div>
+
 
 
 

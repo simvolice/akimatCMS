@@ -87,11 +87,18 @@ router.get("/getalltable", async(req, res, next) => {
 router.get("/getallpages", async(req, res, next) => {
 
 
+    let arrResult = [];
 
     let result = await PagesService.getAllPages();
+    let resultStructure = await PagesService.getAllStructure();
+    let resultIspolStructure = await PagesService.getAllIspolStructure();
 
 
-    res.json({code: 0, resultFromDB: result});
+    arrResult.push(result);
+    arrResult.push(resultStructure);
+    arrResult.push(resultIspolStructure);
+
+    res.json({code: 0, resultFromDB: arrResult});
 
 
 
@@ -167,6 +174,13 @@ res.json({code: 0});
 
 
 });
+
+
+
+
+
+
+
 
 
 

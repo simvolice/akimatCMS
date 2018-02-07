@@ -214,15 +214,16 @@ module.exports = {
                 },
 
 
+
+                
+
+
                 { "id":22,
                     title: "Бюджет",
                     createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
 
-                { "id":23,
-                    title: "Исполнение бюджета",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
+
 
                 { "id":24,title: "Структура доходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
                 { "id":25,title: "Динамика доходов (план)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
@@ -368,7 +369,242 @@ module.exports = {
 
 
 
+    },
+
+
+
+    initStructureRashod: async () => {
+
+        const client = await MongoClient.connect(process.env.DB_HOST);
+        const db = client.db(process.env.DB_NAME);
+
+
+
+        try {
+
+
+            const colAllPages = await db.collection('list_page');
+
+            let resultAllPages = await colAllPages.find({}).toArray();
+
+
+
+
+            let arrResult = [];
+
+            for (let obj of resultAllPages) {
+                if (obj.title === "Структура расходов"){
+
+                    arrResult.push(obj);
+
+                } else if(obj.title === "В разрезе программ"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "В разрезе администраторов"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "В разрезе направлений (отраслей)"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "В разрезе районов"){
+
+
+                    arrResult.push(obj);
+
+                }
+            }
+
+
+
+
+            const col = await db.collection('structure_rashod');
+            col.createIndex({ title : 1 }, {unique: true});
+
+
+            const result = await col.insertMany([
+
+
+
+
+
+                {
+
+                    _id: arrResult[0]._id,
+
+                    title: "Структура расходов",
+
+
+
+                    child: [
+
+                        {  _id: arrResult[1]._id, title: "В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[2]._id, title: "В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[3]._id, title: "В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[4]._id, title: "В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+
+
+                    ],
+
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
+
+
+            ]);
+
+
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
+    },
+
+
+
+
+    initISpolStructureRashod: async () => {
+
+        const client = await MongoClient.connect(process.env.DB_HOST);
+        const db = client.db(process.env.DB_NAME);
+
+
+
+        try {
+
+
+            const colAllPages = await db.collection('list_page');
+
+            let resultAllPages = await colAllPages.find({}).toArray();
+
+
+
+
+            let arrResult = [];
+
+            for (let obj of resultAllPages) {
+                if (obj.title === "Исполнение. Структура расходов"){
+
+                    arrResult.push(obj);
+
+                } else if(obj.title === "Исполнение. В разрезе программ"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "Исполнение. В разрезе администраторов"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "Исполнение. В разрезе направлений (отраслей)"){
+
+
+                    arrResult.push(obj);
+
+                }else if(obj.title === "Исполнение. В разрезе районов"){
+
+
+                    arrResult.push(obj);
+
+                }
+            }
+
+
+
+
+            const col = await db.collection('ispol_structure_rashod');
+            col.createIndex({ title : 1 }, {unique: true});
+
+
+            const result = await col.insertMany([
+
+
+
+
+
+                {
+
+                    _id: arrResult[0]._id,
+
+                    title: "Исполнение. Структура расходов",
+
+
+
+                    child: [
+
+                        {  _id: arrResult[1]._id, title: "Исполнение. В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[2]._id, title: "Исполнение. В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[3]._id, title: "Исполнение. В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                        {  _id: arrResult[4]._id, title: "Исполнение. В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+
+
+                    ],
+
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
+
+
+            ]);
+
+
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
     }
+
+
 
 
 

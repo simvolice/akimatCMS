@@ -27,6 +27,7 @@ module.exports = {
 
 
 
+
             const col = dbConnect.getConnect().collection('list_page');
 
 
@@ -117,7 +118,68 @@ module.exports = {
 
 
 
+    getAllStructure: async () => {
 
+        try {
+
+
+
+
+            const col = dbConnect.getConnect().collection('structure_rashod');
+
+
+
+
+            const result = await col.find({}).toArray();
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    },
+    getAllIspolStructure: async () => {
+
+        try {
+
+
+
+
+            const col = dbConnect.getConnect().collection('ispol_structure_rashod');
+
+
+
+
+            const result = await col.find({}).toArray();
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    },
 
 
 };
