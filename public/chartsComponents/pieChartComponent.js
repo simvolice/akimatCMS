@@ -15,7 +15,7 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
 
 
 
- <div class="row">
+                <div class="row">
  
  
                     <div class="col-md-12 custom__label__date text-right">
@@ -29,22 +29,22 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
 
 
 
-<h3 class="title" style="text-transform: uppercase">${titleCard}</h3>
-
-
-<div id="${idElem}"></div></md-card>`;
+         <h3 class="title" style="text-transform: uppercase">${titleCard}</h3>
+         
+         
+         <div id="${idElem}"></div></md-card>`;
 
     $("#title").after(templateForChart);
 
 
-    var charBar = bb.generate({
+    var charPie = bb.generate({
 
         bindto: "#" + idElem,
 
         data: {
             columns: data,
 
-            type: 'bar'
+            type: 'pie'
 
         },
 
@@ -101,11 +101,15 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     $(".dateTitle").on("click", function () {
 
 
+        $('.dateTitle').removeClass('active__options');
+        $(this).addClass('active__options');
+
+
         for (let dateItem of changeDataChartArr) {
             if (dateItem === $(this).data("dateTitle")) {
 
 
-                charBar.load();
+                charPie.load();
             }
         }
 
@@ -113,20 +117,19 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     });
 
 
-    $('.drawer').on('drawer.closed', function(){
+    $('.drawer').on('drawer.closed', function () {
 
-
-        charBar.resize();
+    console.log("\x1b[42m", "test");
+        charPie.resize();
 
 
     });
 
 
-    $('.drawer').on('drawer.opened', function(){
+    $('.drawer').on('drawer.opened', function () {
 
 
-
-        charBar.resize();
+        charPie.resize();
 
     });
 

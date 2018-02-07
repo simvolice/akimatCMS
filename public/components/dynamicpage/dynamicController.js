@@ -8,10 +8,18 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
 
 
 
-    //TODO этот айдишник пошлем на сервак
-    console.log($stateParams.id);
 
-    /* $ocLazyLoad.load($scope.nameModule);
+   var arr = [
+        ["data1", 30, 50, 40, 80, 110],
+        ["data2", 50, 40, 30, 20, 10]
+    ];
+
+   var chartId = "chartDonut";
+
+     $ocLazyLoad.load("chartsComponents/donutChartComponent.js");
+     $ocLazyLoad.load("chartsComponents/barChartComponent.js");
+     $ocLazyLoad.load("chartsComponents/lineChartComponent.js");
+     $ocLazyLoad.load("chartsComponents/pieChartComponent.js");
 
 
 
@@ -20,15 +28,15 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
       $scope.$on('ocLazyLoad.fileLoaded', function(e, module) {
 
 
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < 1; i++) {
 
-              testTest($scope.data, $scope.idElem, "Тестовый компонент очень большрй текст пипец", [2016, 2017, 2018]);
+              generateChart(arr, chartId, "Тестовый компонент очень большрй текст пипец", [2016, 2017, 2018]);
 
           }
 
 
 
-      });*/
+      });
 
 
 

@@ -37,14 +37,14 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     $("#title").after(templateForChart);
 
 
-    var charBar = bb.generate({
+    var charDonut = bb.generate({
 
         bindto: "#" + idElem,
 
         data: {
             columns: data,
 
-            type: 'bar'
+            type: 'donut'
 
         },
 
@@ -101,11 +101,15 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     $(".dateTitle").on("click", function () {
 
 
+        $('.dateTitle').removeClass('active__options');
+        $(this).addClass('active__options');
+
+
         for (let dateItem of changeDataChartArr) {
             if (dateItem === $(this).data("dateTitle")) {
 
 
-                charBar.load();
+                charDonut.load();
             }
         }
 
@@ -113,20 +117,19 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     });
 
 
-    $('.drawer').on('drawer.closed', function(){
+    $('.drawer').on('drawer.closed', function () {
 
 
-        charBar.resize();
+        charDonut.resize();
 
 
     });
 
 
-    $('.drawer').on('drawer.opened', function(){
+    $('.drawer').on('drawer.opened', function () {
 
 
-
-        charBar.resize();
+        charDonut.resize();
 
     });
 
