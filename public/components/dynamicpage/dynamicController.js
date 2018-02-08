@@ -4,23 +4,21 @@
 
 
 
-angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoad, $stateParams) {
+angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoad, $stateParams, $http) {
 
 
+    $scope.data = [];
 
+    $http({
+        method : "GET",
+        url : "/dynamicpage?id=" + $stateParams.id
+    }).then(function mySuccess(response) {
+        $scope.data = response.data.resultFromDB;
+    }, function myError(response) {
+        $scope.data = response.statusText;
+    });
 
-   var arr = [
-        ["data1", 30, 50, 40, 80, 110],
-        ["data2", 50, 40, 30, 20, 10]
-    ];
-
-   var chartId = "chartDonut";
-
-     $ocLazyLoad.load("chartsComponents/donutChartComponent.js");
-     $ocLazyLoad.load("chartsComponents/barChartComponent.js");
-     $ocLazyLoad.load("chartsComponents/lineChartComponent.js");
-     $ocLazyLoad.load("chartsComponents/pieChartComponent.js");
-
+     /*$ocLazyLoad.load();
 
 
 
@@ -37,7 +35,7 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
 
 
       });
-
+*/
 
 
 

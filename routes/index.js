@@ -3,6 +3,7 @@ let bcryptjs = require('bcryptjs');
 let path = require('path');
 let fs = require('fs');
 let busboy = require('async-busboy');
+let lodash = require('lodash');
 let AuthService = require('../service/AuthService');
 let PagesService = require('../service/PagesService');
 let PostsService = require('../service/PostsService');
@@ -172,6 +173,8 @@ router.get("/dynamicpage", async(req, res, next) => {
     let dataFromMssql = [];
     let dataFromMssqlOnlyRecorset = [];
 
+    let transportMatrixResult = [];
+
 
 
 
@@ -186,11 +189,43 @@ router.get("/dynamicpage", async(req, res, next) => {
 
     }
 
-console.log("\x1b[42m", dataFromMssqlOnlyRecorset);
 
 
 
+    for (let itemResult of dataFromMssqlOnlyRecorset) {
+        transportMatrixResult.push(lodash.groupBy(itemResult, "Name"));
 
+    }
+
+    let tempArr = [];
+    for (let obj of transportMatrixResult) {
+
+
+
+        let tempArrValues = [];
+        let tempArrCateg = [];
+
+
+        tempArrValues.push(Object.keys(obj));
+        for (let obj1 of obj) {
+
+            tempArrValues.push(obj1.Value);
+
+        }
+
+
+        for (let obj1 of obj) {
+            tempArrCateg.push(obj1.Param);
+        }
+
+
+        tempArr.push(tempArrValues);
+        tempArr.push(tempArrCateg);
+
+    }
+
+
+    console.log("\x1b[42m", tempArr);
 
     res.json({code: 0, resultFromDB: 0});
 
