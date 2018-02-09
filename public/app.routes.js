@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       .state('dynamicpage', {
           url: '/dynamicpage',
           templateUrl: 'components/dynamicpage/dynamicView.html',
-          params : { id: null }
+          params : { id: null, titlePage: null }
 
       })
 

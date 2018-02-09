@@ -1,5 +1,6 @@
 let express = require('express');
 let bcryptjs = require('bcryptjs');
+let slug = require('slug');
 let path = require('path');
 let fs = require('fs');
 let busboy = require('async-busboy');
@@ -166,68 +167,123 @@ if (result === null){
 
 
 
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 router.get("/dynamicpage", async(req, res, next) => {
 
 
-    let result = await PostsService.getOnePost(req.query.id);
+    let resultFromDB = await PostsService.getOnePost(req.query.id);
     let dataFromMssql = [];
-    let dataFromMssqlOnlyRecorset = [];
 
-    let transportMatrixResult = [];
-
+    let randomPrefix = getRandomInt(1, 1000000);
 
 
 
-    for (let obj of result) {
+
+    for (let [index, obj] of resultFromDB.entries()) {
+
         dataFromMssql.push(await MsqlService.getDataFromOneTable(obj.tableName));
-    }
 
-
-    for (let itemTable of dataFromMssql) {
-
-        dataFromMssqlOnlyRecorset.push(itemTable.recordset);
+        await PagesService.insertFromMSSQL(dataFromMssql[index].recordset, obj.tableName + randomPrefix);
 
     }
 
 
 
 
-    for (let itemResult of dataFromMssqlOnlyRecorset) {
-        transportMatrixResult.push(lodash.groupBy(itemResult, "Name"));
-
-    }
-
-    let tempArr = [];
-    for (let obj of transportMatrixResult) {
 
 
 
-        let tempArrValues = [];
-        let tempArrCateg = [];
 
 
-        tempArrValues.push(Object.keys(obj));
-        for (let obj1 of obj) {
 
-            tempArrValues.push(obj1.Value);
+
+
+
+    let resultAllTable = [];
+
+    for (let itemResult of resultFromDB) {
+
+
+        let chartUrl = await PagesService.getChartById(itemResult.chartId);
+
+        let result = await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix);
+        let resultArr = [];
+        let categ = [];
+
+
+
+        let tempArr = [];
+
+
+        const regExpress = /[0-9]/g;
+
+
+        tempArr = result.slice(0,1);
+
+
+
+        tempArr = tempArr[0].value[0];
+
+        for (let obj in tempArr) {
+            if (regExpress.test(obj)){
+
+                categ.push(obj);
+
+            }
+        }
+
+
+        for (let itemResultFromMongoDB of result) {
+
+
+            let resultArrTemp = [];
+
+            resultArrTemp.push(itemResultFromMongoDB._id);
+
+            for (let itemGroup of itemResultFromMongoDB.value) {
+
+
+                for (let key in itemGroup) {
+
+                    if (regExpress.test(key)){
+
+                        resultArrTemp.push(itemGroup[key]);
+
+
+                    }
+
+                }
+
+
+
+            }
+
+
+            resultArr.push(resultArrTemp);
+
 
         }
 
 
-        for (let obj1 of obj) {
-            tempArrCateg.push(obj1.Param);
-        }
 
 
-        tempArr.push(tempArrValues);
-        tempArr.push(tempArrCateg);
+
+        resultAllTable.push({"titleCharts": itemResult.titleCharts, "data": resultArr, "categ": categ, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartUrltoScript": chartUrl.urlToScript, "idElem": slug(itemResult.titleCharts, {lower: true})});
+
+
+        await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
 
     }
 
 
-    console.log("\x1b[42m", tempArr);
 
-    res.json({code: 0, resultFromDB: 0});
+
+
+    res.json({code: 0, resultFromDB: resultAllTable});
 
 
 
@@ -285,6 +341,7 @@ router.post("/addpost", async(req, res, next) => {
 
 
 });
+
 
 
 

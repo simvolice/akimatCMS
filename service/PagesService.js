@@ -17,9 +17,140 @@ module.exports = {
 
 
 
+    deleteTempTable: async (nameTable) => {
+
+        try {
 
 
 
+
+            dbConnect.getConnect().collection(nameTable).drop();
+
+
+
+
+
+
+
+        }catch(err) {
+
+
+            console.log("\x1b[42m", err);
+
+            return err;
+
+
+        }
+
+    },
+
+
+    getChartById: async (id) => {
+
+        try {
+
+
+
+
+            const col = dbConnect.getConnect().collection("charts");
+
+
+
+
+            const result = await col.findOne({_id: ObjectId(id)});
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    },
+
+    getDataForDynamicPage: async (tableName) => {
+
+
+        try {
+
+
+
+
+            const col = dbConnect.getConnect().collection(tableName);
+
+
+
+
+            const result = await col.aggregate([
+
+                {$match: {}},
+
+
+                { $group : { _id : "$Name", value: { $push: "$$ROOT" } } }
+
+
+
+
+
+
+            ]).toArray();
+
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+    },
+
+
+    insertFromMSSQL: async (flattenArr, tableName) => {
+
+
+        try {
+
+
+            await dbConnect.getConnect().collection(tableName).insertMany(flattenArr, {w: "majority", wtimeout: 100000});
+
+
+        } catch (err) {
+
+
+            console.log("\x1b[42m", err);
+
+            return err;
+
+
+        }
+
+
+
+
+    },
 
     getAllPages: async () => {
 

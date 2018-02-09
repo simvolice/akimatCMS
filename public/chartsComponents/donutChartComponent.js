@@ -1,4 +1,4 @@
-function generateChart(data, idElem, titleCard, changeDataChartArr) {
+function generateChart2(data, idElem, titleCard, changeDataChartArr) {
 
 
     let labelSpan = "";

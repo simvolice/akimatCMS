@@ -1,9 +1,10 @@
-function generateChart(data, idElem, titleCard, changeDataChartArr) {
+function generateChart(data, idElem, titleDiagramm, categ) {
+
 
 
     let labelSpan = "";
 
-    for (let changeDataChartArrItem of changeDataChartArr) {
+    for (let changeDataChartArrItem of categ) {
 
         labelSpan += `<span class="label dateTitle" data-dateval="${changeDataChartArrItem}">${changeDataChartArrItem}</span>`
 
@@ -29,7 +30,7 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
 
 
 
-<h3 class="title" style="text-transform: uppercase">${titleCard}</h3>
+<h3 class="title" style="text-transform: uppercase">${titleDiagramm}</h3>
 
 
 <div id="${idElem}"></div></md-card>`;
@@ -73,7 +74,9 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
 
         axis: {
             x: {
-                show: true
+                type: "category",
+                categories: categ
+
             },
             y: {
                 show: true
@@ -101,11 +104,15 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     $(".dateTitle").on("click", function () {
 
 
-        for (let dateItem of changeDataChartArr) {
+        $('.dateTitle').removeClass('active__options');
+        $(this).addClass('active__options');
+
+
+        for (let dateItem of categ) {
             if (dateItem === $(this).data("dateTitle")) {
 
 
-                charBar.load();
+                //charBar.load();
             }
         }
 
@@ -113,7 +120,7 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     });
 
 
-    $('.drawer').on('drawer.closed', function(){
+    $('.drawer').on('drawer.closed', function () {
 
 
         charBar.resize();
@@ -122,8 +129,7 @@ function generateChart(data, idElem, titleCard, changeDataChartArr) {
     });
 
 
-    $('.drawer').on('drawer.opened', function(){
-
+    $('.drawer').on('drawer.opened', function () {
 
 
         charBar.resize();
