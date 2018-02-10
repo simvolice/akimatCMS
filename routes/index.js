@@ -195,10 +195,10 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
     let resultAllTable = [];
-    let result = [];
+
     for (let itemResult of resultFromDB) {
 
-
+        let result = [];
         let chartUrl = await PagesService.getChartById(itemResult.chartId);
 
          result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
