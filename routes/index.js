@@ -194,85 +194,18 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-
-
     let resultAllTable = [];
-
+    let result = [];
     for (let itemResult of resultFromDB) {
 
 
         let chartUrl = await PagesService.getChartById(itemResult.chartId);
 
-        let result = await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix);
-        let resultArr = [];
-        let categ = [];
+         result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
 
 
 
-        let tempArr = [];
-
-
-        const regExpress = /[0-9]/g;
-
-
-        tempArr = result.slice(0,1);
-
-
-
-        tempArr = tempArr[0].value[0];
-
-        for (let obj in tempArr) {
-            if (regExpress.test(obj)){
-
-                categ.push(obj);
-
-            }
-        }
-
-
-        for (let itemResultFromMongoDB of result) {
-
-
-            let resultArrTemp = [];
-
-            resultArrTemp.push(itemResultFromMongoDB._id);
-
-            for (let itemGroup of itemResultFromMongoDB.value) {
-
-
-                for (let key in itemGroup) {
-
-                    if (regExpress.test(key)){
-
-                        resultArrTemp.push(itemGroup[key]);
-
-
-                    }
-
-                }
-
-
-
-            }
-
-
-            resultArr.push(resultArrTemp);
-
-
-        }
-
-
-
-
-
-        resultAllTable.push({"titleCharts": itemResult.titleCharts, "data": resultArr, "categ": categ, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartUrltoScript": chartUrl.urlToScript, "idElem": slug(itemResult.titleCharts, {lower: true})});
+        resultAllTable.push({"titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartUrltoScript": chartUrl.urlToScript, "idElem": slug(itemResult.titleCharts, {lower: true})});
 
 
         await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);

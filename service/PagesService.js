@@ -77,7 +77,7 @@ module.exports = {
 
     },
 
-    getDataForDynamicPage: async (tableName) => {
+    getDataForDynamicPage: async (tableName, categArr) => {
 
 
         try {
@@ -87,22 +87,72 @@ module.exports = {
 
             const col = dbConnect.getConnect().collection(tableName);
 
+            let result = [];
 
 
 
-            const result = await col.aggregate([
+            for (let itemOfCateg of categArr) {
 
-                {$match: {}},
+                result.push( await col.aggregate([
 
-
-                { $group : { _id : "$Name", value: { $push: "$$ROOT" } } }
-
+                    {$match: {}},
 
 
+                    { $group : { _id : "$Name", value: { $push: "$$ROOT" } } },
 
 
 
-            ]).toArray();
+
+                    { $group : { _id : "$value." + itemOfCateg, categName: { $addToSet: "$value.Name" }} },
+
+
+
+                    {
+                        $project:
+                            {
+
+
+                                categNameFirst: { $arrayElemAt: [ "$categName", 0 ] },
+
+                            }
+                    },
+
+                    {
+                        $project:
+                            {
+
+
+                                categName: { $arrayElemAt: [ "$categNameFirst", 0 ] },
+
+                            }
+                    },
+
+                    {
+                        $addFields: {
+                            "yearName": itemOfCateg,
+                            data: "$_id"
+                        }
+                    },
+
+                    {
+                        $project:
+                            {
+
+
+                                _id: 0,
+
+                            }
+                    },
+
+
+
+
+                ]).toArray())
+
+            }
+
+
+
 
 
 
