@@ -293,7 +293,7 @@
 
 				<div ng-repeat="budg in arrForBudgetFirst" >
 
-					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{budg._id}}'})">{{budg.title}}</a>
+					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ng-click="setId(budg._id, budg.title)">{{budg.title}}</a>
 					</li>
 
 				</div>
@@ -305,7 +305,7 @@
 
 				<div ng-repeat="structure in arrForStructerRashod">
 
-					<li id="structurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ui-sref="dynamicpage({id:'{{structure._id}}'})">{{structure.title}}<span class="drawer-caret"></span></a>
+					<li id="structurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ng-click="setId(structure._id, structure.title)">{{structure.title}}<span class="drawer-caret"></span></a>
 
 
 						<ul class="drawer-dropdown-menu" ng-repeat="child in structure.child">
@@ -313,7 +313,7 @@
 
 
 
-							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{child._id}}'})">{{child.title}}</a></li>
+							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ng-click="setId(child._id, child.title)">{{child.title}}</a></li>
 
 						</ul>
 
@@ -326,7 +326,7 @@
 
 			<div ng-repeat="budgetlast in arrForBudgetLast">
 
-				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{budgetlast._id}}'})">{{budgetlast.title}}</a></li>
+				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ng-click="setId(budgetlast._id, budgetlast.title)">{{budgetlast.title}}</a></li>
 
 
 			</div>
@@ -364,7 +364,7 @@
 
 				<div ng-repeat="ispolbudg in arrForIspolBudgetFirst" >
 
-					<li class="drawer-dropdown" ><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispolbudg._id}}'})">{{ispolbudg.title}}</a>
+					<li class="drawer-dropdown" ><a class="drawer-menu-item" data-toggle="dropdown" ng-click="setId(ispolbudg._id, ispolbudg.title)">{{ispolbudg.title}}</a>
 					</li>
 
 
@@ -377,7 +377,7 @@
 
 				<div ng-repeat="ispolrashod in arrForIspolStructerRashod">
 
-					<li id="ispolstructurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ui-sref="dynamicpage({id:'{{ispolrashod._id}}'})">{{ispolrashod.title}}<span class="drawer-caret"></span></a>
+					<li id="ispolstructurerashod" class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" role="button" aria-expanded="false" ng-click="setId(ispolrashod._id, ispolrashod.title)">{{ispolrashod.title}}<span class="drawer-caret"></span></a>
 
 
 						<ul class="drawer-dropdown-menu" ng-repeat="childispol in ispolrashod.child">
@@ -385,7 +385,7 @@
 
 
 
-							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ui-sref="dynamicpage({id:'{{childispol._id}}'})">{{childispol.title}}</a></li>
+							<li class="noexpandesidebar"><a class="drawer-dropdown-menu-item" ng-click="setId(childispol._id, childispol.title)">{{childispol.title}}</a></li>
 
 						</ul>
 
@@ -399,7 +399,7 @@
 
 				<div ng-repeat="ispollast in arrForIspolBudgetLast">
 
-					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ui-sref="dynamicpage({id:'{{ispollast._id}}'})">{{ispollast.title}}</a></li>
+					<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown" ng-click="setId(ispollast._id, ispollast.title)">{{ispollast.title}}</a></li>
 
 
 				</div>
