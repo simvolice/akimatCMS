@@ -25,36 +25,36 @@ router.post('/auth', async(req, res, next) => {
 
 
 
-  let result = await AuthService.auth(req.body.name);
+    let result = await AuthService.auth(req.body.name);
 
 
 
-  if (result) {
+    if (result) {
 
 
-      if (bcryptjs.compareSync(req.body.pass, result.pass)) {
-
-
-
-
-
-          res.json({"code": 0, "sessionToken": jsonwebtoken.sign(result._id.toString(), process.env.SECRETJSONWEBTOKEN)});
-
-
-      }else {
-
-          res.json({"code": 1});
-
-
-      }
-
-  }else {
-
-      res.json({"code": 1});
+        if (bcryptjs.compareSync(req.body.pass, result.pass)) {
 
 
 
-  }
+
+
+            res.json({"code": 0, "sessionToken": jsonwebtoken.sign(result._id.toString(), process.env.SECRETJSONWEBTOKEN)});
+
+
+        }else {
+
+            res.json({"code": 1});
+
+
+        }
+
+    }else {
+
+        res.json({"code": 1});
+
+
+
+    }
 
 
 
@@ -71,8 +71,8 @@ router.get("/getalltable", async(req, res, next) => {
 
 
 
-  let result = await MsqlService.getTables();
-  let resultArr = [];
+    let result = await MsqlService.getTables();
+    let resultArr = [];
 
     for (let tableItem of result.recordset) {
 
@@ -81,7 +81,7 @@ router.get("/getalltable", async(req, res, next) => {
 
     }
 
-  res.json({code: 0, resultFromDB: resultArr});
+    res.json({code: 0, resultFromDB: resultArr});
 
 
 });
@@ -152,13 +152,13 @@ router.post("/checkadminpage", async(req, res, next) => {
 
 
 
-let result = await AuthService.checkID(req.body.sessionToken);
+    let result = await AuthService.checkID(req.body.sessionToken);
 
 
-if (result === null){
+    if (result === null){
 
-    res.json({code: 1});
-}
+        res.json({code: 1});
+    }
 
 
 
@@ -195,17 +195,17 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
     let resultAllTable = [];
-    let result = [];
-    for (let itemResult of resultFromDB) {
+
+    for (let [index, itemResult] of resultFromDB.entries()) {
+        let result = [];
+
+        let chartType = await PagesService.getChartById(itemResult.chartId);
+
+        result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
 
 
-        let chartUrl = await PagesService.getChartById(itemResult.chartId);
 
-         result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
-
-
-
-        resultAllTable.push({"titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartUrltoScript": chartUrl.urlToScript, "idElem": slug(itemResult.titleCharts, {lower: true})});
+        resultAllTable.push({"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chartType.type, "idElem": slug(itemResult.titleCharts, {lower: true})});
 
 
         await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
@@ -230,7 +230,7 @@ router.get("/dynamicpage", async(req, res, next) => {
 router.post("/addpost", async(req, res, next) => {
 
 
- const {files, fields} = await busboy(req);
+    const {files, fields} = await busboy(req);
 
 
 
@@ -242,8 +242,8 @@ router.post("/addpost", async(req, res, next) => {
 
 
 
-       fields.fileNameArr.push(fileItem.filename);
-       fields.fileUrlArr.push(`uploads/${path.basename(fileItem.path)}`);
+        fields.fileNameArr.push(fileItem.filename);
+        fields.fileUrlArr.push(`uploads/${path.basename(fileItem.path)}`);
 
         fileItem.pipe(fs.createWriteStream(pathForWrite + path.basename(fileItem.path)));
 
@@ -255,13 +255,13 @@ router.post("/addpost", async(req, res, next) => {
 
 
 
-   if (result.hasOwnProperty("result")){
+    if (result.hasOwnProperty("result")){
 
-       res.json({code: 0});
+        res.json({code: 0});
 
-   } else {
-       res.json({code: 1});
-   }
+    } else {
+        res.json({code: 1});
+    }
 
 
 

@@ -10,7 +10,6 @@ angular.module('app').controller('protoCtrl', function (Getallcharts, Getallopti
 
 
 
-
     CheckadminpageService.save({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
 
@@ -61,6 +60,15 @@ angular.module('app').controller('protoCtrl', function (Getallcharts, Getallopti
 
     var formdata = new FormData();
     $scope.getTheFiles = function ($files) {
+
+        if($files.length <= 1)
+        {
+            $("#labelForFile").text($files[0].name);
+        }
+        else {
+            $("#labelForFile").text("Выбрано файлов: " + $files.length);
+        }
+
         angular.forEach($files, function (value, key) {
             formdata.append(key, value);
         });

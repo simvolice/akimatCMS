@@ -93,7 +93,10 @@ module.exports = {
 
             for (let itemOfCateg of categArr) {
 
-                result.push( await col.aggregate([
+                result.push( await col.aggregate(
+
+
+                    [
 
                     {$match: {}},
 
@@ -147,7 +150,14 @@ module.exports = {
 
 
 
-                ]).toArray())
+                ],
+
+
+
+
+
+
+                ).toArray())
 
             }
 
