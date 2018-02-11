@@ -85,6 +85,12 @@ app.filter('ruFormat', function() {
 
 app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $translate, $rootScope ,) {
 
+
+
+
+
+
+
     var arrDigit = ["400 000", "200 000", "300 000", "652 000"];
     var arrDigitText = ["Расходы на 2018", "Доходы на 2018", "Образование", "Оборона"];
 

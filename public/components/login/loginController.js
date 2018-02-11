@@ -26,7 +26,14 @@ angular.module('app').controller('LoginCtrl', function ($scope, SendAuth, $mdToa
               );
 
 
+              $rootScope.menuAdm = [];
+
+
           } else {
+
+
+
+
 
 
 

@@ -3,6 +3,10 @@ let bcryptjs = require('bcryptjs');
 let slug = require('slug');
 let path = require('path');
 let fs = require('fs');
+let util = require('util');
+
+let fileReader = util.promisify(fs.readFile);
+
 let busboy = require('async-busboy');
 let lodash = require('lodash');
 let AuthService = require('../service/AuthService');
@@ -10,6 +14,13 @@ let PagesService = require('../service/PagesService');
 let PostsService = require('../service/PostsService');
 let MsqlService = require('../service/MsqlService');
 let router = express.Router();
+
+const parse = require('csv-parse');
+
+
+let parceCVS = util.promisify(parse);
+
+
 
 const jsonwebtoken = require('jsonwebtoken');
 
@@ -277,6 +288,56 @@ router.post("/addpost", async(req, res, next) => {
 
 
 
+router.get("/addcvs", async(req, res, next) => {
+
+
+
+   /* const {files, fields} = await busboy(req);
+
+    let pathForWrite = path.join(__dirname, process.env.PATHUPLOAD);
+
+    fields["fileNameArr"] = [];
+    fields["fileUrlArr"] = [];
+
+
+    for (let fileItem of files) {
+
+
+
+        fields.fileNameArr.push(fileItem.filename);
+        fields.fileUrlArr.push(`uploads/${path.basename(fileItem.path)}`);
+
+        fileItem.pipe(fs.createWriteStream(pathForWrite + path.basename(fileItem.path)));
+
+    }*/
+
+
+
+
+
+    let tempStr = await fileReader("C:\\Users\\Dina\\Desktop\\Модель.csv");
+
+
+
+
+
+    let records = await parceCVS(tempStr.toString(), {columns: true, delimiter: ";"});
+
+
+    let allColumn = ObjectId.keys(records[0]);
+
+    let result = await MsqlService.insertCVS(allColumn);
+
+    console.log("\x1b[42m", result);
+
+   res.json({code: 0});
+
+
+
+
+
+
+});
 
 
 

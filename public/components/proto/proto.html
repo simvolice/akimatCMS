@@ -1,167 +1,263 @@
-<div class="row" ng-controller="protoCtrl">
+<div class="row" ng-controller="protoCtrl" ng-cloak>
     <div class="col-md-12">
         <md-content id="mainpage" layout="column" flex class="custom__md-content__categ">
 
 
-            <md-card id="title">
-                <div class="row" >
-                    <div class="col-md-12 chartBlock ">
+            <md-card>
+                <md-tabs md-dynamic-height md-border-bottom>
 
 
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label class="textTitle">Заголовок диаграммы</label>
-                            <input ng-model="title">
-                        </md-input-container>
+                    <md-tab label="Создать страницу">
+                        <md-content class="md-padding">
 
 
-                    </div>
-                </div>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock ">
 
 
-
-                <hr>
-
-
-                <div class="row ">
-
-
-                    <div class="col-md-6 chartBlock">
-
-                        <md-select ng-model="tabels" placeholder="Выбрать таблицу из базы данных" class="md-no-underline textTitle">
-                            <md-option ng-repeat="table in alltabels" ng-value="table">
-                                {{table}}
-                            </md-option>
-                        </md-select>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Заголовок диаграммы</label>
+                                        <input ng-model="title">
+                                    </md-input-container>
 
 
-                    </div>
+                                </div>
+                            </div>
 
 
-                    <div class="col-md-6 chartBlock">
-
-                        <md-select ng-model="pages" placeholder="Выбрать пункт меню" class="md-no-underline textTitle">
-                            <md-option ng-repeat="page in allpages" ng-value="page._id" >
-                                {{page.title}}
-                            </md-option>
-                        </md-select>
+                            <hr>
 
 
-                    </div>
+                            <div class="row ">
 
 
+                                <div class="col-md-6 chartBlock">
+
+                                    <md-select ng-model="tabels" placeholder="Выбрать таблицу из базы данных"
+                                               class="md-no-underline textTitle" md-on-close="clearSearchTerm()" data-md-container-class="selectdemoSelectHeader">
 
 
-                </div>
+                                        <md-select-header class="demo-select-header">
+                                            <input ng-model="searchTerm"
+                                                   type="search"
+                                                   placeholder="Поиск таблицы..."
+                                                   class="demo-header-searchbox md-text"
+                                                   ng-keydown="$event.stopPropagation($event)">
+                                        </md-select-header>
+                                        <md-option ng-repeat="table in alltabels | filter:searchTerm" ng-value="table">
+                                            {{table}}
+                                        </md-option>
+                                    </md-select>
 
 
-                <hr>
+                                </div>
 
 
-                <div class="row">
+                                <div class="col-md-6 chartBlock">
+
+                                    <md-select ng-model="pages" placeholder="Выбрать пункт меню"
+                                               class="md-no-underline textTitle">
+                                        <md-option ng-repeat="page in allpages" ng-value="page._id">
+                                            {{page.title}}
+                                        </md-option>
+                                    </md-select>
 
 
-
-                    <div class="col-md-12 chartBlock">
-                        <md-switch aria-label="Switch 1"  ng-model="isShowChips">
-                            Добавить переключатель изменений данных
-                        </md-switch>
-                        <md-switch aria-label="Switch 1" ng-model="isShowTextArea">
-                            Добавить описание диаграммы
-                        </md-switch>
-                        <md-switch aria-label="Switch 1" ng-model="isShowUpload">
-                            Добавить загрузку файла
-                        </md-switch>
-
-                    </div>
-
-                </div>
-
-                <hr ng-show="isShowChips">
-
-                <div class="row" ng-show="isShowChips">
-                    <div class="col-md-12 chartBlock">
-                        <md-chips ng-model="parameters" placeholder="Введите переключатели">
-
-                        </md-chips>
-                    </div>
-                </div>
-
-                <hr ng-show="isShowTextArea">
-
-                <div class="row" ng-show="isShowTextArea">
-                    <div class="col-md-12 chartBlock">
-
-                        <md-input-container class="md-block">
-                            <label>Введите описание диаграммы</label>
-                            <textarea ng-model="description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
-                        </md-input-container>
-
-
-                    </div>
-
-                </div>
-
-                <hr ng-show="isShowUpload">
-                <div class="row" ng-show="isShowUpload">
-                    <div class="col-md-12 chartBlock">
-
-                        <div class="upload-btn-wrapper">
-                            <button class="btn">Загрузить файл</button>
-                            <input ng-files="getTheFiles($files)" id="file" type="file" class="form-control" accept="*/*" multiple/>
-                            <label for="file" id="labelForFile"></label>
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-                <hr>
-
-
-
-            <div class="row">
-                    <div class="col-md-12 chartBlock">
-
-                        <h5 class="title">Выбрать диаграмму</h5>
-
-
-                        <div class="row">
-                            <md-radio-group ng-model="chartModel" >
-                            <div class="col-md-4" ng-repeat="chart in allCharts">
-
-
-                                    <h6 class="title">{{chart.title}}</h6>
-                                    <md-radio-button  ng-value="chart._id" class="md-primary" aria-label="{{chart.title}}">
-                                        <img ng-src="{{chart.imgUrl}}" alt="" class="chartImg" style="cursor: pointer">
-                                    </md-radio-button>
-                                    <br/>
-
-
-
+                                </div>
 
 
                             </div>
 
 
-                            </md-radio-group>
+                            <hr>
+
+
+                            <div class="row">
+
+
+                                <div class="col-md-12 chartBlock">
+                                    <md-switch aria-label="Switch 1" ng-model="isShowChips">
+                                        Добавить переключатель изменений данных
+                                    </md-switch>
+                                    <md-switch aria-label="Switch 1" ng-model="isShowTextArea">
+                                        Добавить описание диаграммы
+                                    </md-switch>
+                                    <md-switch aria-label="Switch 1" ng-model="isShowUpload">
+                                        Добавить загрузку файла
+                                    </md-switch>
+
+                                </div>
+
+                            </div>
+
+                            <hr ng-show="isShowChips">
+
+                            <div class="row" ng-show="isShowChips">
+                                <div class="col-md-12 chartBlock">
+                                    <md-chips ng-model="parameters" placeholder="Введите переключатели">
+
+                                    </md-chips>
+                                </div>
+                            </div>
+
+                            <hr ng-show="isShowTextArea">
+
+                            <div class="row" ng-show="isShowTextArea">
+                                <div class="col-md-12 chartBlock">
+
+                                    <md-input-container class="md-block">
+                                        <label>Введите описание диаграммы</label>
+                                        <textarea ng-model="description" md-maxlength="500" rows="5"
+                                                  md-select-on-focus></textarea>
+                                    </md-input-container>
+
+
+                                </div>
+
+                            </div>
+
+                            <hr ng-show="isShowUpload">
+                            <div class="row" ng-show="isShowUpload">
+                                <div class="col-md-12 chartBlock">
+
+                                    <div class="upload-btn-wrapper">
+                                        <button class="btn">Загрузить файл</button>
+                                        <input ng-files="getTheFiles($files)" id="file" type="file" class="form-control"
+                                               accept="*/*" multiple/>
+                                        <label for="file" id="labelForFile"></label>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+
+                                    <h5 class="title">Выбрать диаграмму</h5>
+
+
+                                    <div class="row">
+                                        <md-radio-group ng-model="chartModel">
+                                            <div class="col-md-4" ng-repeat="chart in allCharts">
+
+
+                                                <h6 class="title">{{chart.title}}</h6>
+                                                <md-radio-button ng-value="chart._id" class="md-primary"
+                                                                 aria-label="{{chart.title}}">
+                                                    <img ng-src="{{chart.imgUrl}}" alt="" class="chartImg"
+                                                         style="cursor: pointer">
+                                                </md-radio-button>
+                                                <br/>
+
+
+                                            </div>
+
+
+                                        </md-radio-group>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-button class="md-raised md-primary" ng-click="uploadFiles()">Сохранить
+                                    </md-button>
+
+                                </div>
+                            </div>
+
+
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Создать Гос. программу">
+                        <md-content class="md-padding">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="title text-center" style="text-transform: uppercase">Количество
+                                        посетивших встречи, ед</h3>
+                                    <div id="chart5"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="title text-center" style="text-transform: uppercase">Встречи, ед</h3>
+                                    <div id="chart6"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="title text-center" style="text-transform: uppercase">Распространение
+                                        информации, ед</h3>
+                                    <div id="chart7"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="title text-center" style="text-transform: uppercase">Виды информации,
+                                        ед</h3>
+                                    <div id="chart8"></div>
+                                </div>
+
+                            </div>
+
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Загрузить CVS файл">
+                        <md-content class="md-padding">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="upload-btn-wrapper">
+                                        <button class="btn">Загрузить файл</button>
+                                        <input ng-files="getTheFilesCVS($files)" id="cvsfile" type="file" class="form-control"
+                                               accept="*/*" multiple/>
+                                        <label for="file" id="filenamecvs"></label>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-button class="md-raised md-primary" ng-click="uploadFilesCVS()">Сохранить
+                                    </md-button>
+
+                                </div>
+                            </div>
 
 
 
-                        </div>
+
+                        </md-content>
+                    </md-tab>
 
 
-                    </div>
-                </div>
-
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 chartBlock">
-                        <md-button class="md-raised md-primary" ng-click="uploadFiles()">Сохранить</md-button>
-
-                    </div>
-                </div>
-
+                </md-tabs>
             </md-card>
 
 

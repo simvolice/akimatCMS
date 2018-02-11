@@ -3,7 +3,7 @@
 function genParentChart(data) {
 
 
-
+console.log(data);
 
 
     for (let dataCommon of data) {
