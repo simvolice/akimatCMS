@@ -36,6 +36,9 @@ function genParentChart(data) {
         <td class="tg-031e">${itemRecordset.Name}</td>
         <td class="tg-031e">${itemRecordset.Territory}</td>
         ${td}
+        
+        
+        
            
             </tr>`;
 
