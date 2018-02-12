@@ -5,6 +5,8 @@
 angular.module('app').controller('protoCtrl', function (GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
 
 
+
+
 $scope.saveGosProgramm = function () {
     GetGosProgramm.save({
 

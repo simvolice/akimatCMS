@@ -82,53 +82,6 @@ module.exports = {
 
 
 
-    insertCVS: async (allColumns, fileName="TestTable3") => {
-
-
-        try {
-
-
-
-
-
-            const pool = dbConnect.getConnect();
-
-
-
-            const result = await pool.request()
-                .input(`${fileName}`, sql.TVP)
-                .query(`CREATE TABLE ${fileName};`);
-
-
-            for (let itemCol of allColumns) {
-                await pool.request()
-                    .input(`${fileName}`, sql.TVP)
-                    .input(`${itemCol}`, sql.NVarChar(255))
-                    .query(`ALTER TABLE ${fileName}
-ADD ${itemCol} nvarchar(255);`
-
-                    );
-            }
-
-
-
-
-            return result;
-
-
-        }catch(err) {
-
-
-
-
-            return err;
-
-
-        }
-
-
-
-    }
 
 
 

@@ -14,7 +14,43 @@ const ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
 
+    getAllData: async (nameTable) => {
 
+        try {
+
+
+
+
+          let col = dbConnect.getConnect().collection(nameTable);
+
+
+
+          let result = await col.find({}).toArray();
+
+
+
+
+
+
+          return result;
+
+
+
+
+
+
+
+        }catch(err) {
+
+
+
+
+            return err;
+
+
+        }
+
+    },
 
 
     deleteTempTable: async (nameTable) => {

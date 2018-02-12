@@ -5,13 +5,14 @@ let path = require('path');
 let fs = require('fs');
 let util = require('util');
 
-let fileReader = util.promisify(fs.readFile);
+let fileReaderNew = util.promisify(fs.readFile);
 
 let busboy = require('async-busboy');
 let lodash = require('lodash');
 let AuthService = require('../service/AuthService');
 let PagesService = require('../service/PagesService');
 let PostsService = require('../service/PostsService');
+let ExportCVS = require('../service/ExportCVS');
 let MsqlService = require('../service/MsqlService');
 let GosProgrammServise = require('../service/GosProgrammServise');
 let router = express.Router();
@@ -24,6 +25,7 @@ let parceCVS = util.promisify(parse);
 
 
 const jsonwebtoken = require('jsonwebtoken');
+
 
 
 
@@ -82,6 +84,7 @@ router.post('/auth', async(req, res, next) => {
 router.get("/getalltable", async(req, res, next) => {
 
 
+    let resultFromMongoDB = await ExportCVS.getTables();
 
     let result = await MsqlService.getTables();
     let resultArr = [];
@@ -90,7 +93,11 @@ router.get("/getalltable", async(req, res, next) => {
 
         resultArr.push(tableItem.TABLE_NAME);
 
+        }
 
+
+    for (let obj of resultFromMongoDB) {
+        resultArr.push(obj.tableName);
     }
 
     res.json({code: 0, resultFromDB: resultArr});
@@ -188,6 +195,8 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
     let resultFromDB = await PostsService.getOnePost(req.query.id);
+
+
     let dataFromMssql = [];
 
     let randomPrefix = getRandomInt(1, 1000000);
@@ -197,7 +206,24 @@ router.get("/dynamicpage", async(req, res, next) => {
 
     for (let [index, obj] of resultFromDB.entries()) {
 
-        dataFromMssql.push(await MsqlService.getDataFromOneTable(obj.tableName));
+
+        let resultFromMSSQL = await MsqlService.getDataFromOneTable(obj.tableName);
+
+
+        if (resultFromMSSQL.hasOwnProperty("number")){
+
+            dataFromMssql.push({"recordset": await PagesService.getAllData(obj.tableName)});
+
+        } else {
+
+            dataFromMssql.push(resultFromMSSQL);
+
+
+        }
+
+
+        console.log("\x1b[42m", resultFromMSSQL);
+
 
         await PagesService.insertFromMSSQL(dataFromMssql[index].recordset, obj.tableName + randomPrefix);
 
@@ -223,8 +249,6 @@ router.get("/dynamicpage", async(req, res, next) => {
         await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
 
     }
-
-
 
 
 
@@ -289,47 +313,42 @@ router.post("/addpost", async(req, res, next) => {
 
 
 
-router.get("/addcvs", async(req, res, next) => {
+router.post("/addcvs", async(req, res, next) => {
+
+
+    const {files, fields} = await busboy(req);
 
 
 
-   /* const {files, fields} = await busboy(req);
-
-    let pathForWrite = path.join(__dirname, process.env.PATHUPLOAD);
-
-    fields["fileNameArr"] = [];
-    fields["fileUrlArr"] = [];
 
 
     for (let fileItem of files) {
 
 
 
-        fields.fileNameArr.push(fileItem.filename);
-        fields.fileUrlArr.push(`uploads/${path.basename(fileItem.path)}`);
 
-        fileItem.pipe(fs.createWriteStream(pathForWrite + path.basename(fileItem.path)));
-
-    }*/
+        let tempStr = await fileReaderNew(fileItem.path);
 
 
 
 
+        let records = await parceCVS(tempStr.toString(), {columns: true, delimiter: ";"});
 
-    let tempStr = await fileReader("C:\\Users\\Dina\\Desktop\\Модель.csv");
+
+        await ExportCVS.addCVS(path.parse(fileItem.filename).name, records);
 
 
 
 
 
-    let records = await parceCVS(tempStr.toString(), {columns: true, delimiter: ";"});
+
+    }
 
 
-    let allColumn = ObjectId.keys(records[0]);
 
-    let result = await MsqlService.insertCVS(allColumn);
 
-    console.log("\x1b[42m", result);
+
+
 
    res.json({code: 0});
 
