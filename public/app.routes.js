@@ -54,9 +54,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: 'components/gosProgrammType1/gosProgrammType1.html'
 
       })
-      .state('gosProgrammType2Ctrl', {
+      .state('gosProgrammType3Ctrl', {
           url: '/gosprogrammtype2ctrl',
-          templateUrl: 'components/gosProgrammType2/gosProgrammType2.html'
+          templateUrl: 'components/gosProgrammType3/gosProgrammType3.html'
 
       })
 
