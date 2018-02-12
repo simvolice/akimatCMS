@@ -13,6 +13,7 @@ let AuthService = require('../service/AuthService');
 let PagesService = require('../service/PagesService');
 let PostsService = require('../service/PostsService');
 let MsqlService = require('../service/MsqlService');
+let GosProgrammServise = require('../service/GosProgrammServise');
 let router = express.Router();
 
 const parse = require('csv-parse');
@@ -329,6 +330,25 @@ router.get("/addcvs", async(req, res, next) => {
     let result = await MsqlService.insertCVS(allColumn);
 
     console.log("\x1b[42m", result);
+
+   res.json({code: 0});
+
+
+
+
+
+
+});
+
+
+router.post("/getgosprogramm", async(req, res, next) => {
+
+
+   let result = await GosProgrammServise.addPost(req.body);
+
+
+
+
 
    res.json({code: 0});
 

@@ -22,3 +22,8 @@ angular.module('app').factory("Getalloptions", function($resource) {
 angular.module('app').factory("Getallcharts", function($resource) {
     return $resource("/getallcharts");
 });
+
+
+angular.module('app').factory("GetGosProgramm", function($resource) {
+    return $resource("/getgosprogramm");
+});

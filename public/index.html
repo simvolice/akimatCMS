@@ -267,10 +267,12 @@
 				<li class="drawer-dropdown"><a class="drawer-menu-item" data-toggle="dropdown">Мониторинг государственных программ</a></li>
 
 
+                <li class="drawer-dropdown"><a class="drawer-menu-item" ui-sref="gosProgrammType1Ctrl" data-toggle="dropdown">Государcтвенные программы. Прототип 1</a></li>
+                <li class="drawer-dropdown"><a class="drawer-menu-item" ui-sref="gosProgrammType2Ctrl" data-toggle="dropdown">Государcтвенные программы. Прототип 2</a></li>
 
 
 
-				<li class="drawer-dropdown" style="padding-left: 5px"><md-switch id="sw" ng-model="cb1" aria-label="Включить темную тему" ng-change="onChange(cb1)">
+                <li class="drawer-dropdown" style="padding-left: 5px"><md-switch id="sw" ng-model="cb1" aria-label="Включить темную тему" ng-change="onChange(cb1)">
 					Включить темную тему
 				</md-switch></li>
 
@@ -539,8 +541,11 @@
 	<script src="components/dynamicpage/dynamicController.js"></script>
 	<script src="components/dynamicpage/dynamicService.js"></script>
 
+    <script src="components/gosProgrammType1/gosProgrammType1Controller.js"></script>
+    <script src="components/gosProgrammType1/gosProgrammType1Service.js"></script>
 
-
+    <script src="components/gosProgrammType2/gosProgrammType2Controller.js"></script>
+    <script src="components/gosProgrammType2/gosProgrammType2Service.js"></script>
 
 
 </body>

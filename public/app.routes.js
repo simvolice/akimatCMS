@@ -49,5 +49,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
       })
 
+      .state('gosProgrammType1Ctrl', {
+          url: '/gosprogrammtype1',
+          templateUrl: 'components/gosProgrammType1/gosProgrammType1.html'
+
+      })
+      .state('gosProgrammType2Ctrl', {
+          url: '/gosprogrammtype2ctrl',
+          templateUrl: 'components/gosProgrammType2/gosProgrammType2.html'
+
+      })
+
+
 
 });

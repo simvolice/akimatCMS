@@ -185,43 +185,63 @@
 
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="title text-center" style="text-transform: uppercase">Количество
-                                        посетивших встречи, ед</h3>
-                                    <div id="chart5"></div>
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Заголовок государственной программы</label>
+                                        <input ng-model="titleGosProgramm">
+                                    </md-input-container>
+
                                 </div>
 
                             </div>
+
+                            <hr>
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="title text-center" style="text-transform: uppercase">Встречи, ед</h3>
-                                    <div id="chart6"></div>
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Краткое описание государственной программы</label>
+                                        <input ng-model="descriptionGosProgramm">
+                                    </md-input-container>
                                 </div>
 
                             </div>
+
+                            <hr>
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="title text-center" style="text-transform: uppercase">Распространение
-                                        информации, ед</h3>
-                                    <div id="chart7"></div>
+                                <div class="col-md-12 chartBlock">
+
+                                    <md-input-container class="md-block">
+                                        <label>Введите полное описание государственной программы</label>
+                                        <textarea ng-model="fullDescriptionGosProgramm" md-maxlength="500" rows="5"
+                                                  md-select-on-focus></textarea>
+                                    </md-input-container>
+
+
                                 </div>
 
                             </div>
+
+
+                            <hr>
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="title text-center" style="text-transform: uppercase">Виды информации,
-                                        ед</h3>
-                                    <div id="chart8"></div>
-                                </div>
+                                <div class="col-md-12 chartBlock">
+                                    <md-button class="md-raised md-primary" ng-click="saveGosProgramm()">Сохранить
+                                    </md-button>
 
+                                </div>
                             </div>
+
+
 
 
                         </md-content>
                     </md-tab>
+
+
+
                     <md-tab label="Загрузить CVS файл">
                         <md-content class="md-padding">
 

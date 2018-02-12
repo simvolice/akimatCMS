@@ -2,7 +2,25 @@
  * Created by Admin on 29.09.2016.
  */
 
-angular.module('app').controller('protoCtrl', function (Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
+angular.module('app').controller('protoCtrl', function (GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
+
+
+$scope.saveGosProgramm = function () {
+    GetGosProgramm.save({
+
+        title: $scope.titleGosProgramm,
+        description: $scope.descriptionGosProgramm,
+        fullDescription: $scope.fullDescriptionGosProgramm
+
+    }, function (result) {
+
+
+
+
+    });
+}
+
+
 
 
     $scope.parameters = [];
