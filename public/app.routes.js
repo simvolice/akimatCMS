@@ -62,6 +62,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
       })
 
+      .state('gosProgrammType3Ctrl', {
+          url: '/gosprogrammtype3ctrl',
+          templateUrl: 'components/gosProgrammType3/gosProgrammType3.html'
+
+      })
+
 
 
 });
