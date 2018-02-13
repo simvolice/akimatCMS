@@ -62,12 +62,24 @@ $scope.saveGosProgramm = function () {
 
 
 
+    $scope.changeTable = function () {
+        Getalltable.get(function (result) {
+
+
+
+
+            $scope.alltabels = result.resultFromDB;
+
+
+        });
+    };
+
 
 
     Getalltable.get(function (result) {
 
 
-        console.log(result.resultFromDB);
+
 
         $scope.alltabels = result.resultFromDB;
 
