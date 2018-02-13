@@ -10,9 +10,17 @@ angular.module('app').controller('protoCtrl', function (GetGosProgramm, Getallch
 $scope.saveGosProgramm = function () {
     GetGosProgramm.save({
 
-        title: $scope.titleGosProgramm,
-        description: $scope.descriptionGosProgramm,
-        fullDescription: $scope.fullDescriptionGosProgramm
+        Pasport: $scope.programPasport,
+        Description: $scope.programmDescription,
+        NameDev: $scope.programmNameDev,
+        Target: $scope.programmTarget,
+        TargetIndicator: $scope.programmTargetIndicator,
+        ActionPlan: $scope.programmActionPlan,
+        DescriptionAction: $scope.programmDescriptionAction,
+        FinansAction: $scope.programmFinansAction,
+        TargetDescrIndicator: $scope.programmTargetDescrIndicator,
+        DimicIndicator: $scope.programmDimicIndicator
+
 
     }, function (result) {
 
@@ -77,7 +85,6 @@ $scope.saveGosProgramm = function () {
 
 
     Getalltable.get(function (result) {
-
 
 
 

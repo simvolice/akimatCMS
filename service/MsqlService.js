@@ -65,6 +65,8 @@ module.exports = {
                 .query(`select * from ${tableName}`);
 
 
+
+
             return result;
 
 
@@ -122,7 +124,7 @@ module.exports = {
                 const request = new sql.Request();
 
                 request.bulk(table, (err, result) => {
-                    console.log("\x1b[42m", err);
+
                 })
 
 

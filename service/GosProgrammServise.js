@@ -24,10 +24,16 @@ module.exports = {
             const result = await col.insertOne({
 
 
-                titleProgram: objParams.title,
-                description: objParams.description,
-                fullDescription: objParams.fullDescription,
-
+                Pasport: objParams.programPasport,
+                Description: objParams.programmDescription,
+                NameDev: objParams.programmNameDev,
+                Target: objParams.programmTarget,
+                TargetIndicator: objParams.programmTargetIndicator,
+                ActionPlan: objParams.programmActionPlan,
+                DescriptionAction: objParams.programmDescriptionAction,
+                FinansAction: objParams.programmFinansAction,
+                TargetDescrIndicator: objParams.programmTargetDescrIndicator,
+                DimicIndicator: objParams.programmDimicIndicator
 
             });
 

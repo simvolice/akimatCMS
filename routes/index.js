@@ -46,7 +46,7 @@ router.post('/auth', async(req, res, next) => {
 
 
 
-    if (result !== null) {
+    if (result) {
 
 
         if (bcryptjs.compareSync(req.body.pass, result.pass)) {
