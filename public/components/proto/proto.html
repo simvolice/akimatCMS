@@ -44,8 +44,8 @@
                                                    class="demo-header-searchbox md-text"
                                                    ng-keydown="$event.stopPropagation($event)">
                                         </md-select-header>
-                                        <md-option ng-repeat="table in alltabels | filter:searchTerm" ng-value="table">
-                                            {{table}}
+                                        <md-option ng-repeat="table in alltabels | filter:searchTerm" ng-value="table.nameTable">
+                                            {{table.aliasTable}}
                                         </md-option>
                                     </md-select>
 

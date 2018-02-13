@@ -345,15 +345,6 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
 
 
 
-    $scope.setId = function (id, title) {
-        localStorage.setItem("idPage", id);
-        localStorage.setItem("title", title);
-
-
-
-        $state.go("dynamicpage");
-
-    };
 
 
 

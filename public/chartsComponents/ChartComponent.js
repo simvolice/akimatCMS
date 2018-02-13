@@ -3,7 +3,7 @@
 function genParentChart(data) {
 
 
-console.log(data);
+
 
 
     for (let dataCommon of data) {
@@ -17,7 +17,6 @@ console.log(data);
             for (let itemRecordset of dataCommon.dataRow.recordset) {
 
 
-                console.log(itemRecordset);
 
 
 
@@ -31,6 +30,8 @@ console.log(data);
                 }
 
 
+
+                //TODO Надо подумать над полной динамикой таблиц
 
                 tableBody += `<tr>
         <td class="tg-031e">${itemRecordset.Name}</td>

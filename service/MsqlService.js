@@ -83,6 +83,62 @@ module.exports = {
 
 
 
+    insertOneTable: async (tableNameArr, dataArr) => {
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        for (let tableOneName of tableNameArr) {
+            for (let dataArrOne of dataArr) {
+
+                const table = new sql.Table(`atcms_${tableOneName}`); // or temporary table, e.g. #temptable
+                table.create = true;
+
+
+                for (let allColumn of Object.keys(dataArrOne[0])) {
+                    table.columns.add(allColumn, sql.NVarChar(255), {nullable: true});
+
+
+                }
+
+
+
+
+                for (let oneObjItem of dataArrOne) {
+
+
+
+                        table.rows.add(...Object.values(oneObjItem));
+
+
+
+
+                }
+
+
+
+
+
+                const request = new sql.Request();
+
+                request.bulk(table, (err, result) => {
+                    console.log("\x1b[42m", err);
+                })
+
+
+            }
+
+        }
+
+
+
+
+
+    }
+
+
+
+
 
 
 

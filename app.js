@@ -14,6 +14,7 @@ const AuthService = require('./service/AuthService');
 const initData = require('./service/initData');
 
 let index = require('./routes/index');
+let schedulling = require('./utils/schedulling');
 
 let app = express();
 
@@ -35,7 +36,9 @@ app.use(helmet.noCache());
 
 
 async function initDB() {
- await dbConnect.connect();
+
+
+    await dbConnect.connect();
 
    await ConnectMSQL.connect();
 
@@ -49,6 +52,8 @@ initDB();
 
 async function initApp() {
 
+
+    await schedulling.checkTableInMSSQL();
 
     await initData.initDataForProtoPage();
     await initData.initListPage();

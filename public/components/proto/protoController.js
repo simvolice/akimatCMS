@@ -67,6 +67,8 @@ $scope.saveGosProgramm = function () {
     Getalltable.get(function (result) {
 
 
+        console.log(result.resultFromDB);
+
         $scope.alltabels = result.resultFromDB;
 
 
