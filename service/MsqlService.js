@@ -86,9 +86,7 @@ module.exports = {
 
 
     insertOneTable: async (tableNameArr, dataArr) => {
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
+
 
         for (let tableOneName of tableNameArr) {
             for (let dataArrOne of dataArr) {

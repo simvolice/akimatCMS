@@ -43,7 +43,8 @@ module.exports = {
                 description: objParams.description,
                 chartId: ObjectId(objParams.chartModel),
                 fileName: objParams.fileNameArr,
-                fileUrl: objParams.fileUrlArr
+                fileUrl: objParams.fileUrlArr,
+                typeDiagramm: objParams.typediagramm
 
 
 

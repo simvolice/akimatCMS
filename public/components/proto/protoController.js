@@ -148,6 +148,7 @@ $scope.saveGosProgramm = function () {
         formdata.append('parameters', $scope.parameters);
         formdata.append('description', $scope.description);
         formdata.append('chartModel', $scope.chartModel);
+        formdata.append('typediagramm', $scope.typediagramm);
 
 
         var request = {
@@ -259,7 +260,7 @@ $scope.saveGosProgramm = function () {
 
                     formdata = new FormData();
                     document.getElementById("cvsfile").value = null;
-
+                    $("#filenamecvs").text(null);
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Вы успешно загрузили объект.')
@@ -273,6 +274,7 @@ $scope.saveGosProgramm = function () {
 
                     formdata = new FormData();
                     document.getElementById("cvsfile").value = null;
+                    $("#filenamecvs").text(null);
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Операция закончилась не удачно, попробуйте изменить данные.')

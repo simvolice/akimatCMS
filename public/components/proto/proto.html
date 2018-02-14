@@ -85,6 +85,9 @@
                                     <md-switch aria-label="Switch 1" ng-model="isShowUpload">
                                         Добавить загрузку файла
                                     </md-switch>
+                                    <md-switch aria-label="Switch 1" ng-model="isShowType">
+                                        Добавить тип диаграммы
+                                    </md-switch>
 
                                 </div>
 
@@ -126,6 +129,25 @@
                                                accept="*/*" multiple/>
                                         <label for="file" id="labelForFile"></label>
                                     </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <hr ng-show="isShowType">
+                            <div class="row" ng-show="isShowType">
+                                <div class="col-md-12 chartBlock">
+
+
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label class="textTitle">Тип диаграммы</label>
+                                            <input ng-model="typediagramm">
+                                        </md-input-container>
 
 
                                 </div>

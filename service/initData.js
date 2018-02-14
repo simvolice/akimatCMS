@@ -46,6 +46,7 @@ module.exports = {
                 title: "Круговая диаграмма",
                 imgUrl: "chartsImg/PieChart.PNG",
                 type: "pie",
+                    subType: null,
                     axisRotate: false,
                     stackBar: [],
 
@@ -61,6 +62,7 @@ module.exports = {
 
 
                     type: "line",
+                    subType: null,
                     axisRotate: false,
                     stackBar: [],
 
@@ -76,6 +78,7 @@ module.exports = {
                     imgUrl: "chartsImg/DonutChart.PNG",
 
                     type: "donut",
+                    subType: null,
                     axisRotate: false,
                     stackBar: [],
 
@@ -91,6 +94,7 @@ module.exports = {
                     imgUrl: "chartsImg/BarChart.PNG",
 
                     type: "bar",
+                    subType: null,
                     axisRotate: false,
                     stackBar: [],
 
@@ -106,6 +110,7 @@ module.exports = {
                     imgUrl: "chartsImg/horizontalBar.PNG",
 
                     type: "bar",
+                    subType: null,
                     axisRotate: true,
                     stackBar: [],
 
@@ -121,6 +126,7 @@ module.exports = {
                     imgUrl: "chartsImg/StackChart.PNG",
 
                     type: "bar",
+                    subType: null,
                     axisRotate: false,
                     stackBar: [],
 
@@ -133,10 +139,11 @@ module.exports = {
                 {
 
 
-                    title: "Гибридная диаграмма",
+                    title: "Столбцовая диаграмма вместе с линейной",
                     imgUrl: "chartsImg/hybrid.PNG",
 
-                    type: "barLine",
+                    type: "bar",
+                    subType: "line",
                     axisRotate: false,
                     stackBar: [],
 
@@ -145,20 +152,6 @@ module.exports = {
 
                 },
 
-                {
-
-
-                    title: "Столбцовая диаграмма по территориям",
-                    imgUrl: "chartsImg/BarChart.PNG",
-
-                    type: "bar",
-                    axisRotate: false,
-                    stackBar: [],
-
-
-                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                }
 
 
 
