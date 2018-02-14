@@ -143,6 +143,21 @@ module.exports = {
 
                     createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
 
+                },
+
+                {
+
+
+                    title: "Столбцовая диаграмма по территориям",
+                    imgUrl: "chartsImg/BarChart.PNG",
+
+                    type: "bar",
+                    axisRotate: false,
+                    stackBar: [],
+
+
+                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
+
                 }
 
 

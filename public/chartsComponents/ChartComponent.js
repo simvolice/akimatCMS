@@ -12,13 +12,19 @@ function genParentChart(data) {
 
 
         let tableBody = "";
+        let categByTerritory = [];
 
 
 
-            for (let itemRecordset of dataCommon.dataRow.recordset) {
 
 
 
+        for (let itemRecordset of dataCommon.dataRow.recordset) {
+
+
+
+
+            categByTerritory.push(itemRecordset.Territory);
 
 
                 let td = "";
@@ -55,7 +61,7 @@ function genParentChart(data) {
 
 
 
-        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody, dataCommon.axisRotate, dataCommon.stackBar)
+        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody, dataCommon.axisRotate, dataCommon.stackBar, categByTerritory)
 
 
 
@@ -73,10 +79,9 @@ function genParentChart(data) {
 }
 
 
-function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar) {
+function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar, categByTerritory) {
 
 
-    console.log(data);
 
 
     let descriptionVisible = "";
@@ -240,7 +245,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-       genChart(_.flattenDeep(lastArr)[0].data, idElem, chartType, axisRotated, stackBar);
+       genChart(_.flattenDeep(lastArr)[0].data, idElem, chartType, axisRotated, stackBar, categByTerritory);
 
 
 
@@ -320,7 +325,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-        genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"));
+        genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"), axisRotated, stackBar, categByTerritory);
 
 
 
@@ -340,7 +345,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 }
 
 
-function genChart(data, idElem, typeChart, axisRotated, stackBar) {
+function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerritory) {
 
 
 
@@ -355,7 +360,15 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar) {
                 columns: [data],
 
 
-                type: typeChart
+                type: typeChart,
+
+
+                labels: {
+
+                    format: function (val) {
+                        return d3.format(",.2f")(val);
+                    }
+                }
             },
 
 
@@ -390,17 +403,14 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar) {
                 rotated: axisRotated,
                 x: {
 
+                    type: "category",
+                    categories: categByTerritory,
+
                     show: true
 
                 },
                 y: {
                     show: false
-                }
-            },
-            labels: {
-
-                format: function (val) {
-                    return d3.format(",.2f")(val);
                 }
             },
             tooltip: {

@@ -438,8 +438,10 @@ router.post("/addcvs", async(req, res, next) => {
 
 
 
-
     await MsqlService.insertOneTable(tableName, records);
+
+
+
 
 
     for (let tableOneName of tableName) {

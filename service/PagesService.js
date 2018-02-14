@@ -178,7 +178,7 @@ module.exports = {
                     {$match: {}},
 
 
-                    { $group : { _id : "$Name", value: { $push: "$$ROOT" } } },
+                    { $group : { _id : itemOfCateg, value: { $push: "$$ROOT" } } },
 
 
 
@@ -228,7 +228,6 @@ module.exports = {
 
 
 
-
                 ],
 
 
@@ -242,14 +241,15 @@ module.exports = {
 
 
 
-            console.log("\x1b[42m", result);
 
+
+          console.log("\x1b[42m", result);
 
             for (let itemOfResult of result) {
                 for (let obj of itemOfResult) {
 
 
-                    console.log("\x1b[42m", obj);
+
                     let tempArr = [];
 
                     tempArr.push(obj.categName);
@@ -272,6 +272,8 @@ module.exports = {
                     obj.data = tempArr;
                 }
             }
+
+
 
 
 
