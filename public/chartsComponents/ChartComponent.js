@@ -134,7 +134,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
     for (let changeDataChartArrItem of categ) {
 
-        labelSpan += `<span class="label dateTitle" data-dateval="${changeDataChartArrItem}" data-nametable="${titleDiagramm}" data-id="${idElem}" data-typechart="${chartType}">${changeDataChartArrItem}</span>`
+        labelSpan += `<span class="label dateTitle" data-dateval="${changeDataChartArrItem}" data-nametable="${titleDiagramm}" data-id="${idElem}" data-typechart="${chartType}" data-axisRotated="${axisRotated}">${changeDataChartArrItem}</span>`
 
         tableHead += `<th class="tg-hgcj">${changeDataChartArrItem}</th>`
 
@@ -325,7 +325,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-        genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"), axisRotated, stackBar, categByTerritory);
+        genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
 
 
 
