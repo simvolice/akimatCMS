@@ -5,7 +5,7 @@ function genParentChart(data) {
 
 
 
-    for (let dataCommon of data) {
+    for (let dataCommon of data.reverse()) {
 
 
 
