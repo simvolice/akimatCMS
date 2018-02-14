@@ -31,7 +31,7 @@
                             <div class="row ">
 
 
-                                <div class="col-md-6 chartBlock">
+                                <div class="col-md-4 chartBlock">
 
                                     <md-select ng-model="tabels" placeholder="Выбрать таблицу из базы данных"
                                                class="md-no-underline textTitle" md-on-close="clearSearchTerm()" data-md-container-class="selectdemoSelectHeader" md-on-open="changeTable()">
@@ -53,13 +53,37 @@
                                 </div>
 
 
-                                <div class="col-md-6 chartBlock">
+                                <div class="col-md-4 chartBlock">
 
                                     <md-select ng-model="pages" placeholder="Выбрать пункт меню"
                                                class="md-no-underline textTitle">
                                         <md-option ng-repeat="page in allpages" ng-value="page._id">
                                             {{page.title}}
                                         </md-option>
+                                    </md-select>
+
+
+                                </div>
+
+
+
+                                <div class="col-md-4 chartBlock">
+
+                                    <md-select class="textTitle" placeholder="Выберите вкладку" ng-model="tabSelect"
+                                               md-on-close="clearSearchTermTab()"
+                                               data-md-container-class="selectdemoSelectHeader"
+                                    >
+                                        <md-select-header class="demo-select-header">
+                                            <input ng-model="newTabName"
+                                                   ng-keyup='createNewTab($event)'
+                                                   ng-keydown="$event.stopPropagation($event)"
+                                                   type="text"
+                                                   placeholder="Напечатайте здесь и нажмите Enter"
+                                                   class="demo-header-searchbox md-text">
+                                        </md-select-header>
+                                        <md-optgroup>
+                                            <md-option ng-value="tab._id" ng-repeat="tab in allTabs">{{tab.tabName}}</md-option>
+                                        </md-optgroup>
                                     </md-select>
 
 

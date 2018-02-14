@@ -37,3 +37,14 @@ angular.module('app').factory("Deleteonepost", function($resource) {
 angular.module('app').factory("GetAllpost", function($resource) {
     return $resource("/getallpost");
 });
+
+
+
+angular.module('app').factory("SendNewTabName", function($resource) {
+    return $resource("/sendnewtabname");
+});
+
+
+angular.module('app').factory("GetallTabs", function($resource) {
+    return $resource("/getalltabs");
+});

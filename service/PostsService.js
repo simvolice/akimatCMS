@@ -117,7 +117,8 @@ module.exports = {
                 chartId: ObjectId(objParams.chartModel),
                 fileName: objParams.fileNameArr,
                 fileUrl: objParams.fileUrlArr,
-                typeDiagramm: objParams.typediagramm
+                typeDiagramm: objParams.typediagramm,
+                tabName: ObjectId(objParams.tabName)
 
 
 
@@ -133,6 +134,7 @@ module.exports = {
         }catch(err) {
 
 
+            console.log("\x1b[42m", err);
 
             return err;
 

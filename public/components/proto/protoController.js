@@ -2,7 +2,7 @@
  * Created by Admin on 29.09.2016.
  */
 
-angular.module('app').controller('protoCtrl', function (GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
+angular.module('app').controller('protoCtrl', function (GetallTabs, SendNewTabName, GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
 
 
 
@@ -46,8 +46,11 @@ $scope.saveGosProgramm = function () {
 
 
     $scope.parameters = [];
+    $scope.allTabs = [];
 
     $scope.searchTerm;
+    $scope.searchTermPost;
+    $scope.selectdemoSelectHeader;
 
 
     $scope.clearSearchTerm = function() {
@@ -59,9 +62,55 @@ $scope.saveGosProgramm = function () {
         $scope.searchTermPost = '';
     };
 
+
+    $scope.clearSearchTermTab = function() {
+        $scope.selectdemoSelectHeader = '';
+    };
+
     $element.find('input').on('keydown', function(ev) {
         ev.stopPropagation();
     });
+
+
+
+    $scope.createNewTab = function (event) {
+        if (event.keyCode === 13) {
+
+
+            SendNewTabName.save({tabName: $scope.newTabName}, function (result) {
+
+
+
+                if (result.code === 0) {
+
+
+
+                    $scope.allTabs.push(result.resultFromDB);
+
+
+
+                } else {
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Операция закончилась НЕУДАЧНО. Измените данные для ввода.')
+                            .position('bottom left')
+                            .hideDelay(6000)
+                    );
+
+
+                }
+
+
+
+
+            });
+
+
+        }
+
+    };
+
 
     CheckadminpageService.save({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
@@ -80,6 +129,16 @@ $scope.saveGosProgramm = function () {
 
 
         $scope.allCharts = result.resultFromDB;
+
+
+    });
+
+
+    GetallTabs.get(function (result) {
+
+
+
+        $scope.allTabs = result.resultFromDB;
 
 
     });
@@ -138,15 +197,7 @@ $scope.saveGosProgramm = function () {
 
 
 
-    Getalltable.get(function (result) {
 
-
-
-
-        $scope.alltabels = result.resultFromDB;
-
-
-    });
 
     Getallpages.get(function (result) {
 
@@ -191,6 +242,7 @@ $scope.saveGosProgramm = function () {
         formdata.append('description', $scope.description);
         formdata.append('chartModel', $scope.chartModel);
         formdata.append('typediagramm', $scope.typediagramm);
+        formdata.append('tabName', $scope.tabSelect);
 
 
         var request = {

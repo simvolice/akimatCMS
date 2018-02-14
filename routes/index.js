@@ -10,6 +10,7 @@ let fileReaderNew = util.promisify(fs.readFile);
 let busboy = require('async-busboy');
 let lodash = require('lodash');
 let AuthService = require('../service/AuthService');
+let TabService = require('../service/TabService');
 let PagesService = require('../service/PagesService');
 let PostsService = require('../service/PostsService');
 let UtilsService = require('../service/UtilsService');
@@ -498,6 +499,40 @@ router.get("/getallpost", async (req, res, next) => {
 
 
    res.json({code: 0, resultFromDB: result});
+
+
+});
+
+router.post("/sendnewtabname", async(req, res, next) => {
+
+
+
+    let result = await TabService.createNewTab(req.body.tabName);
+
+
+
+    res.json({code: 0, resultFromDB: result.ops[0]});
+
+
+
+
+
+});
+
+
+router.get("/getalltabs", async(req, res, next) => {
+
+
+    let result = await TabService.getAll();
+
+
+
+    res.json({code: 0, resultFromDB: result});
+
+
+
+
+
 
 
 });
