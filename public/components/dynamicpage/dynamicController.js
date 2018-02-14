@@ -37,18 +37,20 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
 
         $scope.data = response.data.resultFromDB;
 
+        $ocLazyLoad.load("chartsComponents/ChartComponent.js?v=" + getRandomInt(1, 1000000));
+
+        $scope.$on('ocLazyLoad.fileLoaded', function(e, module) {
+
+
+            genParentChart($scope.data);
+
+
+        });
 
 
 
-            $ocLazyLoad.load("chartsComponents/ChartComponent.js?v=" + getRandomInt(1, 1000000));
-
-            $scope.$on('ocLazyLoad.fileLoaded', function(e, module) {
 
 
-                genParentChart($scope.data);
-
-
-            });
 
 
 

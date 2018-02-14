@@ -53,6 +53,47 @@ module.exports = {
     },
 
 
+    getPageType: async (id) => {
+
+        try {
+
+
+
+
+            let col = dbConnect.getConnect().collection("list_page");
+
+
+
+            let result = await col.findOne({_id: ObjectId(id)});
+
+
+
+
+
+
+
+
+
+            return result;
+
+
+
+
+
+
+
+        }catch(err) {
+
+
+
+
+            return err;
+
+
+        }
+
+    },
+
     deleteTempTable: async (nameTable) => {
 
         try {
@@ -156,32 +197,34 @@ module.exports = {
                             }
                     },
 
-                    {
-                        $project:
-                            {
+                           {
+                            $project:
+                                   {
 
 
-                                categName: { $arrayElemAt: [ "$categNameFirst", 0 ] },
+                                       categName: { $arrayElemAt: [ "$categNameFirst", 0 ] },
 
-                            }
-                    },
+                                   }
+                           },
 
-                    {
-                        $addFields: {
-                            "yearName": itemOfCateg,
-                            data: "$_id"
-                        }
-                    },
+                           {
+                               $addFields: {
+                                   "yearName": itemOfCateg,
+                                   data: "$_id"
+                               }
+                           },
 
-                    {
-                        $project:
-                            {
+                           {
+                               $project:
+                                   {
 
 
-                                _id: 0,
+                                       _id: 0,
 
-                            }
-                    },
+
+
+                                   }
+                           },
 
 
 
@@ -199,8 +242,36 @@ module.exports = {
 
 
 
+            console.log("\x1b[42m", result);
 
 
+            for (let itemOfResult of result) {
+                for (let obj of itemOfResult) {
+
+
+                    console.log("\x1b[42m", obj);
+                    let tempArr = [];
+
+                    tempArr.push(obj.categName);
+
+
+
+                    for (let [index, obj1] of obj.data.entries()) {
+
+
+
+                       obj1 = obj1.replace(/,/g, ".");
+                       obj1 = obj1.replace(/ /g, "");
+
+                        obj1 = Number.parseFloat(obj1);
+
+                        tempArr.push(obj1);
+
+                    }
+
+                    obj.data = tempArr;
+                }
+            }
 
 
 
@@ -222,6 +293,9 @@ module.exports = {
 
 
     },
+
+
+
 
 
     insertFromMSSQL: async (flattenArr, tableName) => {

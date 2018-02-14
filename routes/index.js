@@ -30,7 +30,23 @@ const jsonwebtoken = require('jsonwebtoken');
 
 
 
+router.post("/getgosprogramm", async(req, res, next) => {
 
+
+    let result = await GosProgrammServise.addPost(req.body);
+
+
+
+
+
+    res.json({code: 0});
+
+
+
+
+
+
+});
 
 
 
@@ -46,7 +62,7 @@ router.post('/auth', async(req, res, next) => {
 
 
 
-    if (result !== null) {
+    if (result) {
 
 
         if (bcryptjs.compareSync(req.body.pass, result.pass)) {
@@ -168,12 +184,71 @@ router.post("/checkadminpage", async(req, res, next) => {
     if (result === null){
 
         res.json({code: 1});
+    } else {
+
+        res.json({code: 0});
     }
 
 
 
 
 });
+
+async function Budget(resultFromDB, randomPrefix, dataFromMssql, typePage) {
+
+    let resultAllTable = [];
+
+    for (let [index, itemResult] of resultFromDB.entries()) {
+        let result = [];
+
+        let chartType = await PagesService.getChartById(itemResult.chartId);
+
+
+        for (let dataFromMSSQLItem of dataFromMssql) {
+            for (let dataFromRecordset of dataFromMSSQLItem.recordset) {
+                
+                
+                let tempArr = [];
+                
+                tempArr.push(dataFromRecordset.Name);
+
+
+                for (let itemCateg of itemResult.chipsArr) {
+                    if(Object.keys(dataFromRecordset).includes(itemCateg)){
+
+                        tempArr.push(Number.parseInt(dataFromRecordset[itemCateg].replace(/ /g,'')));
+
+
+
+
+                    }
+                }
+
+
+                result.push(tempArr);
+
+                
+            }
+        }
+
+
+
+
+        resultAllTable.push({"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chartType.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": typePage});
+
+
+        await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
+
+    }
+
+    return resultAllTable;
+
+
+}
+
+
+
+
 
 
 
@@ -186,6 +261,10 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
     let resultFromDB = await PostsService.getOnePost(req.query.id);
+    let pageType = await PagesService.getPageType(req.query.id);
+
+
+
      let dataFromMssql = [];
 
      let randomPrefix = getRandomInt(1, 1000000);
@@ -195,7 +274,10 @@ router.get("/dynamicpage", async(req, res, next) => {
 
      for (let [index, obj] of resultFromDB.entries()) {
 
+
+
          dataFromMssql.push(await MsqlService.getDataFromOneTable(obj.tableName));
+
 
          await PagesService.insertFromMSSQL(dataFromMssql[index].recordset, obj.tableName + randomPrefix);
 
@@ -203,24 +285,59 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
 
-
-     let resultAllTable = [];
-
-     for (let [index, itemResult] of resultFromDB.entries()) {
-         let result = [];
-
-         let chartType = await PagesService.getChartById(itemResult.chartId);
-
-         result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
+    let resultAllTable = [];
 
 
 
-         resultAllTable.push({"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chartType.type, "idElem": slug(itemResult.titleCharts, {lower: true})});
 
 
-         await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
+     if(pageType.type === "budget") {
+
+        //resultAllTable = await Budget(resultFromDB, randomPrefix, dataFromMssql, "budget");
+
+
+         for (let [index, itemResult] of resultFromDB.entries()) {
+
+
+             let result = [];
+
+             let chartType = await PagesService.getChartById(itemResult.chartId);
+
+             result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
+
+
+
+             resultAllTable.push({"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chartType.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type});
+
+
+             await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
+
+         }
+
+     } else {
+
+
+
+         for (let [index, itemResult] of resultFromDB.entries()) {
+             let result = [];
+
+             let chart = await PagesService.getChartById(itemResult.chartId);
+
+             result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr));
+
+
+
+             resultAllTable.push({"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chart.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type, "axisRotate": chart.axisRotate, "stackBar": chart.stackBar});
+
+
+             await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
+
+         }
+
 
      }
+
+
 
 
 

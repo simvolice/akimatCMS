@@ -46,6 +46,8 @@ module.exports = {
                 title: "Круговая диаграмма",
                 imgUrl: "chartsImg/PieChart.PNG",
                 type: "pie",
+                    axisRotate: false,
+                    stackBar: [],
 
                 createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
@@ -59,6 +61,8 @@ module.exports = {
 
 
                     type: "line",
+                    axisRotate: false,
+                    stackBar: [],
 
 
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
@@ -72,6 +76,8 @@ module.exports = {
                     imgUrl: "chartsImg/DonutChart.PNG",
 
                     type: "donut",
+                    axisRotate: false,
+                    stackBar: [],
 
 
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
@@ -85,11 +91,62 @@ module.exports = {
                     imgUrl: "chartsImg/BarChart.PNG",
 
                     type: "bar",
+                    axisRotate: false,
+                    stackBar: [],
 
 
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
+                },
+
+                {
+
+
+                    title: "Горизонтальная столбцовая диаграмма",
+                    imgUrl: "chartsImg/horizontalBar.PNG",
+
+                    type: "bar",
+                    axisRotate: true,
+                    stackBar: [],
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+                {
+
+
+                    title: "Стэковая диаграмма",
+                    imgUrl: "chartsImg/StackChart.PNG",
+
+                    type: "bar",
+                    axisRotate: false,
+                    stackBar: [],
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+                {
+
+
+                    title: "Гибридная диаграмма",
+                    imgUrl: "chartsImg/hybrid.PNG",
+
+                    type: "barLine",
+                    axisRotate: false,
+                    stackBar: [],
+
+
+                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
+
                 }
+
+
+
 
 
 

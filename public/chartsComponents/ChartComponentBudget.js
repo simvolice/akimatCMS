@@ -5,13 +5,12 @@ function genParentChart(data) {
 
 
 
+
     for (let dataCommon of data) {
 
 
-
-
-
         let tableBody = "";
+
 
 
 
@@ -36,7 +35,7 @@ function genParentChart(data) {
 
                 tableBody += `<tr>
         <td class="tg-031e">${itemRecordset.Name}</td>
-        <td class="tg-031e">${itemRecordset.Territory}</td>
+      
         ${td}
         
         
@@ -55,7 +54,7 @@ function genParentChart(data) {
 
 
 
-        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody, dataCommon.axisRotate, dataCommon.stackBar)
+        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody)
 
 
 
@@ -73,10 +72,13 @@ function genParentChart(data) {
 }
 
 
-function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar) {
+function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody) {
 
 
-    console.log(data);
+
+
+    let cloneData = data;
+
 
 
     let descriptionVisible = "";
@@ -196,7 +198,6 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 <table class="tg table-striped">
   <tr>
     <th class="tg-hgcj">Наименование</th>
-    <th class="tg-hgcj">Территория</th>
     
     ${tableHead}
     
@@ -227,41 +228,26 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
+
     $("#title").after(templateForChart);
 
 
 
-    let lastArr = [];
-
-
-    for (let obj of data) {
-        lastArr = obj.slice(-1);
-    }
-
-
-
-       genChart(_.flattenDeep(lastArr)[0].data, idElem, chartType, axisRotated, stackBar);
 
 
 
 
 
+    data.splice(1, 1);
+    data.splice(2, 1);
 
 
 
+    console.log(data);
 
 
 
-
-
-
-
-
-
-    $("div.custom__label__date>span:last-child").addClass('active__options');
-
-
-
+    genChart(data, idElem, chartType);
 
 
 
@@ -272,12 +258,15 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
     $(".dateTitle").unbind().on('click', function(event) {
+
+
+
+
+
         event.preventDefault();
-
-
-
+        let tempArr3 = [];
+        let tempArr4 = [];
         let resultChartLoadDataByYear = [];
-
 
 
 
@@ -292,21 +281,11 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
                 for (let itemData of itemTableOne.data) {
 
-                    for (let itemOneObj of itemData) {
-                        for (let itemOneObjTemp of itemOneObj) {
-                            if (Number.parseInt(itemOneObjTemp.yearName) === $(this).data("dateval")){
+                    for (let item of itemData) {
 
-                                resultChartLoadDataByYear = itemOneObjTemp.data;
-
-                            }
-                        }
+                        tempArr3.push(_.groupBy(item, "yearName")) ;
 
                     }
-
-
-
-
-
                 }
 
 
@@ -317,14 +296,53 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
         }
 
 
+        for (let [index, itemLastElem] of tempArr3.entries()) {
+
+
+
+
+            for (let obj in itemLastElem) {
+
+
+
+
+
+                if (parseInt(obj) === $(this).data("dateval")){
+
+                    for (let obj1 of itemLastElem[obj]) {
+
+
+                        tempArr4.push(obj1.categName);
+
+                        for (let obj2 of obj1.data) {
+
+
+                            tempArr4.push(obj2);
+                        }
+                        resultChartLoadDataByYear.push(tempArr4);
+                        tempArr4 = [];
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+            }
+
+        }
 
 
 
         genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"));
-
-
-
-
 
         $('.dateTitle').removeClass('active__options');
         $(this).addClass('active__options');
@@ -340,83 +358,74 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 }
 
 
-function genChart(data, idElem, typeChart, axisRotated, stackBar) {
+function genChart(data, idElem, typeChart) {
 
 
 
 
 
-        bb.generate({
+   bb.generate({
 
-            bindto: "#" + idElem,
+        bindto: "#" + idElem,
 
-            data: {
+        data: {
 
-                columns: [data],
+            columns: data,
+
+            type: typeChart
+
+        },
 
 
-                type: typeChart
+        legend: {
+            show: true
+        },
+
+
+        bar: {
+            width: {
+                ratio: 0.5
+            }
+
+        },
+
+
+        grid: {
+            x: {
+                show: false
             },
+            y: {
+                show: false
+            }
+        },
 
-
-            groups: [
-                stackBar
-            ],
-
-            legend: {
+        axis: {
+            x: {
                 show: true
+
             },
+            y: {
+                show: false
+            }
+        },
+        labels: {
 
+            format: function (val) {
+                return d3.format(",.2f")(val);
+            }
+        },
+        tooltip: {
+            format: {
+                title: function (d) { return 'Значения'; },
+                value: function (value, ratio, id) {
 
-            bar: {
-                width: {
-                    ratio: 0.5
+                    return d3.format(",.2f")(value);
                 }
-
-            },
-
-
-            grid: {
-                x: {
-                    show: false
-                },
-                y: {
-                    show: false
-                }
-            },
-
-            axis: {
-
-                rotated: axisRotated,
-                x: {
-
-                    show: true
-
-                },
-                y: {
-                    show: false
-                }
-            },
-            labels: {
-
-                format: function (val) {
-                    return d3.format(",.2f")(val);
-                }
-            },
-            tooltip: {
-                format: {
-                    title: function (d) { return 'Значения'; },
-                    value: function (value, ratio, id) {
-
-                        return d3.format(",.2f")(value);
-                    }
-                }
-            },
+            }
+        },
 
 
-        });
-
-
+    });
 
 
 

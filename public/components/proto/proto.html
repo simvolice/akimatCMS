@@ -187,10 +187,41 @@
                             <div class="row">
                                 <div class="col-md-12 chartBlock">
                                     <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Заголовок государственной программы</label>
-                                        <input ng-model="titleGosProgramm">
+                                        <label class="textTitle">Паспорт программы</label>
+                                        <input ng-model="programPasport">
                                     </md-input-container>
 
+                                </div>
+
+                            </div>
+
+
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+
+                                    <md-input-container class="md-block">
+                                        <label>Описание программы</label>
+                                        <textarea ng-model="programmDescription" md-maxlength="500" rows="5"
+                                                  md-select-on-focus></textarea>
+                                    </md-input-container>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Разработчик программы</label>
+                                        <input ng-model="programmNameDev">
+                                    </md-input-container>
                                 </div>
 
                             </div>
@@ -200,8 +231,8 @@
                             <div class="row">
                                 <div class="col-md-12 chartBlock">
                                     <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Краткое описание государственной программы</label>
-                                        <input ng-model="descriptionGosProgramm">
+                                        <label class="textTitle">Цель программы</label>
+                                        <input ng-model="programmTarget">
                                     </md-input-container>
                                 </div>
 
@@ -211,14 +242,74 @@
 
                             <div class="row">
                                 <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Целевые индикаторы</label>
+                                        <input ng-model="programmTargetIndicator">
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">План мероприятий</label>
+                                        <input ng-model="programmActionPlan">
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
 
                                     <md-input-container class="md-block">
-                                        <label>Введите полное описание государственной программы</label>
-                                        <textarea ng-model="fullDescriptionGosProgramm" md-maxlength="500" rows="5"
+                                        <label>Описание мероприятий</label>
+                                        <textarea ng-model="programmDescriptionAction" md-maxlength="500" rows="5"
                                                   md-select-on-focus></textarea>
                                     </md-input-container>
 
 
+                                </div>
+
+                            </div>
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+
+                                    <md-input-container class="md-block">
+                                        <label class="textTitle">Финансирование мероприятий</label>
+                                        <input ng-model="programmFinansAction">
+                                    </md-input-container>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Целевые индикаторы мероприятий</label>
+                                        <input ng-model="programmTargetDescrIndicator">
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 chartBlock">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="textTitle">Динамика целевых индикаторов за период программы</label>
+                                        <input ng-model="programmDimicIndicator">
+                                    </md-input-container>
                                 </div>
 
                             </div>
