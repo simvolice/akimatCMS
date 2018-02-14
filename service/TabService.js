@@ -94,5 +94,46 @@ module.exports = {
 
 
 
+    getById: async (id) => {
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('tab_names');
+
+
+
+
+            const result = await col.findOne({_id: ObjectId(id)});
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
 
 };

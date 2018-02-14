@@ -154,7 +154,7 @@ module.exports = {
 
     },
 
-    getDataForDynamicPage: async (tableName, categArr) => {
+    getDataForDynamicPage: async (tableName, categArr, typeDiagramm) => {
 
 
         try {
@@ -243,7 +243,6 @@ module.exports = {
 
 
 
-          console.log("\x1b[42m", result);
 
             for (let itemOfResult of result) {
                 for (let obj of itemOfResult) {

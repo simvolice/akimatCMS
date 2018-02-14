@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <md-content id="mainpage" layout="column" flex class="custom__md-content__categ">
 
-            <md-card id="title">
+            <md-card>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -17,6 +17,28 @@
 
 
 
+
+
+            <md-card>
+
+                <md-tabs md-selected="selectedIndex" md-border-bottom md-autoselect md-swipe-content>
+                    <md-tab  ng-repeat="tab in data"
+
+                            label="{{tab.tabName}}">
+
+
+                        <div id="{{tab.idElemTab}}">
+
+
+                        </div>
+
+
+                    </md-tab>
+                </md-tabs>
+
+
+
+            </md-card>
 
 
 

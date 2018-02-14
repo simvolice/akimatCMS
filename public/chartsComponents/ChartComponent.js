@@ -24,7 +24,7 @@ function genParentChart(data) {
 
 
 
-            categByTerritory.push(itemRecordset.Territory);
+            categByTerritory.push(itemRecordset[dataCommon.typeDiagramm]);
 
 
                 let td = "";
@@ -61,7 +61,7 @@ function genParentChart(data) {
 
 
 
-        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody, dataCommon.axisRotate, dataCommon.stackBar, categByTerritory)
+        generateChart(dataCommon.data, dataCommon.idElem, dataCommon.titleCharts, dataCommon.categ, dataCommon.fileUrl, dataCommon.fileName, dataCommon.description, dataCommon.chartType, data, tableBody, dataCommon.axisRotate, dataCommon.stackBar, categByTerritory, dataCommon.idElemTab)
 
 
 
@@ -79,7 +79,7 @@ function genParentChart(data) {
 }
 
 
-function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar, categByTerritory) {
+function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar, categByTerritory, idElemTab) {
 
 
 
@@ -152,7 +152,11 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-    let templateForChart = `<md-card class="text-center test123">
+
+    let templateForChart = `
+         
+   
+        <md-card class="text-center test123">
                     <div class="row">
 
                     <div class="col-md-6 btnRow" >
@@ -218,7 +222,17 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
     
     
 
-</md-card>`;
+</md-card>
+       
+         
+      
+      
+         
+     
+    
+         
+
+`;
 
 
 
@@ -231,8 +245,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-
-    $("#title").after(templateForChart);
+    $(`#${idElemTab}`).after(templateForChart);
 
 
 

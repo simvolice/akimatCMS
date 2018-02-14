@@ -7,6 +7,7 @@
 angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoad, $stateParams, $http) {
 
 
+
     if ($stateParams.id !== null){
 
         localStorage.setItem("idPage", $stateParams.id);
@@ -34,10 +35,9 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
     }).then(function mySuccess(response) {
 
 
-
         $scope.data = response.data.resultFromDB;
 
-        $ocLazyLoad.load("chartsComponents/ChartComponent.js?v=" + getRandomInt(1, 1000000));
+        $ocLazyLoad.load(`chartsComponents/ChartComponent.js?v=${getRandomInt(1, 1000000)}`);
 
         $scope.$on('ocLazyLoad.fileLoaded', function(e, module) {
 
@@ -46,13 +46,6 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
 
 
         });
-
-
-
-
-
-
-
 
 
 
