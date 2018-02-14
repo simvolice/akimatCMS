@@ -17,6 +17,79 @@ module.exports = {
 
 
 
+    deleteOnePost: async (id) => {
+
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('posts');
+
+
+
+
+            const result = await col.deleteOne({_id: ObjectId(id)});
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+    },
+
+
+    getAllPost: async () => {
+
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('posts');
+
+
+
+
+            const result = await col.find({}).toArray();
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+    },
+
 
 
     addPost: async (objParams) => {

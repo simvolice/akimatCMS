@@ -2,7 +2,7 @@
  * Created by Admin on 29.09.2016.
  */
 
-angular.module('app').controller('protoCtrl', function (GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
+angular.module('app').controller('protoCtrl', function (GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
 
 
 
@@ -54,6 +54,11 @@ $scope.saveGosProgramm = function () {
         $scope.searchTerm = '';
     };
 
+
+    $scope.clearSearchTermPost = function () {
+        $scope.searchTermPost = '';
+    };
+
     $element.find('input').on('keydown', function(ev) {
         ev.stopPropagation();
     });
@@ -78,6 +83,43 @@ $scope.saveGosProgramm = function () {
 
 
     });
+
+
+    GetAllpost.get(function (result) {
+
+
+        $scope.getAllpost = result.resultFromDB;
+
+
+    });
+
+
+
+    $scope.deletePost = function () {
+       Deleteonepost.save({id: $scope.postsSelect}, function (result) {
+
+
+           GetAllpost.get(function (result) {
+
+
+               $scope.getAllpost = result.resultFromDB;
+
+
+           });
+
+
+           $mdToast.show(
+               $mdToast.simple()
+                   .textContent('Вы успешно удалили пост.')
+                   .position('left bottom')
+                   .hideDelay(3000)
+           );
+
+
+
+       })
+    };
+
 
 
 

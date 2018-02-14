@@ -27,3 +27,13 @@ angular.module('app').factory("Getallcharts", function($resource) {
 angular.module('app').factory("GetGosProgramm", function($resource) {
     return $resource("/getgosprogramm");
 });
+
+
+angular.module('app').factory("Deleteonepost", function($resource) {
+    return $resource("/deleteonepost");
+});
+
+
+angular.module('app').factory("GetAllpost", function($resource) {
+    return $resource("/getallpost");
+});

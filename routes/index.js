@@ -480,6 +480,30 @@ router.post("/getgosprogramm", async(req, res, next) => {
 });
 
 
+router.post("/deleteonepost", async (req, res, next) => {
+
+
+    let result = await PostsService.deleteOnePost(req.body.id);
+
+
+    res.json({code: 0});
+
+
+});
+
+router.get("/getallpost", async (req, res, next) => {
+
+
+    let result = await PostsService.getAllPost();
+
+
+   res.json({code: 0, resultFromDB: result});
+
+
+});
+
+
+
 
 
 

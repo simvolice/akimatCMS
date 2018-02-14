@@ -189,6 +189,51 @@
                                 </div>
                             </div>
 
+
+
+
+                            <hr style="background: red">
+
+
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+
+                                    <md-select ng-model="postsSelect" placeholder="Выбрать пост"
+                                               class="md-no-underline textTitle" md-on-close="clearSearchTermPost()" data-md-container-class="selectdemoSelectHeader" md-on-open="changeTablePost()">
+
+
+                                        <md-select-header class="demo-select-header">
+                                            <input ng-model="searchTermPost"
+                                                   type="search"
+                                                   placeholder="Поиск поста..."
+                                                   class="demo-header-searchbox md-text"
+                                                   ng-keydown="$event.stopPropagation($event)">
+                                        </md-select-header>
+                                        <md-option ng-repeat="post in getAllpost | filter:searchTermPost" ng-value="post._id">
+                                            {{post.titleCharts}}
+                                        </md-option>
+                                    </md-select>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <md-button class="md-raised md-primary" ng-click="deletePost()">Удалить пост
+                                    </md-button>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
                             <hr>
                             <div class="row">
                                 <div class="col-md-12 chartBlock">
@@ -346,6 +391,7 @@
 
                                 </div>
                             </div>
+
 
 
 
