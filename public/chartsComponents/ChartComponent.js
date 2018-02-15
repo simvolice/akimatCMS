@@ -446,6 +446,9 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
     };
 
 
+
+
+
     d3.formatDefaultLocale(locale);
 
 
