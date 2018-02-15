@@ -237,6 +237,7 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
 
+
      for (let [index, obj] of resultFromDB.entries()) {
 
 
@@ -246,7 +247,14 @@ router.get("/dynamicpage", async(req, res, next) => {
 
          await PagesService.insertFromMSSQL(dataFromMssql[index].recordset, obj.tableName + randomPrefix);
 
+
+
+
+
+
      }
+
+
 
 
 
