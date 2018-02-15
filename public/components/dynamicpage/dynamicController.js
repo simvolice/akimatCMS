@@ -36,6 +36,7 @@ angular.module('app').controller('dynamicPageCtrl', function ($scope, $ocLazyLoa
 
 
         $scope.data = response.data.resultFromDB;
+        $scope.tabs = response.data.tabNames;
 
         $ocLazyLoad.load(`chartsComponents/ChartComponent.js?v=${getRandomInt(1, 1000000)}`);
 
