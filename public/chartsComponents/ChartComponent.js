@@ -88,6 +88,11 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
+    localStorage.setItem(`category${idElem}`, categByTerritory);
+
+
+
+
 
 
     let descriptionVisible = "";
@@ -373,6 +378,9 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
                     for (let itemData of itemTableOne.data) {
 
+
+
+
                         for (let itemOneObj of itemData) {
                             for (let itemOneObjTemp of itemOneObj) {
                                 if (Number.parseInt(itemOneObjTemp.yearName) === $(this).data("dateval")){
@@ -420,9 +428,6 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerritory) {
-
-
-
 
 
 
@@ -479,7 +484,8 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
                 x: {
 
                     type: "category",
-                    categories: categByTerritory,
+                    categories: localStorage.getItem(`category${idElem}`).split(",")
+,
 
                     show: true
 

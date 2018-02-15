@@ -249,6 +249,8 @@ module.exports = {
 
 
 
+
+
                     let tempArr = [];
 
                     tempArr.push(obj.categName);
