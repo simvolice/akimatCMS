@@ -274,6 +274,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
+
         genChart(lastArr[0].data, idElem, chartType, axisRotated, stackBar, categByTerritory);
 
 
@@ -321,9 +322,8 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
     $(".dateTitle").unbind().on('click', function(event) {
         event.preventDefault();
 
-
-
-        let resultChartLoadDataByYear = [];
+        $('.dateTitle').removeClass('active__options');
+        $(this).addClass('active__options');
 
 
 
@@ -337,24 +337,65 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-                for (let itemData of itemTableOne.data) {
 
-                    for (let itemOneObj of itemData) {
-                        for (let itemOneObjTemp of itemOneObj) {
-                            if (Number.parseInt(itemOneObjTemp.yearName) === $(this).data("dateval")){
+                if ($(this).data("typechart") === "pie" || $(this).data("typechart")=== "donut") {
 
-                                resultChartLoadDataByYear = itemOneObjTemp.data;
+
+
+
+                    for (let itemData of itemTableOne.data) {
+
+                        for (let itemDataItem of itemData) {
+
+
+                            if(Number.parseInt(itemDataItem.factorName) === $(this).data("dateval")) {
+
+
+
+                                genChart(itemDataItem.data, $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
+
+
+
+
 
                             }
+
+
+
+
                         }
+
+
+                    }
+
+
+                } else {
+
+                    for (let itemData of itemTableOne.data) {
+
+                        for (let itemOneObj of itemData) {
+                            for (let itemOneObjTemp of itemOneObj) {
+                                if (Number.parseInt(itemOneObjTemp.yearName) === $(this).data("dateval")){
+
+
+                                    genChart([itemOneObjTemp.data], $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
+
+
+
+
+
+                                }
+                            }
+
+                        }
+
 
                     }
 
 
 
-
-
                 }
+
 
 
 
@@ -366,15 +407,6 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-
-        genChart([resultChartLoadDataByYear], $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
-
-
-
-
-
-        $('.dateTitle').removeClass('active__options');
-        $(this).addClass('active__options');
 
 
 
