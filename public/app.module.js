@@ -116,9 +116,14 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
 
 
 
-            if (objItem.id <= 21) {
+            if (objItem.id <= 25) {
+
+
 
                 $scope.arrForSar.push(objItem);
+
+
+
 
             } else {
 

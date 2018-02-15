@@ -206,6 +206,10 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+
+
+
+
 router.get("/dynamicpage", async(req, res, next) => {
 
 
@@ -274,35 +278,23 @@ router.get("/dynamicpage", async(req, res, next) => {
              let chart = await PagesService.getChartById(itemResult.chartId);
 
 
-             if (chart.subType === "line"){
 
 
-                 for (let obj of dataFromMssql) {
+             if (chart.type === "pie" || chart.type === "donut") {
 
-                     for (let obj1 of obj.recordset) {
-                        console.log("\x1b[42m", lodash.groupBy(obj1, "I_kv"));
-                     }
+                 result.push(await PagesService.getDataPie(itemResult.tableName + randomPrefix, itemResult.chipsArr, itemResult.typeDiagramm));
 
 
 
-                 }
-
-
-
-
-                 result.push(await PagesService.getDataForDynamicPageHybridBar(itemResult.tableName + randomPrefix, itemResult.chipsArr, itemResult.typeDiagramm));
-
-
-
-                 resultAllTable.push({"typeDiagramm": itemResult.typeDiagramm, "idElemTab": slug(tabName.tabName, {lower: true}), "tabName": tabName.tabName,"dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chart.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type, "axisRotate": chart.axisRotate, "stackBar": chart.stackBar});
+                 resultAllTable.push({"typeDiagramm": itemResult.typeDiagramm, "idElemTab": slug(tabName.tabName, {lower: true}), "dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chart.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type, "axisRotate": chart.axisRotate, "stackBar": chart.stackBar});
 
 
                  await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
 
 
 
-
              } else {
+
 
                  result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr, itemResult.typeDiagramm));
 
@@ -314,28 +306,44 @@ router.get("/dynamicpage", async(req, res, next) => {
                  await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
 
 
+
+
              }
+
+
+
+
+
+
+
 
 
 
          }
 
-    let tabName = [];
-
-
-    for (let groupTabOne of groupTab) {
-
-
-        let tempObj = await TabService.getById(groupTabOne);
-
-
-        tempObj["idElemTab"] = slug(tempObj.tabName, {lower: true});
-
-        tabName.push(tempObj);
 
 
 
-    }
+
+
+
+      let tabName = [];
+
+
+      for (let groupTabOne of groupTab) {
+
+
+          let tempObj = await TabService.getById(groupTabOne);
+
+
+          tempObj["idElemTab"] = slug(tempObj.tabName, {lower: true});
+
+          tabName.push(tempObj);
+
+
+
+      }
+
 
 
 

@@ -296,7 +296,7 @@ module.exports = {
     },
 
 
-    getDataForDynamicPageHybridBar: async (tableName, categArr, typeDiagramm) => {
+    getDataPie: async (tableName, categArr, typeDiagramm) => {
 
 
         try {
@@ -320,54 +320,14 @@ module.exports = {
                         {$match: {}},
 
 
-                       /* { $group : { _id: "Name", value: { $push: "$$ROOT" } } },
 
-*/
-
-
-                        /*{ $group : { _id : "$value." + itemOfCateg, categName: { $addToSet: "$value.Name" }} },
-*/
-
-                /*        {
-                            $project:
-                                {
-
-
-                                    categNameFirst: { $arrayElemAt: [ "$categName", 0 ] },
-
-                                }
-                        },
-
-                        {
-                            $project:
-                                {
-
-
-                                    categName: { $arrayElemAt: [ "$categNameFirst", 0 ] },
-
-                                }
-                        },
-
-                        {
-                            $addFields: {
-                                "yearName": itemOfCateg,
-                                data: "$_id"
-                            }
-                        },
-
-                        {
-                            $project:
-                                {
-
-
-                                    _id: 0,
+                        { $group : { _id : "$Name", value: { $push: "$$ROOT" } } },
 
 
 
-                                }
-                        },
 
-*/
+
+
 
                     ],
 
@@ -382,43 +342,36 @@ module.exports = {
 
 
 
-            console.log("\x1b[42m", result[0]);
 
 
 
-         /*   for (let itemOfResult of result) {
-                for (let obj of itemOfResult) {
 
 
+
+let resultAllFactor = [];
+
+            for (let categItem of categArr) {
+                let resultAll = [];
+                for (let obj of result.pop()) {
 
                     let tempArr = [];
 
-                    tempArr.push(obj.categName);
+                    tempArr.push(obj._id);
 
+                   tempArr.push(Number.parseFloat(obj.value[0][categItem]));
 
+                   resultAll.push(tempArr);
 
-                    for (let [index, obj1] of obj.data.entries()) {
-
-
-
-                        obj1 = obj1.replace(/,/g, ".");
-                        obj1 = obj1.replace(/ /g, "");
-
-                        obj1 = Number.parseFloat(obj1);
-
-                        tempArr.push(obj1);
-
-                    }
-
-                    obj.data = tempArr;
                 }
+
+                resultAllFactor.push({factorName: categItem, data: resultAll});
             }
-*/
 
 
 
 
-            return result;
+
+            return resultAllFactor;
 
 
         }catch(err) {

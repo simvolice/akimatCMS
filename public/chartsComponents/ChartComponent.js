@@ -5,6 +5,11 @@ function genParentChart(data) {
 
 
 
+
+
+
+
+
     for (let dataCommon of data.reverse()) {
 
 
@@ -80,6 +85,7 @@ function genParentChart(data) {
 
 
 function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar, categByTerritory, idElemTab) {
+
 
 
 
@@ -258,7 +264,30 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-       genChart(_.flattenDeep(lastArr)[0].data, idElem, chartType, axisRotated, stackBar, categByTerritory);
+
+
+
+
+
+    if(chartType === "pie" || chartType === "donut") {
+
+
+
+
+        genChart(lastArr[0].data, idElem, chartType, axisRotated, stackBar, categByTerritory);
+
+
+
+
+    } else {
+
+
+        genChart([_.flattenDeep(lastArr)[0].data], idElem, chartType, axisRotated, stackBar, categByTerritory);
+
+
+    }
+
+
 
 
 
@@ -364,13 +393,14 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
 
 
 
+
         bb.generate({
 
             bindto: "#" + idElem,
 
             data: {
 
-                columns: [data],
+                columns: data,
 
 
                 type: typeChart,

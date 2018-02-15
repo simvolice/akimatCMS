@@ -153,6 +153,24 @@ module.exports = {
                 },
 
 
+                {
+
+
+                    title: "Горизонтальная столбцовая диаграмма вместе с линейной",
+                    imgUrl: "chartsImg/horisontalwithLine.PNG",
+
+                    type: "bar",
+                    subType: "line",
+                    axisRotate: true,
+                    stackBar: [],
+
+
+                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
 
 
 
@@ -242,93 +260,121 @@ module.exports = {
                     createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
                 { "id":10,
-                    title: "ЖКХ И ЭНЕРГЕТИКА",
+                    title: "ЖКХ и энергетика",
                     createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
+
                 { "id":11,
-                    title: "Транспорт",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":12,
-                    title: "Координация занятости и социальная защита",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":13,
-                    title: "Здравоохранение",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":14,
-                    title: "Образование",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":15,
-                    title: "Молодежная политика",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":16,
-                    title: "Культура",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":17,
-                    title: "Религия",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":18,
-                    title: "Ветеринария",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":19,
-                    title: "Оперативные данные",
-                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":20,
-                    title: "Спорт", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
-                },
-                { "id":21,
                     title: "Инновации",
                     createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
 
 
+                { "id":12,
+                    title: "Транспорт",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":13,
+                    title: "Координация занятости и социальная защита",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":14,
+                    title: "Здравоохранение",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":15,
+                    title: "Образование",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":16,
+                    title: "Молодежная политика",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":17,
+                    title: "Инспекция труда",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
 
-                
+                { "id":18,
+                    title: "Охрана земель",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
 
+                { "id":19,
+                    title: "Земельные отношения",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
 
+                { "id":20,
+                    title: "Культура",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+                { "id":21,
+                    title: "Религия",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
                 { "id":22,
+                    title: "Ветеринария",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+                { "id":23,
+                    title: "Спорт", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+                { "id":24,
+                    title: "Правопорядок", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+                { "id":25,
+                    title: "ЧС", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+                { "id":26,
+                    title: "Внутренняя политика", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+                { "id":27,
+                    title: "Развитие языков", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                },
+
+
+
+                { "id":28,
                     title: "Бюджет",
                     createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
 
 
 
-                { "id":24,title: "Структура доходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":25,title: "Динамика доходов (план)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":26,title: "Динамика расходов (план)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":27,title: "Структура расходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":28,title: "В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":29,title: "В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":30,title: "В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":31,title: "В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":32,title: "Чистое бюджетное кредитование", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":33,title: "Сальдо по операциям с финансовыми активами", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":34,title: "Финансирование дефицита (использование профицита) бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":29,title: "Структура доходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":30,title: "Динамика доходов (план)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":31,title: "Динамика расходов (план)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":32,title: "Структура расходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":33,title: "В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":34,title: "В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":35,title: "В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":36,title: "В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":37,title: "Чистое бюджетное кредитование", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":38,title: "Сальдо по операциям с финансовыми активами", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":39,title: "Финансирование дефицита (использование профицита) бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
 
 
 
 
 
-                { "id":35, title: "Основные показатели исполнения бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":36, title: "Исполнение. Структура доходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":37, title: "Динамика доходов (факт)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":38, title: "Динамика расходов (факт)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":39, title: "Исполнение. Структура расходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":40, title: "Исполнение. В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":41, title: "Исполнение. В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":42, title: "Исполнение. В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":43, title: "Исполнение. В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":44, title: "Чистое бюджетное кредитование", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":45, title: "Сальдо по операциям с финансовыми активами", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
-                { "id":46, title: "Финансирование дефицита (использование профицита) бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),}
+                { "id":40, title: "Основные показатели исполнения бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":41, title: "Исполнение. Структура доходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":42, title: "Динамика доходов (факт)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":43, title: "Динамика расходов (факт)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":44, title: "Исполнение. Структура расходов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":45, title: "Исполнение. В разрезе программ", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":46, title: "Исполнение. В разрезе администраторов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":47, title: "Исполнение. В разрезе направлений (отраслей)", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":48, title: "Исполнение. В разрезе районов", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":49, title: "Чистое бюджетное кредитование", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":50, title: "Сальдо по операциям с финансовыми активами", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),},
+                { "id":51, title: "Финансирование дефицита (использование профицита) бюджета", createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),}
 
 
 
