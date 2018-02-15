@@ -367,7 +367,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-        genChart(resultChartLoadDataByYear, $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
+        genChart([resultChartLoadDataByYear], $(this).data("id"), $(this).data("typechart"), $(this).data("axisrotated"), stackBar, categByTerritory);
 
 
 
