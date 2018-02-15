@@ -330,8 +330,10 @@ module.exports = {
                     title: "ЧС", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
 
-                { "id":26,
-                    title: "Внутренняя политика", createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
+                {
+                    "id":26,
+                    title: "Внутренняя политика",
+                    createAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)),
                 },
 
                 { "id":27,

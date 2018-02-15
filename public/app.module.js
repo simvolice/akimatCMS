@@ -120,8 +120,23 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
 
 
 
+
                 $scope.arrForSar.push(objItem);
 
+
+
+
+            } else if (objItem.id === 50) {
+
+
+                $scope.arrForSar.push(objItem);
+
+
+
+            }else if (objItem.id === 51) {
+
+
+                $scope.arrForSar.push(objItem);
 
 
 
