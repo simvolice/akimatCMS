@@ -110,8 +110,26 @@ module.exports = {
 
 
 
+            if (result === null){
 
-            return result;
+
+
+
+
+                return 0;
+
+
+            } else {
+
+                return result;
+
+
+            }
+
+
+
+
+
 
 
         }catch(err) {

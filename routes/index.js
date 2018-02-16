@@ -213,6 +213,12 @@ function getRandomInt(min, max) {
 router.get("/dynamicpage", async(req, res, next) => {
 
 
+
+
+
+
+
+
     let resultFromDB = await PostsService.getOnePost(req.query.id);
 
 
@@ -272,10 +278,7 @@ router.get("/dynamicpage", async(req, res, next) => {
          for (let [index, itemResult] of resultFromDB.entries()) {
              let result = [];
 
-
              let tabName = await TabService.getById(itemResult.tabName);
-
-
 
 
 
@@ -311,7 +314,34 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
 
-                 resultAllTable.push({"typeDiagramm": itemResult.typeDiagramm, "idElemTab": slug(tabName.tabName, {lower: true}), "dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chart.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type, "axisRotate": chart.axisRotate, "stackBar": chart.stackBar});
+
+
+
+
+
+
+                 if (tabName === 0){
+
+
+                     console.log("\x1b[42m", 0);
+                 } else {
+
+                     resultAllTable.push({"typeDiagramm": itemResult.typeDiagramm, "idElemTab": slug(tabName.tabName, {lower: true}), "dataRow": dataFromMssql[index], "titleCharts": itemResult.titleCharts, "data": result, "categ": itemResult.chipsArr, "description": itemResult.description, "fileName": itemResult.fileName, "fileUrl": itemResult.fileUrl, "chartType": chart.type, "idElem": slug(itemResult.titleCharts, {lower: true}), "typePage": pageType.type, "axisRotate": chart.axisRotate, "stackBar": chart.stackBar});
+
+                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                  await PagesService.deleteTempTable(itemResult.tableName + randomPrefix);
@@ -337,28 +367,45 @@ router.get("/dynamicpage", async(req, res, next) => {
 
 
 
-
-      let tabName = [];
-
-
-      for (let groupTabOne of groupTab) {
+             let tabName = [];
 
 
-          let tempObj = await TabService.getById(groupTabOne);
+             for (let groupTabOne of groupTab) {
 
 
-          tempObj["idElemTab"] = slug(tempObj.tabName, {lower: true});
+                 let tempObj = await TabService.getById(groupTabOne);
 
-          tabName.push(tempObj);
+                 if (tempObj !== 0) {
 
+                     tempObj["idElemTab"] = slug(tempObj.tabName, {lower: true});
 
+                     tabName.push(tempObj);
 
-      }
+                 }
 
 
 
 
-    res.json({code: 0, resultFromDB: resultAllTable, tabNames: tabName});
+
+             }
+
+
+
+
+
+
+
+
+
+
+
+        res.json({code: 0, resultFromDB: resultAllTable, tabNames: tabName});
+
+
+
+
+
+
 
 
 
