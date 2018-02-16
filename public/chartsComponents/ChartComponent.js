@@ -10,6 +10,12 @@ function genParentChart(data) {
 
 
 
+
+
+
+
+
+
     for (let dataCommon of data.reverse()) {
 
 
@@ -87,6 +93,12 @@ function genParentChart(data) {
 function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, description, chartType, allData, tableBody, axisRotated, stackBar, categByTerritory, idElemTab) {
 
 
+    setTimeout(function () {
+        $('.label[data-dateval="Znach"]').remove();
+
+    }, 1000);
+
+
 
     localStorage.setItem(`category${idElem}`, categByTerritory);
 
@@ -151,6 +163,10 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
     }
+
+
+
+
 
 
 
@@ -452,8 +468,12 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
     d3.formatDefaultLocale(locale);
 
 
+    bb.generate({
 
-        bb.generate({
+
+        size: {
+            height: 400
+        },
 
             bindto: "#" + idElem,
 
@@ -528,6 +548,7 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
 
 
         });
+
 
 
 

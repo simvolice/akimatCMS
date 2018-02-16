@@ -304,6 +304,9 @@ router.get("/dynamicpage", async(req, res, next) => {
              } else {
 
 
+
+
+
                  result.push(await PagesService.getDataForDynamicPage(itemResult.tableName + randomPrefix, itemResult.chipsArr, itemResult.typeDiagramm));
 
 
