@@ -1,0 +1,16 @@
+#circle {
+	width: 200px;
+	height: 200px;
+	background: #d1edfc;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	border-radius: 100px;
+	box-shadow: 0 0 8px #ea4c89, inset 0 0 8px #ea4c89;
+
+}
+a{
+	display:block;
+  font-family:Roboto;
+  font-size:16px;
+}
+

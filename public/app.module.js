@@ -83,10 +83,13 @@ app.filter('ruFormat', function() {
 
 
 
-app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $translate, $rootScope ,) {
+app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $translate, $rootScope, $window) {
 
 
 
+    $scope.goToGos = function () {
+        $window.open("gosprograms/НурлыЖол.html")
+    }
 
 
 
