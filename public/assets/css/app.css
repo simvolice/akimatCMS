@@ -1333,7 +1333,14 @@ table .collapse.in {
 
 
 
+.custom__span__btn {
 
+    top: 0;
+    position: absolute;
+    left: 50%;
+
+
+}
 
 
 

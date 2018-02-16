@@ -96,6 +96,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
     setTimeout(function () {
         $('.label[data-dateval="Znach"]').remove();
 
+
     }, 1000);
 
 
@@ -157,7 +158,8 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
     for (let changeDataChartArrItem of categ) {
 
-        labelSpan += `<span class="label dateTitle" data-dateval="${changeDataChartArrItem}" data-nametable="${titleDiagramm}" data-id="${idElem}" data-typechart="${chartType}" data-axisRotated="${axisRotated}">${changeDataChartArrItem}</span>`
+        labelSpan += `<span class="label dateTitle" data-dateval="${changeDataChartArrItem}" data-nametable="${titleDiagramm}" data-id="${idElem}" data-typechart="${chartType}" data-axisRotated="${axisRotated}" 
+    style="cursor: pointer">${changeDataChartArrItem}</span>`
 
         tableHead += `<th class="tg-hgcj">${changeDataChartArrItem}</th>`
 
@@ -183,7 +185,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
     let templateForChart = `
          
    
-        <md-card class="text-center test123">
+        <md-card class="text-center">
                     <div class="row">
 
                     <div class="col-md-6 btnRow" >
@@ -192,7 +194,7 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
                            
                     </div>
  
-                    <div class="col-md-6 custom__label__date text-right">
+                    <div class="col-md-6 text-center" style="position: absolute; top: 10px; left: 62%;">
                              
                              ${labelSpan}
         
@@ -203,10 +205,10 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 
 
 
-    <h3 class="title" style="text-transform: uppercase">${titleDiagramm}</h3>
+    <h3 class="title" style="text-transform: uppercase; position: absolute;top: 0; font-size: 12px; left: 42%">${titleDiagramm}</h3>
     
     
-    <div id="${idElem}"></div>
+    <div id="${idElem}" style="position: relative; top: 80px;"></div>
     
     
     <div class="row" style="visibility: ${descriptionVisible};">
@@ -446,6 +448,8 @@ function generateChart(data, idElem, titleDiagramm, categ, fileUrl, fileName, de
 function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerritory) {
 
 
+
+
     var locale = {
         "decimal": ",",
         "thousands": "\u00A0",
@@ -472,7 +476,7 @@ function genChart(data, idElem, typeChart, axisRotated, stackBar, categByTerrito
 
 
         size: {
-            height: 400
+            height: 350
         },
 
             bindto: "#" + idElem,
