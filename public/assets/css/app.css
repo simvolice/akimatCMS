@@ -1342,13 +1342,8 @@ table .collapse.in {
 
 }
 
-
-
-
-
-
-
-
-
-
-
+.custom__help {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+}

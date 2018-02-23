@@ -6,7 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
 
-
+const bcrypt = require('bcryptjs');
 
 
 
@@ -18,6 +18,215 @@ module.exports = {
 
 
 
+
+    addUsers: async (objParams) => {
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('users');
+
+
+
+
+            const result = await col.insertOne({
+
+
+
+
+                        name: objParams.name,
+                        roleId: ObjectId(objParams.roleId),
+                        pass: bcrypt.hashSync(objParams.newPass, 10),
+
+
+
+
+                }
+            );
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+    },
+
+    updUsers: async (objParams) => {
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('users');
+
+
+
+
+            if (objParams.newPass === "") {
+
+                const result = await col.updateOne({_id: ObjectId(objParams._id)}, {
+                        $currentDate: {
+                            lastModified: true
+                        },
+                        $set: {
+
+
+
+                            name: objParams.name,
+                            roleId: ObjectId(objParams.roleId),
+
+
+                        }
+
+                    }
+                );
+
+                return result;
+
+
+            } else {
+
+
+                const result = await col.updateOne({_id: ObjectId(objParams._id)}, {
+                        $currentDate: {
+                            lastModified: true
+                        },
+                        $set: {
+
+
+
+                            name: objParams.name,
+                            roleId: ObjectId(objParams.roleId),
+                            pass: bcrypt.hashSync(objParams.newPass, 10),
+
+
+                        }
+
+                    }
+                );
+
+                return result;
+
+
+            }
+
+
+
+
+
+
+
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+    },
+
+
+
+    getAllUsers: async () => {
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('users');
+
+
+
+
+            const result = await col.find({}).toArray();
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+    },
+
+
+
+    getAllRoles: async () => {
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('roles');
+
+
+
+
+            const result = await col.find({}).toArray();
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    },
 
 
 

@@ -48,3 +48,42 @@ angular.module('app').factory("SendNewTabName", function($resource) {
 angular.module('app').factory("GetallTabs", function($resource) {
     return $resource("/getalltabs");
 });
+
+
+angular.module('app').factory("Getallroles", function($resource) {
+    return $resource("/getallroles");
+});
+
+
+angular.module('app').factory("GetallUsers", function($resource) {
+    return $resource("/getallusers");
+});
+
+angular.module('app').factory("UpdateUsers", function($resource) {
+    return $resource("/updateusers");
+});
+
+
+angular.module('app').factory("AddUsers", function($resource) {
+    return $resource("/adduser");
+});
+
+
+angular.module('app').factory("DeleteOneUsers", function($resource) {
+    return $resource("/deleteoneusers");
+});
+
+
+angular.module('app').factory("Deleteonetable", function($resource) {
+    return $resource("/deleteonetable");
+});
+
+
+angular.module('app').factory("GetDataForOneTable", function($resource) {
+    return $resource("/getdatafrommssql");
+});
+
+
+angular.module('app').factory("Insertnewdata", function($resource) {
+    return $resource("/insertnewdata");
+});

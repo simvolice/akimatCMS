@@ -394,6 +394,7 @@ let resultAllFactor = [];
 
 
 
+
     insertFromMSSQL: async (flattenArr, tableName) => {
 
 

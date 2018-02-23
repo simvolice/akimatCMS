@@ -129,7 +129,49 @@ module.exports = {
 
 
 
+    },
+
+
+
+    deleteByIdCommon: async (id, nameTable) => {
+
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection(nameTable);
+
+
+
+
+            const result = await col.deleteOne({_id: ObjectId(id)});
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
     }
+
+
+
+
 
 
 

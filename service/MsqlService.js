@@ -85,56 +85,211 @@ module.exports = {
 
 
 
-    insertOneTable: async (tableNameArr, dataArr) => {
+    insertOneTable: async (tableOneName, dataArr) => {
 
 
-        for (let tableOneName of tableNameArr) {
-            for (let dataArrOne of dataArr) {
-
-                const table = new sql.Table(`atcms_${tableOneName}`); // or temporary table, e.g. #temptable
-                table.create = true;
 
 
-                for (let allColumn of Object.keys(dataArrOne[0])) {
-                    table.columns.add(allColumn, sql.NVarChar(255), {nullable: true});
+        const arrMonth = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+
+
+        const table = new sql.Table(`atcms_${tableOneName}`); // or temporary table, e.g. #temptable
+        table.create = true;
+
+
+
+
+
+
+
+            for (let oneColumn of Object.keys(dataArr[0])) {
+
+                if (Number.isInteger(Number.parseInt(oneColumn))) {
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
+
+
+                } else if (oneColumn.includes("_kv")) {
+
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
+
+
+                } else if (oneColumn.includes("Percent")) {
+
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
 
 
                 }
 
 
+                else if (oneColumn.includes("2017 за 9 мес")) {
 
-
-                for (let oneObjItem of dataArrOne) {
-
-
-
-                        table.rows.add(...Object.values(oneObjItem));
-
-
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
 
 
                 }
 
+                else if (oneColumn.includes("кв")) {
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
 
 
+                }
+
+                else if (oneColumn.includes("Plan")) {
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
 
 
-                const request = new sql.Request();
+                }else if (oneColumn.includes("percent")) {
 
-                request.bulk(table, (err, result) => {
 
-                })
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
+
+
+                }else if (arrMonth.includes(oneColumn)) {
+
+
+                    table.columns.add(oneColumn.trim(), sql.Float, {nullable: true});
+
+
+                }
+
+                else {
+
+                    table.columns.add(oneColumn.trim(), sql.NVarChar(1000), {nullable: true});
+
+
+                }
 
 
             }
 
+
+
+
+
+
+            for (let oneObjItem of dataArr) {
+
+
+
+
+
+                for (let objItem in oneObjItem) {
+
+
+                    oneObjItem[objItem] = oneObjItem[objItem].replace(",", ".");
+
+
+                    if (oneObjItem[objItem] === null) {
+
+
+
+                        oneObjItem[objItem] = 0;
+                    }
+
+
+
+
+                }
+
+
+                table.rows.add(...Object.values(oneObjItem));
+
+
+            }
+
+
+
+
+
+        const request = new sql.Request();
+
+        request.bulk(table, (err, result) => {
+
+
+            console.log("\x1b[42m", err);
+
+        })
+
+
+
+
+
+    },
+
+
+
+
+    deleteOneTable: async (tableName) => {
+
+        try {
+
+
+
+            const pool = dbConnect.getConnect();
+
+
+
+
+            let result = await pool.request()
+                .input(`${tableName}`, sql.TVP)
+                .query(`DROP TABLE ${tableName}`);
+
+
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
         }
 
 
+    },
+
+    insertNewData: async (tableName, changes) => {
 
 
 
-    }
+        const request = new sql.Request();
+        request.input(`${tableName}`, sql.TVP);
+        request.input(`${changes[3]}`, sql.Float);
+        request.input(`${changes[2]}`, sql.Float);
+        request.input(`${changes[1]}`, sql.NVarChar(1000));
+
+        request.query(`UPDATE ${tableName} SET "${changes[1]}" = ${changes[3]} WHERE "${changes[1]}" = ${changes[2]};`, (err, result) => {
+            console.log(err)
+        })
+
+
+    },
+
+
 
 
 

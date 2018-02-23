@@ -119,55 +119,11 @@ module.exports = {
 
                 },
 
-                {
 
 
-                    title: "Стэковая диаграмма",
-                    imgUrl: "chartsImg/StackChart.PNG",
-
-                    type: "bar",
-                    subType: null,
-                    axisRotate: false,
-                    stackBar: [],
 
 
-                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
-                },
-
-
-                {
-
-
-                    title: "Столбцовая диаграмма вместе с линейной",
-                    imgUrl: "chartsImg/hybrid.PNG",
-
-                    type: "bar",
-                    subType: "line",
-                    axisRotate: false,
-                    stackBar: [],
-
-
-                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                },
-
-
-                {
-
-
-                    title: "Горизонтальная столбцовая диаграмма вместе с линейной",
-                    imgUrl: "chartsImg/horisontalwithLine.PNG",
-
-                    type: "bar",
-                    subType: "line",
-                    axisRotate: true,
-                    stackBar: [],
-
-
-                    createAt: new Date( new Date().getTime() - ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                },
 
 
 
@@ -411,91 +367,6 @@ module.exports = {
     },
 
 
-    initOption: async () => {
-
-
-        const client = await MongoClient.connect(process.env.DB_HOST);
-        const db = client.db(process.env.DB_NAME);
-
-
-
-
-        try {
-
-
-
-
-            const col = await db.collection('options_pages');
-            col.createIndex({ title : 1 }, {unique: true});
-
-
-            const result = await col.insertMany([
-
-
-
-
-
-                {
-
-
-                    title: "Добавить изменения по годам",
-
-
-
-                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                },
-
-
-                {
-
-
-                    title: "Добавить описание диаграммы",
-
-
-
-
-                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                },
-
-                {
-
-
-
-                    title: "Добавить загрузку файла",
-
-                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
-
-                }
-
-
-
-
-
-            ]);
-
-
-
-
-
-
-            return result;
-
-
-
-
-        }catch(err) {
-
-
-            return err;
-
-
-        }
-
-
-
-    },
 
 
 
@@ -728,7 +599,110 @@ module.exports = {
 
 
 
+    },
+
+
+
+    initRoles: async () => {
+
+        const client = await MongoClient.connect(process.env.DB_HOST);
+        const db = client.db(process.env.DB_NAME);
+
+
+
+        try {
+
+
+            const col = await db.collection('roles');
+
+
+
+
+
+
+
+            col.createIndex({ namerole : 1 }, {unique: true});
+
+
+            const result = await col.insertMany([
+
+
+
+
+
+                {
+
+                    namerole: "Аналитик",
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
+                {
+
+                    namerole: "Аким",
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+                {
+
+                    namerole: "Заместитель акима",
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
+                {
+
+                    namerole: "Руководитель управления",
+
+
+                    createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
+                },
+
+
+
+
+
+
+            ]);
+
+
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+            return err;
+
+
+        }
+
+
+
+
+
+
+
     }
+
+
+
 
 
 

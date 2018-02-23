@@ -2,7 +2,7 @@
  * Created by Admin on 29.09.2016.
  */
 
-angular.module('app').controller('protoCtrl', function (GetallTabs, SendNewTabName, GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element) {
+angular.module('app').controller('protoCtrl', function (Deleteonetable, DeleteOneUsers, AddUsers, UpdateUsers, GetallUsers, Getallroles, GetallTabs, SendNewTabName, GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element, $mdDialog) {
 
 
 
@@ -243,6 +243,7 @@ $scope.saveGosProgramm = function () {
         formdata.append('chartModel', $scope.chartModel);
         formdata.append('typediagramm', $scope.typediagramm);
         formdata.append('tabName', $scope.tabSelect);
+        formdata.append('iframepowerbi', $scope.iframepowerbi);
 
 
         var request = {
@@ -323,6 +324,9 @@ $scope.saveGosProgramm = function () {
         angular.forEach($files, function (value, key) {
             formdata.append(key, value);
         });
+
+
+        $scope.uploadFilesCVS();
     };
 
 
@@ -335,7 +339,7 @@ $scope.saveGosProgramm = function () {
 
         var request = {
             method: 'POST',
-            url: '/addcvs',
+            url: '/addexcel',
             data: formdata,
             headers: {
                 'Content-Type': undefined
@@ -361,6 +365,19 @@ $scope.saveGosProgramm = function () {
                             .position('left bottom')
                             .hideDelay(3000)
                     );
+
+
+
+                    Getalltable.get(function (result) {
+
+
+
+
+                        $scope.dataTableName = result.resultFromDB;
+
+
+                    });
+
 
 
 
@@ -395,7 +412,339 @@ $scope.saveGosProgramm = function () {
             });
     }
 
+    $scope.data = [];
 
+
+    GetallUsers.get(function (resultAllUsers) {
+
+        Getallroles.get(function (resultAllRoles) {
+
+            $scope.data = resultAllUsers.resultFromDB;
+
+
+            for (let objOneUser of $scope.data) {
+               objOneUser["allRoles"] = resultAllRoles.resultFromDB;
+               objOneUser["newPass"] = "";
+
+            }
+
+
+
+
+
+        });
+
+
+
+
+    });
+
+
+    
+    
+    
+    $scope.deleteUser = function (id, index) {
+        DeleteOneUsers.save({_id: id}, function (result) {
+
+
+            $scope.data.splice(index, 1);
+
+
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Операция закончилась успешно')
+                    .position('left bottom')
+                    .hideDelay(3000)
+            );
+        })
+    };
+
+
+    $scope.updateUser = function (data) {
+
+
+
+        if (data._id === 0){
+
+            AddUsers.save({
+
+
+                name: data.name,
+                roleId: data.roleId,
+                newPass: data.newPass
+
+
+
+
+            }, function (result) {
+
+
+
+
+                $scope.data[$scope.data.length-1]._id = result.resultFromDB;
+
+
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась успешно')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+            });
+
+
+        } else {
+
+
+            UpdateUsers.save({
+
+
+                _id: data._id,
+
+                name: data.name,
+                roleId: data.roleId,
+                newPass: data.newPass
+
+            }, function (result) {
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась успешно')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    };
+
+
+
+    $scope.addUsers = function () {
+
+
+        let tempObj = {
+
+
+            _id: 0,
+            allRoles: [],
+            roleId: "",
+            name: "",
+            newPass: ""
+
+
+        };
+
+
+
+
+        Getallroles.get(function (result) {
+
+
+
+            tempObj.allRoles = result.resultFromDB;
+
+        });
+
+
+
+
+
+
+        $scope.data.push(tempObj);
+
+
+
+    };
+
+
+    Getalltable.get(function (result) {
+
+
+
+
+        $scope.dataTableName = result.resultFromDB;
+
+
+    });
+
+
+
+    $scope.deleteTable = function (tableName, index) {
+
+
+
+        Deleteonetable.save({tableName: tableName}, function (result) {
+            if (result.code === 0){
+
+
+                Getalltable.get(function (result) {
+
+
+
+
+                    $scope.dataTableName = result.resultFromDB;
+
+
+                });
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Вы успешно удалили объект.')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+
+
+            } else {
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась не удачно, попробуйте изменить данные.')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+
+            }
+        })
+    }
+    
+    
+    $scope.editTable = function (tableName, ev) {
+
+        $mdDialog.show({
+            controller: DialogControllerUpd,
+            locals:{tableName: tableName},
+            templateUrl: 'components/proto/dialog_tpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true // Only for -xs, -sm breakpoints.
+        });
+        
+    };
+
+function DialogControllerUpd($scope, tableName, GetDataForOneTable, $ocLazyLoad, Insertnewdata) {
+
+
+    $ocLazyLoad.load("assets/css/handsontable.full.min.css");
+
+    $ocLazyLoad.load("assets/js/handsontable.full.min.js");
+
+
+
+$scope.tableName = tableName;
+
+
+GetDataForOneTable.save({tableName: tableName}, function (result) {
+
+    $scope.dataObject = result.resultFromDB;
+
+
+
+    let columnName = Object.keys($scope.dataObject[0]);
+
+
+    var hotElement = document.querySelector('#hot');
+    var hotElementContainer = hotElement.parentNode;
+    var hotSettings = {
+        data: $scope.dataObject,
+        stretchH: 'all',
+        width: "100%",
+        autoWrapRow: true,
+        height: 487,
+        manualRowResize: true,
+        manualColumnResize: true,
+        rowHeaders: true,
+        colHeaders: columnName,
+        manualRowMove: true,
+        manualColumnMove: true,
+        className: "htRight",
+
+    };
+    var hot = new Handsontable(hotElement, hotSettings);
+
+    Handsontable.hooks.add("afterChange", function(changes){
+
+        console.log(changes);
+
+        Insertnewdata.save({tableName: $scope.tableName, changes: changes}, function (result) {
+            console.log(result);
+        })
+
+    });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $scope.closeDialog = function () {
+            $mdDialog.hide();
+            $scope.dataObject = [];
+        }
+
+
+
+    }
+
+
+
+
+    $scope.showHelp = function (ev) {
+        $mdDialog.show({
+            controller: DialogControllerHelp,
+            locals:{},
+            templateUrl: 'components/proto/dialog_help.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true // Only for -xs, -sm breakpoints.
+        });
+    };
+
+
+    function DialogControllerHelp($scope) {
+
+
+        $scope.closeDialog = function () {
+            $mdDialog.hide();
+        }
+
+    }
 
 
 

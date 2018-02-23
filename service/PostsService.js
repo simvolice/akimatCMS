@@ -100,8 +100,12 @@ module.exports = {
 
             const col = dbConnect.getConnect().collection('posts');
 
+          if (objParams.chartModel === "undefined") {
+
+              objParams.chartModel = "000000000000000000000000";
 
 
+          }
 
             const result = await col.insertOne({
 
@@ -118,7 +122,8 @@ module.exports = {
                 fileName: objParams.fileNameArr,
                 fileUrl: objParams.fileUrlArr,
                 typeDiagramm: objParams.typediagramm,
-                tabName: ObjectId(objParams.tabName)
+                tabName: ObjectId(objParams.tabName),
+                iframepowerbi: objParams.iframepowerbi
 
 
 

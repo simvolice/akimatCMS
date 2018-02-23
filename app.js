@@ -53,13 +53,13 @@ initDB();
 async function initApp() {
 
 
-    await schedulling.checkTableInMSSQL();
 
     await initData.initDataForProtoPage();
     await initData.initListPage();
-    await initData.initOption();
+
     await initData.initStructureRashod();
     await initData.initISpolStructureRashod();
+    await initData.initRoles();
 
 
 

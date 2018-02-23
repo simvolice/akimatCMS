@@ -20,7 +20,7 @@ let router = express.Router();
 
 const parse = require('csv-parse');
 
-
+const XLSX = require('xlsx');
 let parceCVS = util.promisify(parse);
 
 
@@ -48,6 +48,85 @@ router.post("/getgosprogramm", async(req, res, next) => {
 
 
 });
+
+
+router.get("/getallroles", async (req, res, next) => {
+
+
+    let result = await AuthService.getAllRoles();
+
+
+    res.json({code: 0, resultFromDB: result});
+
+
+});
+
+
+router.post("/adduser", async(req, res, next) => {
+
+
+
+    let result = await AuthService.addUsers(req.body);
+
+
+
+
+
+    res.json({code: 0, resultFromDB: result.ops[0]._id});
+
+
+
+
+
+});
+
+
+
+router.get("/getallusers", async (req, res, next) => {
+
+
+    let result = await AuthService.getAllUsers();
+
+
+    res.json({code: 0, resultFromDB: result.slice(2)});
+
+
+});
+
+
+router.post("/updateusers", async(req, res, next) => {
+
+
+
+    let result = await AuthService.updUsers(req.body);
+
+
+    res.json({code: 0, resultFromDB: result});
+
+
+
+
+
+});
+
+
+
+router.post("/deleteoneusers", async(req, res, next) => {
+
+
+
+    let result = await UtilsService.deleteByIdCommon(req.body._id, "users");
+
+
+    res.json({code: 0, resultFromDB: result});
+
+
+
+
+
+});
+
+
 
 
 
@@ -104,11 +183,105 @@ router.post('/auth', async(req, res, next) => {
 router.get("/getalltable", async(req, res, next) => {
 
 
-    let resultFromMongoDB = await UtilsService.allGetTable();
+    let result = await MsqlService.getTables();
+    let resultAllTable = [];
 
 
 
-    res.json({code: 0, resultFromDB: resultFromMongoDB});
+    if(result.hasOwnProperty("recordset")) {
+
+        for (let itemTable of result.recordset) {
+
+           resultAllTable.push(itemTable.TABLE_NAME);
+
+        }
+
+    }
+
+
+
+    res.json({code: 0, resultFromDB: resultAllTable});
+
+    resultAllTable = [];
+    result = [];
+
+
+});
+
+
+
+
+router.post("/getdatafrommssql", async(req, res, next) => {
+
+
+
+
+    let result = await MsqlService.getDataFromOneTable(req.body.tableName);
+
+
+
+
+    if(result.hasOwnProperty("recordset")) {
+
+        res.json({code: 0, resultFromDB: result.recordset});
+
+
+
+    } else {
+
+        res.json({code: 1});
+
+    }
+
+    result =  [];
+
+
+
+
+
+});
+
+
+
+
+router.post("/deleteonetable", async(req, res, next) => {
+
+
+
+    let result = await MsqlService.deleteOneTable(req.body.tableName);
+
+
+   if(result.recordset === undefined){
+
+       res.json({code: 0});
+
+   } else {
+
+       res.json({code: 1});
+
+   }
+
+
+
+
+
+
+
+});
+
+
+router.post("/insertnewdata", async(req, res, next) => {
+
+
+    await MsqlService.insertNewData(req.body.tableName, req.body.changes[0]);
+
+
+
+    res.json({code: 0});
+
+
+
+
 
 
 });
@@ -506,11 +679,6 @@ router.post("/addcvs", async(req, res, next) => {
 
 
 
-    for (let tableOneName of tableName) {
-        await UtilsService.aliasCreate(tableOneName, `atcms_${tableOneName}`);
-
-
-    }
 
 
    res.json({code: 0});
@@ -599,6 +767,57 @@ router.get("/getalltabs", async(req, res, next) => {
 });
 
 
+router.post("/addexcel", async(req, res, next) => {
+
+
+    const {files, fields} = await busboy(req);
+
+
+    let records = [];
+
+
+    for (let fileItem of files) {
+
+
+        const workbook = XLSX.readFile(fileItem.path);
+        let tableName = path.parse(fileItem.filename).name;
+
+
+
+        let allList = workbook.SheetNames;
+
+
+
+        let onlyFirst = workbook.Sheets[allList[0]];
+
+
+        let allArrResult = XLSX.utils.sheet_to_json(onlyFirst);
+
+
+        records = allArrResult;
+
+
+        await MsqlService.insertOneTable(tableName, records);
+
+        records = [];
+    }
+
+
+
+
+
+
+    res.json({code: 0});
+
+
+
+
+
+
+
+
+
+});
 
 
 
