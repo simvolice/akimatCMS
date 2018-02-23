@@ -648,8 +648,6 @@ function DialogControllerUpd($scope, tableName, GetDataForOneTable, $ocLazyLoad,
 
     $ocLazyLoad.load("assets/css/handsontable.full.min.css");
 
-    $ocLazyLoad.load("assets/js/handsontable.full.min.js");
-
 
 
 $scope.tableName = tableName;
