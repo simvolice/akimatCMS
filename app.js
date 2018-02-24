@@ -14,7 +14,6 @@ const AuthService = require('./service/AuthService');
 const initData = require('./service/initData');
 
 let index = require('./routes/index');
-let schedulling = require('./utils/schedulling');
 
 let app = express();
 
@@ -24,7 +23,7 @@ let app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(bodyParser.json({limit: '1000mb'}));
 app.use(express.static(path.join(__dirname, 'public')));
 fsExtra.ensureDirSync(path.join(__dirname, 'public/uploads/'));
 
@@ -40,7 +39,8 @@ async function initDB() {
 
     await dbConnect.connect();
 
-   await ConnectMSQL.connect();
+    await ConnectMSQL.connect();
+
 
 
 

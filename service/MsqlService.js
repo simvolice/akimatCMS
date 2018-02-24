@@ -65,6 +65,11 @@ module.exports = {
                 .query(`select * from ${tableName}`);
 
 
+            for (let itemObj of result.recordset) {
+
+                delete itemObj["id"];
+
+            }
 
 
             return result;
@@ -112,6 +117,7 @@ module.exports = {
 
 
 
+        table.columns.add("id", sql.Int, {nullable: true});
 
 
 
@@ -185,32 +191,11 @@ module.exports = {
 
 
 
-            for (let oneObjItem of dataArr) {
+            for (let [index, oneObjItem] of dataArr.entries()) {
 
 
 
-
-
-                for (let objItem in oneObjItem) {
-
-
-                    oneObjItem[objItem] = oneObjItem[objItem].replace(",", ".");
-
-
-                    if (oneObjItem[objItem] === null) {
-
-
-
-                        oneObjItem[objItem] = 0;
-                    }
-
-
-
-
-                }
-
-
-                table.rows.add(...Object.values(oneObjItem));
+                table.rows.add(index, ...Object.values(oneObjItem));
 
 
             }
@@ -276,15 +261,53 @@ module.exports = {
 
 
 
-        const request = new sql.Request();
-        request.input(`${tableName}`, sql.TVP);
-        request.input(`${changes[3]}`, sql.Float);
-        request.input(`${changes[2]}`, sql.Float);
-        request.input(`${changes[1]}`, sql.NVarChar(1000));
 
-        request.query(`UPDATE ${tableName} SET "${changes[1]}" = ${changes[3]} WHERE "${changes[1]}" = ${changes[2]};`, (err, result) => {
-            console.log(err)
-        })
+
+
+
+
+
+
+
+
+        if (Number.isNaN(Number.parseFloat(changes[3])) === true) {
+
+
+
+            const request = new sql.Request();
+
+
+            request.input(`${tableName}`, sql.TVP);
+
+            request.input(`${changes[3]}`, sql.NVarChar(1000));
+
+            request.input(`${changes[1]}`, sql.NVarChar(1000));
+            request.input(`${changes[0]}`, sql.Int);
+            request.query(`UPDATE ${tableName} SET "${changes[1]}" = \'${changes[3]}\' WHERE id = ${changes[0]};`, (err, result) => {
+                console.log(err)
+            })
+
+
+        } else {
+
+            const request = new sql.Request();
+
+
+            request.input(`${tableName}`, sql.TVP);
+
+
+            request.input(`${changes[3]}`, sql.Float);
+
+            request.input(`${changes[1]}`, sql.NVarChar(1000));
+            request.input(`${changes[0]}`, sql.Int);
+            request.query(`UPDATE ${tableName} SET "${changes[1]}" = ${changes[3]} WHERE id = ${changes[0]};`, (err, result) => {
+                console.log(err)
+            })
+
+        }
+
+
+
 
 
     },

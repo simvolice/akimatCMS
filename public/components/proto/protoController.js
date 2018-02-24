@@ -662,6 +662,11 @@ GetDataForOneTable.save({tableName: tableName}, function (result) {
     let columnName = Object.keys($scope.dataObject[0]);
 
 
+
+
+
+
+
     var hotElement = document.querySelector('#hot');
     var hotElementContainer = hotElement.parentNode;
     var hotSettings = {
@@ -676,10 +681,16 @@ GetDataForOneTable.save({tableName: tableName}, function (result) {
         colHeaders: columnName,
         manualRowMove: true,
         manualColumnMove: true,
-        className: "htRight",
+        className: "htRight"
 
     };
     var hot = new Handsontable(hotElement, hotSettings);
+
+
+
+
+});
+
 
     Handsontable.hooks.add("afterChange", function(changes){
 
@@ -691,8 +702,6 @@ GetDataForOneTable.save({tableName: tableName}, function (result) {
 
     });
 
-
-});
 
 
 
