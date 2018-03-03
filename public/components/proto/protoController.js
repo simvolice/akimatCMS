@@ -2,115 +2,7 @@
  * Created by Admin on 29.09.2016.
  */
 
-angular.module('app').controller('protoCtrl', function (Deleteonetable, DeleteOneUsers, AddUsers, UpdateUsers, GetallUsers, Getallroles, GetallTabs, SendNewTabName, GetAllpost, Deleteonepost, GetGosProgramm, Getallcharts, Getalloptions, Getallpages,Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element, $mdDialog) {
-
-
-
-
-
-
-$scope.saveGosProgramm = function () {
-
-
-
-    GetGosProgramm.save({
-
-        Pasport: $scope.programPasport,
-        Description: $scope.programmDescription,
-        NameDev: $scope.programmNameDev,
-        Target: $scope.programmTarget,
-        TargetIndicator: $scope.programmTargetIndicator,
-        ActionPlan: $scope.programmActionPlan,
-        DescriptionAction: $scope.programmDescriptionAction,
-        FinansAction: $scope.programmFinansAction,
-        TargetDescrIndicator: $scope.programmTargetDescrIndicator,
-        DimicIndicator: $scope.programmDimicIndicator
-
-    }, function (result) {
-
-
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent('Вы успешно загрузили объект.')
-                .position('left bottom')
-                .hideDelay(3000)
-        );
-
-
-
-
-    });
-}
-
-
-
-
-    $scope.parameters = [];
-    $scope.allTabs = [];
-
-    $scope.searchTerm;
-    $scope.searchTermPost;
-    $scope.selectdemoSelectHeader;
-
-
-    $scope.clearSearchTerm = function() {
-        $scope.searchTerm = '';
-    };
-
-
-    $scope.clearSearchTermPost = function () {
-        $scope.searchTermPost = '';
-    };
-
-
-    $scope.clearSearchTermTab = function() {
-        $scope.selectdemoSelectHeader = '';
-    };
-
-    $element.find('input').on('keydown', function(ev) {
-        ev.stopPropagation();
-    });
-
-
-
-    $scope.createNewTab = function (event) {
-        if (event.keyCode === 13) {
-
-
-            SendNewTabName.save({tabName: $scope.newTabName}, function (result) {
-
-
-
-                if (result.code === 0) {
-
-
-
-                    $scope.allTabs.push(result.resultFromDB);
-
-
-
-                } else {
-
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .textContent('Операция закончилась НЕУДАЧНО. Измените данные для ввода.')
-                            .position('bottom left')
-                            .hideDelay(6000)
-                    );
-
-
-                }
-
-
-
-
-            });
-
-
-        }
-
-    };
-
+angular.module('app').controller('protoCtrl', function (Allmenus, SaveMenu, Deleteonetable, DeleteOneUsers, AddUsers, UpdateUsers, GetallUsers, Getallroles, GetAllpost, Deleteonepost, Getalltable, CheckadminpageService, $scope, $state, $http, $mdToast, $element, $mdDialog, Addpost) {
 
     CheckadminpageService.save({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
@@ -125,187 +17,312 @@ $scope.saveGosProgramm = function () {
     });
 
 
-    Getallcharts.get(function (result) {
 
 
-        $scope.allCharts = result.resultFromDB;
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
 
-
-    });
-
-
-    GetallTabs.get(function (result) {
-
-
-
-        $scope.allTabs = result.resultFromDB;
-
-
-    });
-
-
-    GetAllpost.get(function (result) {
-
-
-        $scope.getAllpost = result.resultFromDB;
-
-
-    });
-
-
-
-    $scope.deletePost = function () {
-       Deleteonepost.save({id: $scope.postsSelect}, function (result) {
-
-
-           GetAllpost.get(function (result) {
-
-
-               $scope.getAllpost = result.resultFromDB;
-
-
-           });
-
-
-           $mdToast.show(
-               $mdToast.simple()
-                   .textContent('Вы успешно удалили пост.')
-                   .position('left bottom')
-                   .hideDelay(3000)
-           );
-
-
-
-       })
-    };
+    function removeFromTree(parent, childNameToRemove){
+        parent.childs = parent.childs
+            .filter(function(child){ return child.uniqKey !== childNameToRemove})
+            .map(function(child){ return removeFromTree(child, childNameToRemove)});
+        return parent;
+    }
 
 
 
 
 
-    $scope.changeTable = function () {
-        Getalltable.get(function (result) {
 
+    function flattenTree(root, key) {
+        let flatten = [Object.assign({}, root)];
+        delete flatten[0][key];
 
-
-
-            $scope.alltabels = result.resultFromDB;
-
-
-        });
-    };
-
-
-
-
-
-    Getallpages.get(function (result) {
-
-
-
-
-        $scope.allpages = result.resultFromDB[0];
-
-
-    });
-
-
-
-
-
-    var formdata = new FormData();
-    $scope.getTheFiles = function ($files) {
-
-        if($files.length <= 1)
-        {
-            $("#labelForFile").text($files[0].name);
-        }
-        else {
-            $("#labelForFile").text("Выбрано файлов: " + $files.length);
+        if (root[key] && root[key].length > 0) {
+            return flatten.concat(root[key]
+                .map((child)=>flattenTree(child, key))
+                .reduce((a, b)=>a.concat(b), [])
+            );
         }
 
-        angular.forEach($files, function (value, key) {
-            formdata.append(key, value);
-        });
+        return flatten;
     };
 
 
-    $scope.uploadFiles = function () {
+
+    $scope.menusFlat = [];
+
+    Allmenus.get({sessionToken: localStorage.getItem("sessionToken")},function (result) {
 
 
-
-
-        formdata.append('title', $scope.title);
-        formdata.append('tabels', $scope.tabels);
-        formdata.append('pages', $scope.pages);
-        formdata.append('parameters', $scope.parameters);
-        formdata.append('description', $scope.description);
-        formdata.append('chartModel', $scope.chartModel);
-        formdata.append('typediagramm', $scope.typediagramm);
-        formdata.append('tabName', $scope.tabSelect);
-        formdata.append('iframepowerbi', $scope.iframepowerbi);
-
-
-        var request = {
-            method: 'POST',
-            url: '/addpost',
-            data: formdata,
-            headers: {
-                'Content-Type': undefined
-            }
-        };
-
-        // SEND THE FILES.
-        $http(request)
-            .then(function successCallback(response) {
-
-
-                if (response.data.code === 0){
-
-
-
-
-                    formdata = new FormData();
-                    document.getElementById("file").value = null;
-
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .textContent('Вы успешно загрузили объект.')
-                            .position('left bottom')
-                            .hideDelay(3000)
-                    );
-
-
-
-                } else {
-
-                    formdata = new FormData();
-                    document.getElementById("file").value = null;
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .textContent('Операция закончилась не удачно, попробуйте изменить данные.')
-                            .position('left bottom')
-                            .hideDelay(3000)
-                    );
-
-                }
+        $scope.menus = result.resultFromDb[0].menuArr;
 
 
 
 
 
 
-            }, function errorCallback(response) {
-                formdata = new FormData();
-                document.getElementById("file").value = null;
+        for (let itemMenu of $scope.menus) {
+
+
+
+            $scope.menusFlat.push(flattenTree(itemMenu, "childs"))
+
+
+
+
+        }
+
+
+        $scope.menusFlat = $scope.menusFlat.reduce(function (prev, curr) {
+            return [...prev, ...curr];
+        });
+
+        $scope.selectedItem = $scope.menusFlat[0].uniqKey;
+
+
+    });
+
+
+
+
+    $scope.addSecondItemMenu = function (childsArr) {
+
+        childsArr.push({title: "Укажите название раздела", childs: [], uniqKey: getRandomInt(0, 1000000)});
+
+
+
+
+    };
+
+
+    $scope.addNewMenu = function () {
+        $scope.menus.push({title: "Укажите название раздела", id: 1, childs: [], uniqKey: getRandomInt(0, 1000000)});
+
+    };
+
+
+
+
+    $scope.deleteItemMenu = function (uniqKey, id) {
+
+
+       if (id === 1) {
+
+
+           $scope.menus = $scope.menus
+               .filter(function(child){ return child.uniqKey !== uniqKey})
+
+       } else {
+
+
+
+           let clearArr = [];
+
+
+           for (let itemOneMenuObj of $scope.menus) {
+               let tempArr = itemOneMenuObj;
+
+
+               clearArr.push(removeFromTree(tempArr, uniqKey));
+
+               tempArr = [];
+
+           }
+
+
+           $scope.menus = clearArr;
+
+
+           clearArr = [];
+
+       }
+
+
+
+
+    };
+
+
+    $scope.saveMenu = function () {
+
+
+        SaveMenu.save({menus: $scope.menus, sessionToken: localStorage.getItem("sessionToken")}, function (result) {
+
+            if (result.code === 0) {
+
                 $mdToast.show(
                     $mdToast.simple()
-                        .textContent('Операция закончилась не удачно, попробуйте изменить данные.')
+                        .textContent('Операция закончилась успешно')
                         .position('left bottom')
                         .hideDelay(3000)
                 );
-            });
-    }
+
+
+            } else {
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('У Вас нет прав на эту операцию')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+
+            }
+
+        })
+
+
+
+    };
+
+
+
+
+
+
+
+    $scope.searchTerm;
+    $scope.searchTermPost;
+    $scope.selectedItem;
+
+
+    $scope.clearSearchTerm = function() {
+        $scope.searchTerm = '';
+    };
+
+
+    $scope.clearSearchTermPost = function() {
+        $scope.searchTermPost = '';
+    };
+
+
+
+    $scope.savePost = function () {
+
+        Addpost.save({sessionToken: localStorage.getItem("sessionToken"), iframepowerbi: $scope.iframepowerbi, menuUniqueKey: $scope.selectedItem, titlepost: $scope.titlepost}, function (result) {
+
+            if (result.code === 0) {
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась успешно')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+
+            } else {
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась неудачно')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+            }
+
+        })
+
+
+    };
+
+
+
+
+
+
+
+
+
+
+
+    GetAllpost.get({sessionToken: localStorage.getItem("sessionToken")},function (result) {
+
+        $scope.allpost = result.resultFromDB;
+
+
+    });
+
+
+
+    $scope.openSelectPost = function () {
+        GetAllpost.get({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
+
+            $scope.allpost = result.resultFromDB;
+
+
+        });
+    };
+
+    $scope.deletePost = function () {
+
+       Deleteonepost.save({sessionToken: localStorage.getItem("sessionToken"), id: $scope.selectedPost}, function (result) {
+
+
+           if (result.code === 0) {
+
+               GetAllpost.get(function (result) {
+
+                   $scope.allpost = result.resultFromDB;
+
+
+               });
+
+               $mdToast.show(
+                   $mdToast.simple()
+                       .textContent('Операция закончилась успешно')
+                       .position('left bottom')
+                       .hideDelay(3000)
+               );
+
+
+           } else {
+
+               GetAllpost.get(function (result) {
+
+                   $scope.allpost = result.resultFromDB;
+
+
+               });
+
+
+               $mdToast.show(
+                   $mdToast.simple()
+                       .textContent('Операция закончилась неудачно')
+                       .position('left bottom')
+                       .hideDelay(3000)
+               );
+
+           }
+
+
+       });
+
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -342,7 +359,8 @@ $scope.saveGosProgramm = function () {
             url: '/addexcel',
             data: formdata,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': undefined,
+                'sessionToken': localStorage.getItem("sessionToken")
             }
         };
 
@@ -415,9 +433,9 @@ $scope.saveGosProgramm = function () {
     $scope.data = [];
 
 
-    GetallUsers.get(function (resultAllUsers) {
+    GetallUsers.get({sessionToken: localStorage.getItem("sessionToken")}, function (resultAllUsers) {
 
-        Getallroles.get(function (resultAllRoles) {
+        Getallroles.get({sessionToken: localStorage.getItem("sessionToken")}, function (resultAllRoles) {
 
             $scope.data = resultAllUsers.resultFromDB;
 
@@ -444,18 +462,37 @@ $scope.saveGosProgramm = function () {
     
     
     $scope.deleteUser = function (id, index) {
-        DeleteOneUsers.save({_id: id}, function (result) {
+        DeleteOneUsers.save({sessionToken: localStorage.getItem("sessionToken"), _id: id}, function (result) {
 
 
-            $scope.data.splice(index, 1);
+
+            if(result.code === 0) {
 
 
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Операция закончилась успешно')
-                    .position('left bottom')
-                    .hideDelay(3000)
-            );
+                $scope.data.splice(index, 1);
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Операция закончилась успешно')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+            } else {
+
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('У Вас нет прав на эту операцию')
+                        .position('left bottom')
+                        .hideDelay(3000)
+                );
+
+
+
+            }
+
+
         })
     };
 
@@ -468,7 +505,7 @@ $scope.saveGosProgramm = function () {
 
             AddUsers.save({
 
-
+                sessionToken: localStorage.getItem("sessionToken"),
                 name: data.name,
                 roleId: data.roleId,
                 newPass: data.newPass
@@ -480,18 +517,39 @@ $scope.saveGosProgramm = function () {
 
 
 
-
-                $scope.data[$scope.data.length-1]._id = result.resultFromDB;
-
+                if (result.code === 0) {
 
 
+                    $scope.data[$scope.data.length-1]._id = result.resultFromDB;
 
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent('Операция закончилась успешно')
-                        .position('left bottom')
-                        .hideDelay(3000)
-                );
+
+
+
+
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Операция закончилась успешно')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+
+
+                } else {
+
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('У Вас нет прав на эту операцию')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+
+
+                }
+
+
+
 
             });
 
@@ -501,7 +559,7 @@ $scope.saveGosProgramm = function () {
 
             UpdateUsers.save({
 
-
+                sessionToken: localStorage.getItem("sessionToken"),
                 _id: data._id,
 
                 name: data.name,
@@ -510,12 +568,31 @@ $scope.saveGosProgramm = function () {
 
             }, function (result) {
 
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent('Операция закончилась успешно')
-                        .position('left bottom')
-                        .hideDelay(3000)
-                );
+
+
+                if (result.code === 0) {
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Операция закончилась успешно')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+
+
+                } else {
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('У Вас нет прав на эту операцию')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+
+
+
+                }
+
 
             });
 
@@ -554,7 +631,7 @@ $scope.saveGosProgramm = function () {
 
 
 
-        Getallroles.get(function (result) {
+        Getallroles.get({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
 
 
@@ -574,7 +651,7 @@ $scope.saveGosProgramm = function () {
     };
 
 
-    Getalltable.get(function (result) {
+    Getalltable.get({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
 
 
@@ -590,11 +667,11 @@ $scope.saveGosProgramm = function () {
 
 
 
-        Deleteonetable.save({tableName: tableName}, function (result) {
+        Deleteonetable.save({sessionToken: localStorage.getItem("sessionToken"), tableName: tableName}, function (result) {
             if (result.code === 0){
 
 
-                Getalltable.get(function (result) {
+                Getalltable.get({sessionToken: localStorage.getItem("sessionToken")}, function (result) {
 
 
 
@@ -643,6 +720,22 @@ $scope.saveGosProgramm = function () {
         
     };
 
+
+
+    $scope.showHelp = function (ev) {
+        $mdDialog.show({
+            controller: DialogControllerHelp,
+            locals:{},
+            templateUrl: 'components/proto/dialog_help.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true // Only for -xs, -sm breakpoints.
+        });
+    };
+
+
+
 function DialogControllerUpd($scope, tableName, GetDataForOneTable, $ocLazyLoad, Insertnewdata) {
 
 
@@ -650,10 +743,13 @@ function DialogControllerUpd($scope, tableName, GetDataForOneTable, $ocLazyLoad,
 
 
 
-$scope.tableName = tableName;
+    $scope.tableName = tableName;
 
 
-GetDataForOneTable.save({tableName: tableName}, function (result) {
+
+
+
+    GetDataForOneTable.save({sessionToken: localStorage.getItem("sessionToken"), tableName: tableName}, function (result) {
 
     $scope.dataObject = result.resultFromDB;
 
@@ -688,19 +784,47 @@ GetDataForOneTable.save({tableName: tableName}, function (result) {
 
 
 
+        Handsontable.hooks.add("afterChange", function(changes){
 
-});
 
 
-    Handsontable.hooks.add("afterChange", function(changes){
+            Insertnewdata.save({sessionToken: localStorage.getItem("sessionToken"), tableName: $scope.tableName, changes: changes}, function (result) {
+                if(result.code === 0) {
 
-        console.log(changes);
 
-        Insertnewdata.save({tableName: $scope.tableName, changes: changes}, function (result) {
-            console.log(result);
-        })
+
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Операция закончилась успешно')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+                } else {
+
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('У Вас нет прав на эту операцию')
+                            .position('left bottom')
+                            .hideDelay(3000)
+                    );
+
+
+
+                }
+
+            })
+
+        }, hot);
+
+
+
+
 
     });
+
+
 
 
 
@@ -731,20 +855,9 @@ GetDataForOneTable.save({tableName: tableName}, function (result) {
 
 
 
-    $scope.showHelp = function (ev) {
-        $mdDialog.show({
-            controller: DialogControllerHelp,
-            locals:{},
-            templateUrl: 'components/proto/dialog_help.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose:true,
-            fullscreen: true // Only for -xs, -sm breakpoints.
-        });
-    };
 
 
-    function DialogControllerHelp($scope) {
+function DialogControllerHelp($scope) {
 
 
         $scope.closeDialog = function () {

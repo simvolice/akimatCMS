@@ -2,44 +2,13 @@
     <div class="col-md-12">
         <md-content id="mainpage" layout="column" flex class="custom__md-content__categ">
 
-            <md-card>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="title text-center" style="text-transform: uppercase">{{titlePage}}</h3>
-
-                    </div>
-
-                </div>
-
-            </md-card>
 
 
 
 
 
 
-            <md-card>
-
-                <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
-                    <md-tab  ng-repeat="tab in tabs"
-
-                            label="{{tab.tabName}}">
-
-
-                        <div id="{{tab.idElemTab}}" style="position: relative; top: 80px
-        ;">
-
-
-                        </div>
-
-
-                    </md-tab>
-                </md-tabs>
-
-
-
-            </md-card>
+            <md-card ng-bind-html="iframepowerbi"></md-card>
 
 
 

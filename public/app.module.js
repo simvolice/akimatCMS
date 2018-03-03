@@ -83,13 +83,10 @@ app.filter('ruFormat', function() {
 
 
 
-app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $translate, $rootScope, $window) {
+app.controller('MainCtrl', function ($scope, $state, $timeout, $translate, $rootScope, $window, Allmenus) {
 
 
 
-    $scope.goToGos = function () {
-        $window.open("gosprograms/НурлыЖол.html")
-    }
 
 
 
@@ -98,78 +95,19 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
     var arrDigitText = ["Расходы на 2018", "Доходы на 2018", "Образование", "Оборона"];
 
 
-    $scope.arrForSar = [];
-    $scope.arrForBudget = [];
-    $scope.arrForStructerRashod = [];
-    $scope.arrForIspolStructerRashod = [];
-    $scope.arrForBudgetFirst = [];
-    $scope.arrForBudgetLast = [];
-
-    $scope.arrForIspolBudgetFirst = [];
-    $scope.arrForIspolBudgetLast = [];
-
-    Getallpages.get(function (result) {
+    $scope.arrMenu = [];
 
 
-        $scope.arrForStructerRashod = result.resultFromDB[1];
-        $scope.arrForIspolStructerRashod = result.resultFromDB[2];
+    Allmenus.get(function (result) {
 
 
-        for (let objItem of result.resultFromDB[0]) {
-
-
-
-            if (objItem.id <= 25) {
-
-
-
-
-                $scope.arrForSar.push(objItem);
-
-
-
-
-            } else if (objItem.id === 50) {
-
-
-                $scope.arrForSar.push(objItem);
-
-
-
-            }else if (objItem.id === 51) {
-
-
-                $scope.arrForSar.push(objItem);
-
-
-
-            } else {
-
-                $scope.arrForBudget.push(objItem);
-
-            }
-
-
-
-
-
-
-        }
-
-
-
-        $scope.arrForBudgetFirst = $scope.arrForBudget.slice(0, 4);
-        $scope.arrForBudgetLast = $scope.arrForBudget.slice(9, 12);
-
-
-        $scope.arrForIspolBudgetFirst = $scope.arrForBudget.slice(12, 15);
-        $scope.arrForIspolBudgetLast = $scope.arrForBudget.slice(21);
-
-
-
-
+        $scope.arrMenu = result.resultFromDb[0].menuArr;
 
     });
+
+
+
+
 
 
 
@@ -372,7 +310,6 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
 
 
 
-    $rootScope.fio = localStorage.getItem('fio');
 
 
 
@@ -395,91 +332,32 @@ app.controller('MainCtrl', function (Getallpages, $scope, $state, $timeout, $tra
 
 
 
-    $(".noexpandesidebar").on("click", function () {
-
-
-        $timeout(function () {
-            $("#structurerashod").addClass("open");
-            $("#structurerashod > a").attr("aria-expanded", true);
-
-
-            $("#ispolstructurerashod").addClass("open");
-            $("#ispolstructurerashod > a").attr("aria-expanded", true);
-
-            $("#sar").addClass("open");
-            $("#sar > a").attr("aria-expanded", true);
-
-
-        }, 50);
+  $scope.getClass = function (e) {
 
 
 
 
+     if (Object.values(e.target.classList).includes("parent-class")) {
 
-    });
-
-
-
+         if ($(e.target).next().is(":hidden")){
 
 
+             $(e.target).find(':nth-child(1)').text("remove");
 
-$("#budget").on("click", function () {
-
-
-   $("#budgetsidebar").css("display", "block");
+             $(e.target).next().show("fast");
 
 
+         } else {
+
+             $(e.target).find(':nth-child(1)').text("add");
+
+             $(e.target).next().hide("fast");
+
+         }
 
 
-
-   $timeout(function () {
-       $("#structurerashod").addClass("open");
-       $("#structurerashod > a").attr("aria-expanded", true);
-
-   }, 50);
-
-
-
-
-
-
-
-});
-
-
-
-    $("#execution").on("click", function () {
-
-
-        $("#executionsidebar").css("display", "block");
-
-
-
-        $timeout(function () {
-            $("#ispolstructurerashod").addClass("open");
-            $("#ispolstructurerashod > a").attr("aria-expanded", true);
-
-        }, 50);
-
-
-    });
-
-
-
-
-
-
-    $("#backbtn").on("click", function () {
-        $("#budgetsidebar").css("display", "none");
-        $("#executionsidebar").css("display", "none");
-    })
-
-    $("#backbtnexecution").on("click", function () {
-
-        $("#executionsidebar").css("display", "none");
-    })
-
-
+     }
+  }
 
 
 

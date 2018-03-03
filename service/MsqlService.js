@@ -263,9 +263,7 @@ module.exports = {
 
 
 
-
-
-
+        const request = new sql.Request();
 
 
 
@@ -274,7 +272,10 @@ module.exports = {
 
 
 
-            const request = new sql.Request();
+            console.log("\x1b[42m", "this text");
+
+
+
 
 
             request.input(`${tableName}`, sql.TVP);
@@ -283,14 +284,16 @@ module.exports = {
 
             request.input(`${changes[1]}`, sql.NVarChar(1000));
             request.input(`${changes[0]}`, sql.Int);
-            request.query(`UPDATE ${tableName} SET "${changes[1]}" = \'${changes[3]}\' WHERE id = ${changes[0]};`, (err, result) => {
-                console.log(err)
+            request.query(`UPDATE ${tableName} SET ${changes[1]} = \'${changes[3]}\' WHERE id = ${changes[0]};`, (err, result) => {
+                console.log("\x1b[42m", err);
+
             })
 
 
         } else {
 
-            const request = new sql.Request();
+            console.log("\x1b[42m", "this Float");
+
 
 
             request.input(`${tableName}`, sql.TVP);
@@ -301,7 +304,7 @@ module.exports = {
             request.input(`${changes[1]}`, sql.NVarChar(1000));
             request.input(`${changes[0]}`, sql.Int);
             request.query(`UPDATE ${tableName} SET "${changes[1]}" = ${changes[3]} WHERE id = ${changes[0]};`, (err, result) => {
-                console.log(err)
+                console.log("\x1b[42m", err);
             })
 
         }

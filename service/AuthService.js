@@ -37,6 +37,8 @@ module.exports = {
                         name: objParams.name,
                         roleId: ObjectId(objParams.roleId),
                         pass: bcrypt.hashSync(objParams.newPass, 10),
+                        createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
+
 
 
 
@@ -229,6 +231,38 @@ module.exports = {
     },
 
 
+    getRoleById: async (id) => {
+
+        try {
+
+
+
+            const col = dbConnect.getConnect().collection('roles');
+
+
+
+
+            const result = await col.findOne({_id: ObjectId(id)});
+
+
+
+
+            return result;
+
+
+        }catch(err) {
+
+
+
+            return err;
+
+
+        }
+
+
+    },
+
+
 
     auth: async (name) => {
 
@@ -317,6 +351,7 @@ module.exports = {
 
                 pass: hash,
                 name: "admin",
+                roleId: "root",
 
                 createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
@@ -326,7 +361,7 @@ module.exports = {
 
                     pass: "$2a$08$UY04wuRblkJ8rGwHrdGpieH049LtniVYmDOcprfn18ZTjaBCVk2SC",
                     name: "yevgeniy",
-
+                    roleId: "root",
                     createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) ),
 
                 }

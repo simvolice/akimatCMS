@@ -11,282 +11,121 @@
                         <md-content class="md-padding">
 
 
-                            <div class="row">
-                                <div class="col-md-12 chartBlock ">
-
-
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Заголовок диаграммы</label>
-                                        <input ng-model="title">
-                                    </md-input-container>
-
-
-                                </div>
-                            </div>
-
-
-                            <hr>
-
-
-                            <div class="row ">
-
-
-                                <div class="col-md-4 chartBlock">
-
-                                    <md-select ng-model="tabels" placeholder="Выбрать таблицу из базы данных"
-                                               class="md-no-underline textTitle" md-on-close="clearSearchTerm()" data-md-container-class="selectdemoSelectHeader" md-on-open="changeTable()">
-
-
-                                        <md-select-header class="demo-select-header">
-                                            <input ng-model="searchTerm"
-                                                   type="search"
-                                                   placeholder="Поиск таблицы..."
-                                                   class="demo-header-searchbox md-text"
-                                                   ng-keydown="$event.stopPropagation($event)">
-                                        </md-select-header>
-                                        <md-option ng-repeat="table in alltabels | filter:searchTerm" ng-value="table.nameTable">
-                                            {{table.aliasTable}}
-                                        </md-option>
-                                    </md-select>
-
-
-                                </div>
-
-
-                                <div class="col-md-4 chartBlock">
-
-                                    <md-select ng-model="pages" placeholder="Выбрать пункт меню"
-                                               class="md-no-underline textTitle">
-                                        <md-option ng-repeat="page in allpages" ng-value="page._id">
-                                            {{page.title}}
-                                        </md-option>
-                                    </md-select>
-
-
-                                </div>
-
-
-
-                                <div class="col-md-4 chartBlock">
-
-                                    <md-select class="textTitle" placeholder="Выберите вкладку" ng-model="tabSelect"
-                                               md-on-close="clearSearchTermTab()"
-                                               data-md-container-class="selectdemoSelectHeader"
-                                    >
-                                        <md-select-header class="demo-select-header">
-                                            <input ng-model="newTabName"
-                                                   ng-keyup='createNewTab($event)'
-                                                   ng-keydown="$event.stopPropagation($event)"
-                                                   type="text"
-                                                   placeholder="Напечатайте здесь и нажмите Enter"
-                                                   class="demo-header-searchbox md-text">
-                                        </md-select-header>
-                                        <md-optgroup>
-                                            <md-option ng-value="tab._id" ng-repeat="tab in allTabs">{{tab.tabName}}</md-option>
-                                        </md-optgroup>
-                                    </md-select>
-
-
-                                </div>
-
-
-                            </div>
-
-
-                            <hr>
-
 
                             <div class="row">
+                                <div class="col-md-12">
 
-
-                                <div class="col-md-12 chartBlock">
-                                    <md-switch aria-label="Switch 1" ng-model="isShowChips">
-                                        Добавить переключатель изменений данных
-                                    </md-switch>
-                                    <md-switch aria-label="Switch 1" ng-model="isShowTextArea">
-                                        Добавить описание диаграммы
-                                    </md-switch>
-                                    <md-switch aria-label="Switch 1" ng-model="isShowUpload">
-                                        Добавить загрузку файла
-                                    </md-switch>
-                                    <md-switch aria-label="Switch 1" ng-model="isShowType">
-                                        Добавить тип диаграммы
-                                    </md-switch>
-
-
-                                    <md-switch aria-label="Switch 1" ng-model="isShowPowerBI">
-                                        Добавить диаграмму из Microsoft PowerBI
-                                    </md-switch>
-
-                                </div>
-
-                            </div>
-
-                            <hr ng-show="isShowChips">
-
-                            <div class="row" ng-show="isShowChips">
-                                <div class="col-md-12 chartBlock">
-                                    <md-chips ng-model="parameters" placeholder="Введите переключатели">
-
-                                    </md-chips>
-                                </div>
-                            </div>
-
-                            <hr ng-show="isShowTextArea">
-
-                            <div class="row" ng-show="isShowTextArea">
-                                <div class="col-md-12 chartBlock">
 
                                     <md-input-container class="md-block">
-                                        <label>Введите описание диаграммы</label>
-                                        <textarea ng-model="description" md-maxlength="500" rows="5"
-                                                  md-select-on-focus></textarea>
+                                        <label>Имя страницы</label>
+                                        <input type="text" ng-model="titlepost">
                                     </md-input-container>
 
 
                                 </div>
 
+
                             </div>
 
-                            <hr ng-show="isShowUpload">
-                            <div class="row" ng-show="isShowUpload">
-                                <div class="col-md-12 chartBlock">
 
-                                    <div class="upload-btn-wrapper">
-                                        <button class="btn">Загрузить файл</button>
-                                        <input ng-files="getTheFiles($files)" id="file" type="file" class="form-control"
-                                               accept="*/*" multiple/>
-                                        <label for="file" id="labelForFile"></label>
-                                    </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+
+                                    <md-input-container class="md-block">
+                                        <label>Вставить код iframe из PowerBI</label>
+                                        <textarea ng-model="iframepowerbi" rows="5" md-select-on-focus></textarea>
+                                    </md-input-container>
 
 
                                 </div>
 
+
                             </div>
 
 
+                            <div class="row">
 
 
 
-                            <hr ng-show="isShowType">
-                            <div class="row" ng-show="isShowType">
-                                <div class="col-md-12 chartBlock">
+                                    <div class="col-md-12">
 
 
-                                        <md-input-container class="md-block" flex-gt-sm>
-                                            <label class="textTitle">Тип диаграммы</label>
-                                            <input ng-model="typediagramm">
+                                        <md-input-container>
+                                            <label>Выбрать раздел меню</label>
+                                            <md-select ng-model="selectedItem"
+                                                       md-on-close="clearSearchTerm()"
+                                                       data-md-container-class="selectdemoSelectHeader"
+                                            >
+                                                <md-select-header class="demo-select-header">
+                                                    <input ng-model="searchTerm"
+                                                           type="search"
+                                                           placeholder="Поиск..."
+                                                           class="demo-header-searchbox md-text"
+                                                           ng-keydown="$event.stopPropagation($event)">
+                                                </md-select-header>
+                                                <md-optgroup label="Группа">
+                                                    <md-option ng-value="itemMenu.uniqKey" ng-repeat="itemMenu in menusFlat |
+              filter:searchTerm">{{itemMenu.title}}</md-option>
+                                                </md-optgroup>
+                                            </md-select>
                                         </md-input-container>
 
 
-                                </div>
+                                    </div>
 
-                            </div>
-
-
-                            <hr ng-show="isShowPowerBI">
-                            <div class="row" ng-show="isShowPowerBI">
-                                <div class="col-md-12 chartBlock">
-
-
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Вставить iframe</label>
-                                        <input ng-model="iframepowerbi">
-                                    </md-input-container>
-
-
-                                </div>
-
-                            </div>
 
 
 
+                            </div>
 
 
                             <hr>
 
 
                             <div class="row">
-                                <div class="col-md-12 chartBlock">
-
-                                    <h5 class="title">Выбрать диаграмму</h5>
+                                <div class="col-md-4">
 
 
-                                    <div class="row">
-                                        <md-radio-group ng-model="chartModel">
-                                            <div class="col-md-4" ng-repeat="chart in allCharts">
-
-
-                                                <h6 class="title">{{chart.title}}</h6>
-                                                <md-radio-button ng-value="chart._id" class="md-primary"
-                                                                 aria-label="{{chart.title}}">
-                                                    <img ng-src="{{chart.imgUrl}}" alt="" class="chartImg"
-                                                         style="cursor: pointer">
-                                                </md-radio-button>
-                                                <br/>
-
-
-                                            </div>
-
-
-                                        </md-radio-group>
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-
-
-
-                            <hr style="background: red">
-
-
-                            <div class="row">
-
-
-                                <div class="col-md-6">
-
-                                    <md-select ng-model="postsSelect" placeholder="Выбрать пост"
-                                               class="md-no-underline textTitle" md-on-close="clearSearchTermPost()" data-md-container-class="selectdemoSelectHeader" md-on-open="changeTablePost()">
-
-
-                                        <md-select-header class="demo-select-header">
-                                            <input ng-model="searchTermPost"
-                                                   type="search"
-                                                   placeholder="Поиск поста..."
-                                                   class="demo-header-searchbox md-text"
-                                                   ng-keydown="$event.stopPropagation($event)">
-                                        </md-select-header>
-                                        <md-option ng-repeat="post in getAllpost | filter:searchTermPost" ng-value="post._id">
-                                            {{post.titleCharts}}
-                                        </md-option>
-                                    </md-select>
+                                    <md-input-container>
+                                        <label>Выбрать страницу для удаления</label>
+                                        <md-select ng-model="selectedPost"
+                                                   md-on-close="clearSearchTermPost()"
+                                                   data-md-container-class="selectdemoSelectHeader"
+                                                   md-on-open="openSelectPost()">
+                                            <md-select-header class="demo-select-header">
+                                                <input ng-model="searchTermPost"
+                                                       type="search"
+                                                       placeholder="Поиск..."
+                                                       class="demo-header-searchbox md-text"
+                                                       ng-keydown="$event.stopPropagation($event)">
+                                            </md-select-header>
+                                            <md-optgroup label="Группа">
+                                                <md-option ng-value="itemPost._id" ng-repeat="itemPost in allpost |
+              filter:searchTerm">{{itemPost.titlepost}}</md-option>
+                                            </md-optgroup>
+                                        </md-select>
+                                    </md-input-container>
 
 
                                 </div>
 
-                                <div class="col-md-6">
 
-                                    <md-button class="md-raised md-primary" ng-click="deletePost()">Удалить пост
+                                <div class="col-md-8">
+                                    <md-button class="md-raised md-primary" ng-click="deletePost()">Удалить страницу
                                     </md-button>
 
                                 </div>
 
 
-
-
-
                             </div>
 
 
 
-                            <hr>
                             <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-button class="md-raised md-primary" ng-click="uploadFiles()">Сохранить
+                                <div class="col-md-1">
+                                    <md-button class="md-raised md-primary" ng-click="savePost()">Сохранить
                                     </md-button>
 
                                 </div>
@@ -296,157 +135,7 @@
                         </md-content>
                     </md-tab>
 
-                   <!-- <md-tab label="Создать Гос. программу">
-                        <md-content class="md-padding">
 
-
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Паспорт программы</label>
-                                        <input ng-model="programPasport">
-                                    </md-input-container>
-
-                                </div>
-
-                            </div>
-
-
-
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-
-                                    <md-input-container class="md-block">
-                                        <label>Описание программы</label>
-                                        <textarea ng-model="programmDescription" md-maxlength="500" rows="5"
-                                                  md-select-on-focus></textarea>
-                                    </md-input-container>
-
-
-                                </div>
-
-                            </div>
-
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Разработчик программы</label>
-                                        <input ng-model="programmNameDev">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Цель программы</label>
-                                        <input ng-model="programmTarget">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Целевые индикаторы</label>
-                                        <input ng-model="programmTargetIndicator">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">План мероприятий</label>
-                                        <input ng-model="programmActionPlan">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-
-                                    <md-input-container class="md-block">
-                                        <label>Описание мероприятий</label>
-                                        <textarea ng-model="programmDescriptionAction" md-maxlength="500" rows="5"
-                                                  md-select-on-focus></textarea>
-                                    </md-input-container>
-
-
-                                </div>
-
-                            </div>
-
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-
-                                    <md-input-container class="md-block">
-                                        <label class="textTitle">Финансирование мероприятий</label>
-                                        <input ng-model="programmFinansAction">
-                                    </md-input-container>
-
-
-                                </div>
-
-                            </div>
-
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Целевые индикаторы мероприятий</label>
-                                        <input ng-model="programmTargetDescrIndicator">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label class="textTitle">Динамика целевых индикаторов за период программы</label>
-                                        <input ng-model="programmDimicIndicator">
-                                    </md-input-container>
-                                </div>
-
-                            </div>
-
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12 chartBlock">
-                                    <md-button class="md-raised md-primary" ng-click="saveGosProgramm()">Сохранить
-                                    </md-button>
-
-                                </div>
-                            </div>
-
-
-
-
-
-                        </md-content>
-                    </md-tab>-->
 
 
 
@@ -706,6 +395,101 @@
                     </md-tab>
 
 
+                    <md-tab label="Работа с разделами меню">
+                        <md-content class="md-padding">
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <md-button class="md-raised md-primary" ng-click="addNewMenu()">Создать новый пункт меню
+                                    </md-button>
+
+
+                                    <md-button class="md-raised md-primary" ng-click="saveMenu()">Сохранить все изменения
+                                    </md-button>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+
+
+                                    <script type="text/ng-template" id="menuTree">
+
+
+
+                                        <i class="material-icons" ng-hide="menuItem.id">subdirectory_arrow_right</i>
+
+
+                                        <input type="text" value="{{menuItem.title}}" ng-model="menuItem.title"
+                                               style="width: 500px;">
+
+
+                                        <md-button class="md-secondary"
+                                                   ng-click="addSecondItemMenu(menuItem.childs)">Добавить
+                                            подраздел
+                                        </md-button>
+
+                                        <md-button class="md-secondary md-fab md-primary md-mini"
+                                                   aria-label="Profile" ng-click="deleteItemMenu(menuItem.uniqKey, menuItem.id)">
+                                            <md-icon class="material-icons">delete_forever</md-icon>
+                                        </md-button>
+
+
+                                        <ol ng-if="menuItem.childs" class="custom__ol__style">
+
+                                            <li class="secondary-button-padding" ng-repeat="menuItem in menuItem.childs" ng-include="'menuTree'">
+
+
+
+                                            </li>
+
+
+
+                                        </ol>
+
+
+
+
+
+
+
+                                    </script>
+
+                                    <ol class="custom__ol__style">
+
+
+
+
+                                        <li class="secondary-button-padding" ng-repeat="menuItem in menus" ng-include="'menuTree'">
+
+
+                                        </li>
+
+
+
+
+
+
+                                    </ol>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </md-content>
+                    </md-tab>
 
 
 

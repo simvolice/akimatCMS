@@ -2,6 +2,7 @@ const dbConnect = require('../utils/ConnectDB');
 
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
+const Int32 = require('mongodb').Int32;
 
 
 
@@ -100,12 +101,7 @@ module.exports = {
 
             const col = dbConnect.getConnect().collection('posts');
 
-          if (objParams.chartModel === "undefined") {
 
-              objParams.chartModel = "000000000000000000000000";
-
-
-          }
 
             const result = await col.insertOne({
 
@@ -113,17 +109,12 @@ module.exports = {
 
 
 
-                titleCharts: objParams.title,
-                tableName: objParams.tabels,
-                pageId: ObjectId(objParams.pages),
-                chipsArr: objParams.parameters.split(","),
-                description: objParams.description,
-                chartId: ObjectId(objParams.chartModel),
-                fileName: objParams.fileNameArr,
-                fileUrl: objParams.fileUrlArr,
-                typeDiagramm: objParams.typediagramm,
-                tabName: ObjectId(objParams.tabName),
-                iframepowerbi: objParams.iframepowerbi
+                iframepowerbi: objParams.iframepowerbi,
+                menuUniqueKey: objParams.menuUniqueKey,
+                titlepost: objParams.titlepost,
+                createAt: new Date( new Date().getTime() -  ( new Date().getTimezoneOffset() * 60000 ) )
+
+
 
 
 
@@ -139,7 +130,6 @@ module.exports = {
         }catch(err) {
 
 
-            console.log("\x1b[42m", err);
 
             return err;
 
@@ -162,18 +152,7 @@ module.exports = {
 
 
 
-            const result = await col.find({
-
-
-
-
-
-                pageId: ObjectId(id)
-
-
-
-
-            }).toArray();
+            const result = await col.findOne({menuUniqueKey: Int32(id)});
 
 
 

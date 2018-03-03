@@ -11,22 +11,6 @@ angular.module('app').factory("Getalltable", function($resource) {
     return $resource("/getalltable");
 });
 
-angular.module('app').factory("Getallpages", function($resource) {
-    return $resource("/getallpages");
-});
-
-angular.module('app').factory("Getalloptions", function($resource) {
-    return $resource("/getalloptions");
-});
-
-angular.module('app').factory("Getallcharts", function($resource) {
-    return $resource("/getallcharts");
-});
-
-
-angular.module('app').factory("GetGosProgramm", function($resource) {
-    return $resource("/getgosprogramm");
-});
 
 
 angular.module('app').factory("Deleteonepost", function($resource) {
@@ -39,15 +23,16 @@ angular.module('app').factory("GetAllpost", function($resource) {
 });
 
 
-
-angular.module('app').factory("SendNewTabName", function($resource) {
-    return $resource("/sendnewtabname");
+angular.module('app').factory("Addpost", function($resource) {
+    return $resource("/addpost");
 });
 
 
-angular.module('app').factory("GetallTabs", function($resource) {
-    return $resource("/getalltabs");
-});
+
+
+
+
+
 
 
 angular.module('app').factory("Getallroles", function($resource) {
@@ -86,4 +71,14 @@ angular.module('app').factory("GetDataForOneTable", function($resource) {
 
 angular.module('app').factory("Insertnewdata", function($resource) {
     return $resource("/insertnewdata");
+});
+
+
+angular.module('app').factory("SaveMenu", function($resource) {
+    return $resource("/savemenu");
+});
+
+
+angular.module('app').factory("Allmenus", function($resource) {
+    return $resource("/allmenus");
 });

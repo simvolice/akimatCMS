@@ -11,6 +11,7 @@ const dbConnect = require('./utils/ConnectDB');
 const ConnectMSQL = require('./utils/ConnectMSQL');
 let bodyParser = require('body-parser');
 const AuthService = require('./service/AuthService');
+const MenuService = require('./service/MenuService');
 const initData = require('./service/initData');
 
 let index = require('./routes/index');
@@ -54,12 +55,12 @@ async function initApp() {
 
 
 
-    await initData.initDataForProtoPage();
-    await initData.initListPage();
 
-    await initData.initStructureRashod();
-    await initData.initISpolStructureRashod();
     await initData.initRoles();
+
+
+    await MenuService.createCappedCollection();
+
 
 
 
