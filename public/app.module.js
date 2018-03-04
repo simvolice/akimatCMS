@@ -101,7 +101,15 @@ app.controller('MainCtrl', function ($scope, $state, $timeout, $translate, $root
     Allmenus.get(function (result) {
 
 
-        $scope.arrMenu = result.resultFromDb[0].menuArr;
+
+        if (result.resultFromDb.length !== 0) {
+
+
+            $scope.arrMenu = result.resultFromDb[0].menuArr;
+
+
+        }
+
 
     });
 

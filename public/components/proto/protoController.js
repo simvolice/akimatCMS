@@ -52,34 +52,37 @@ angular.module('app').controller('protoCtrl', function (Allmenus, SaveMenu, Dele
 
 
     $scope.menusFlat = [];
+    $scope.menus = [];
 
     Allmenus.get({sessionToken: localStorage.getItem("sessionToken")},function (result) {
 
 
-        $scope.menus = result.resultFromDb[0].menuArr;
 
 
 
 
+        if (result.resultFromDb.length !== 0) {
+
+            $scope.menus = result.resultFromDb[0].menuArr;
+
+            for (let itemMenu of $scope.menus) {
 
 
-        for (let itemMenu of $scope.menus) {
+                $scope.menusFlat.push(flattenTree(itemMenu, "childs"))
 
 
-
-            $scope.menusFlat.push(flattenTree(itemMenu, "childs"))
-
+            }
 
 
+            $scope.menusFlat = $scope.menusFlat.reduce(function (prev, curr) {
+                return [...prev, ...curr];
+            });
+
+            $scope.selectedItem = $scope.menusFlat[0].uniqKey;
 
         }
 
 
-        $scope.menusFlat = $scope.menusFlat.reduce(function (prev, curr) {
-            return [...prev, ...curr];
-        });
-
-        $scope.selectedItem = $scope.menusFlat[0].uniqKey;
 
 
     });
