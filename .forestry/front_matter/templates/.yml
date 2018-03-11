@@ -1,8 +1,0 @@
----
-pages:
-- ".md"
-hide_body: true
-fields:
-- type: text
-  default: "Документация разработчика"
-- type: textarea
