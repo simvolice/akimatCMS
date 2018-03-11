@@ -272,10 +272,6 @@ module.exports = {
 
 
 
-            console.log("\x1b[42m", "this text");
-
-
-
 
 
             request.input(`${tableName}`, sql.TVP);
@@ -291,9 +287,6 @@ module.exports = {
 
 
         } else {
-
-            console.log("\x1b[42m", "this Float");
-
 
 
             request.input(`${tableName}`, sql.TVP);

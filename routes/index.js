@@ -256,9 +256,6 @@ router.get("/getalltable", async(req, res, next) => {
 
 
 
-
-
-
         res.json({code: 0, resultFromDB: resultAllTable});
 
         resultAllTable = [];
