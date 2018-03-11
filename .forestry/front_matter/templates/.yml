@@ -1,3 +1,5 @@
 ---
+pages:
+- ".md"
 hide_body: true
 fields: []
