@@ -2,4 +2,7 @@
 pages:
 - ".md"
 hide_body: true
-fields: []
+fields:
+- type: text
+  default: "Документация разработчика"
+- type: textarea
